@@ -5,6 +5,9 @@ import no.kristiania.pgr200.program.InputParser;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -39,6 +42,26 @@ public abstract class Command {
     protected UUID getId(String id) {
         try{
             return UUID.fromString(id);
+        }catch(IllegalArgumentException e){
+            return null;
+        }
+    }
+
+    protected LocalDate getDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
+
+        try{
+            return LocalDate.parse(date, formatter);
+        }catch(IllegalArgumentException e){
+            return null;
+        }
+    }
+
+    protected LocalTime getTime(String time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_TIME;
+
+        try{
+            return LocalTime.parse(time, formatter);
         }catch(IllegalArgumentException e){
             return null;
         }
