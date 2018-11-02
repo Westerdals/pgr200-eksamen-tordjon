@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class UpdateDayCommand extends Command {
@@ -21,11 +22,11 @@ public class UpdateDayCommand extends Command {
         return this;
     }
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
 
-        String idFromInput = getArgument("-id", strings, null);
-        String dateFromInput = getArgument("-date", strings, null);
+        String idFromInput = getArgument("-id", parameters, null);
+        String dateFromInput = getArgument("-date", parameters, null);
 
         UUID id = idFromInput != null ? UUID.fromString(idFromInput) : null;
         date = dateFromInput != null ? LocalDate.parse(dateFromInput, formatter) : null;

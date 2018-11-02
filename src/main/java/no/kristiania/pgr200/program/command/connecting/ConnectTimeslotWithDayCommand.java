@@ -7,6 +7,7 @@ import no.kristiania.pgr200.program.command.Command;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class ConnectTimeslotWithDayCommand extends Command {
@@ -25,9 +26,9 @@ public class ConnectTimeslotWithDayCommand extends Command {
     }
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
-        String timeslotFromInput = getArgument("-timeslot", strings, null);
-        String dayFromInput = getArgument("-day", strings, null);
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
+        String timeslotFromInput = getArgument("-timeslot", parameters, null);
+        String dayFromInput = getArgument("-day", parameters, null);
 
         timeslotId = timeslotFromInput != null ? UUID.fromString(timeslotFromInput) : null;
         dayId = dayFromInput != null ? UUID.fromString(dayFromInput) : null;

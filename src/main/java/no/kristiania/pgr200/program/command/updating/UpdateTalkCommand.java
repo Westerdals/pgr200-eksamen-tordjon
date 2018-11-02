@@ -7,6 +7,7 @@ import no.kristiania.pgr200.program.command.Command;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class UpdateTalkCommand extends Command {
@@ -37,14 +38,14 @@ public class UpdateTalkCommand extends Command {
     }
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
 
-        String idFromInput = getArgument("-id", strings, null);
+        String idFromInput = getArgument("-id", parameters, null);
 
-        id = idFromInput != null ? UUID.fromString(getArgument("-id", strings, null)) : null;
-        title = getArgument("-title", strings, null);
-        description = getArgument("-description", strings, null);
-        topicTitle = getArgument("-topic", strings, null);
+        id = idFromInput != null ? UUID.fromString(getArgument("-id", parameters, null)) : null;
+        title = getArgument("-title", parameters, null);
+        description = getArgument("-description", parameters, null);
+        topicTitle = getArgument("-topic", parameters, null);
 
         return new UpdateTalkCommand()
                 .withId(id)

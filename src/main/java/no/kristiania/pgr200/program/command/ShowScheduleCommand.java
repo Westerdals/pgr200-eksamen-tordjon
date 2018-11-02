@@ -9,6 +9,7 @@ import no.kristiania.pgr200.database.model.Timeslot;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,8 +19,8 @@ public class ShowScheduleCommand extends Command {
     private UUID id;
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
-        UUID id = UUID.fromString(getArgument("-id", strings, null));
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
+        UUID id = UUID.fromString(getArgument("-id", parameters, null));
 
         return new ShowScheduleCommand()
                 .withId(id);

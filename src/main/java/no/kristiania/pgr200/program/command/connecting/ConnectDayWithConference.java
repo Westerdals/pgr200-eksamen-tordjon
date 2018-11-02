@@ -7,6 +7,7 @@ import no.kristiania.pgr200.program.command.Command;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class ConnectDayWithConference extends Command {
@@ -25,9 +26,9 @@ public class ConnectDayWithConference extends Command {
     }
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
-        conferenceId = UUID.fromString(getArgument("-conference", strings, null));
-        dayId = UUID.fromString(getArgument("-day", strings, null));
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
+        conferenceId = UUID.fromString(getArgument("-conference", parameters, null));
+        dayId = UUID.fromString(getArgument("-day", parameters, null));
 
         return new ConnectDayWithConference()
                 .withConferenceId(conferenceId)

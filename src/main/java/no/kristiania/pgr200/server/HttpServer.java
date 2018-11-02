@@ -1,14 +1,19 @@
 package no.kristiania.pgr200.server;
 
+import no.kristiania.pgr200.database.Util;
+import no.kristiania.pgr200.http.uri.Path;
 import no.kristiania.pgr200.http.uri.Query;
 import no.kristiania.pgr200.http.uri.Uri;
+import no.kristiania.pgr200.program.command.Command;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 
@@ -23,6 +28,11 @@ public class HttpServer {
     private String location = "localhost";
     private String body = "Hello World!\r\n";
     private String contentType = "text/plain";
+    private Path path;
+
+    DataSource dataSource;
+    static String propertiesFileName = "innlevering.properties";
+
 
     public HttpServer(int port) {
         this.port = port;
@@ -45,33 +55,57 @@ public class HttpServer {
 
                 Socket clientSocket = serverSocket.accept();
 
-                InputStream input = clientSocket.getInputStream();
-                OutputStream output = clientSocket.getOutputStream();
-
-                getStatusLine(input);
-                parsePathArguments(statusLine);
-
-                if (parameters != null) {
-
-                    if (parameters.get("location") != null) {
-                        this.location = parameters.get("location");
-                    }
-                    if (parameters.get("status") != null) {
-                        this.statusCode = Integer.parseInt(parameters.get("status"));
-                    }
-                    if (parameters.get("body") != null) {
-                        this.body = parameters.get("body");
-                    }
-                    if (parameters.get("content-type") != null) {
-                        this.contentType = parameters.get("content-type");
-                    }
-                }
-
-                writeResponse(output, body);
+                handleRequest(clientSocket);
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace(); //TODO: ???
             }
         }
+    }
+
+
+    private void handleRequest(Socket clientSocket) throws IOException, SQLException {
+        InputStream input = clientSocket.getInputStream();
+        OutputStream output = clientSocket.getOutputStream();
+
+        getStatusLine(input);
+        parseUri(statusLine);
+        //done "retrieving request"
+
+
+
+
+        dataSource = Util.createDataSource(propertiesFileName);
+
+        // User input is passed on
+        Command command = Command.createCommand(path, parameters);
+
+        command.execute(dataSource); //TODO: handle sqlexception as 500 or 404 w/e
+
+
+        /*if (parameters != null) {
+
+            if (parameters.get("location") != null) {
+                this.location = parameters.get("location");
+            }
+            if (parameters.get("status") != null) {
+                this.statusCode = Integer.parseInt(parameters.get("status"));
+            }
+            if (parameters.get("body") != null) {
+                this.body = parameters.get("body");
+            }
+            if (parameters.get("content-type") != null) {
+                this.contentType = parameters.get("content-type");
+            }
+        }*/
+
+
+
+
+
+        //send response
+        writeResponse(output, body);
     }
 
     private void writeResponse(OutputStream output, String body) throws IOException {
@@ -87,11 +121,12 @@ public class HttpServer {
     }
 
     // Todo: bruke path-klassen
-    private void parsePathArguments(String statusLine) throws UnsupportedEncodingException {
+    private void parseUri(String statusLine) throws UnsupportedEncodingException {
         Uri uri = new Uri(getPathFromStatusLine(statusLine));
-
+        path = uri.getPath();
         Query query = uri.getQuery(); //new Query(path);
         parameters = query.getParameterValuePairs();
+
     }
 
     private String getPathFromStatusLine(String statusLine) {

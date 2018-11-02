@@ -2,16 +2,13 @@ package no.kristiania.pgr200.program.command;
 
 
 import javax.sql.DataSource;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.Scanner;
+import java.util.HashMap;
 
 public class HelpCommand extends Command {
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
         return this;
     }
 

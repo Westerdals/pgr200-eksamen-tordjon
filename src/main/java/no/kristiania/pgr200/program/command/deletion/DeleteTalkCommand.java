@@ -6,6 +6,7 @@ import no.kristiania.pgr200.program.command.Command;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class DeleteTalkCommand extends Command {
@@ -18,9 +19,9 @@ public class DeleteTalkCommand extends Command {
     }
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
 
-        String id = getArgument("-id", strings, null);
+        String id = getArgument("-id", parameters, null);
 
         return new DeleteTalkCommand()
                 .withId(UUID.fromString(id));

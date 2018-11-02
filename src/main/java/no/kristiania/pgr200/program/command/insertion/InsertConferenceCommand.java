@@ -9,7 +9,7 @@ import no.kristiania.pgr200.program.command.Command;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.UUID;
+import java.util.HashMap;
 
 public class InsertConferenceCommand extends Command {
 
@@ -21,8 +21,8 @@ public class InsertConferenceCommand extends Command {
     }
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
-        String name = getArgument("-name", strings, "unkown");
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
+        String name = getArgument("-name", parameters, "unkown");
         return new InsertConferenceCommand()
                 .withName(name);
     }

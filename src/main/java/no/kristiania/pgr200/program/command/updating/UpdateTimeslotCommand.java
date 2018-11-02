@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class UpdateTimeslotCommand extends Command {
@@ -34,18 +35,18 @@ public class UpdateTimeslotCommand extends Command {
     }
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_TIME;
 
-        String idFromInput = getArgument("-id", strings, null);
+        String idFromInput = getArgument("-id", parameters, null);
 
-        id = idFromInput != null ? UUID.fromString(getArgument("-id", strings, null)) : null;
+        id = idFromInput != null ? UUID.fromString(getArgument("-id", parameters, null)) : null;
 
-        String s = getArgument("-start", strings, null);
+        String s = getArgument("-start", parameters, null);
         if(s != null)
             start = LocalTime.parse(s, formatter);
 
-        String e = getArgument("-end", strings, null);
+        String e = getArgument("-end", parameters, null);
         if(e != null)
             end = LocalTime.parse(e, formatter);
 

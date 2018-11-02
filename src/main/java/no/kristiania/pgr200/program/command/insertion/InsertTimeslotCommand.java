@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 public class InsertTimeslotCommand extends Command {
 
@@ -29,13 +30,13 @@ public class InsertTimeslotCommand extends Command {
     }
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_TIME;
 
-        String s = getArgument("-start", strings, null);
+        String s = getArgument("-start", parameters, null);
         start = s != null ? LocalTime.parse(s, formatter) : null;
 
-        String e = getArgument("-end", strings, null);
+        String e = getArgument("-end", parameters, null);
         end = s != null ? LocalTime.parse(e, formatter) : null;
 
         return new InsertTimeslotCommand()
