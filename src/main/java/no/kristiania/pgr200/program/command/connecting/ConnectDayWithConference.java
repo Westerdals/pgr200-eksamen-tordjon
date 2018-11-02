@@ -27,8 +27,8 @@ public class ConnectDayWithConference extends Command {
 
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        conferenceId = UUID.fromString(getArgument("-conference", parameters, null));
-        dayId = UUID.fromString(getArgument("-day", parameters, null));
+        conferenceId = getId(parameters.get("conference"));
+        dayId = getId(parameters.get("day"));
 
         return new ConnectDayWithConference()
                 .withConferenceId(conferenceId)

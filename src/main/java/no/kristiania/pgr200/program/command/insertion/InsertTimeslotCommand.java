@@ -31,13 +31,9 @@ public class InsertTimeslotCommand extends Command {
 
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_TIME;
 
-        String s = getArgument("-start", parameters, null);
-        start = s != null ? LocalTime.parse(s, formatter) : null;
-
-        String e = getArgument("-end", parameters, null);
-        end = s != null ? LocalTime.parse(e, formatter) : null;
+        LocalTime start = getTime(parameters.get("start"));
+        LocalTime end = getTime(parameters.get("end"));
 
         return new InsertTimeslotCommand()
                 .withStart(start)

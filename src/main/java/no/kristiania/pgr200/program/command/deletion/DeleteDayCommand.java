@@ -22,8 +22,9 @@ public class DeleteDayCommand extends Command {
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
 
-        id = UUID.fromString(getArgument("-id", parameters, null));
-         return new DeleteDayCommand()
+        UUID id = getId(parameters.get("id"));
+
+        return new DeleteDayCommand()
                  .withId(id);
     }
 

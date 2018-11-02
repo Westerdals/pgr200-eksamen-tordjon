@@ -27,8 +27,8 @@ public class ConnectTalkWithTimeslotCommand extends Command {
 
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        UUID talkId = UUID.fromString(getArgument("-talk", parameters, null));
-        UUID timeslotId = UUID.fromString(getArgument("-timeslot", parameters, null));
+        UUID talkId = getId(parameters.get("talk"));
+        UUID timeslotId = getId(parameters.get("timeslot")); 
 
         return new ConnectTalkWithTimeslotCommand()
                 .withTalkId(talkId)

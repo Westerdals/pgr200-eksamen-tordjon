@@ -22,7 +22,7 @@ public class DeleteConferenceCommand extends Command {
 
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        UUID id = UUID.fromString(getArgument("-id", parameters, "0"));
+        UUID id = getId(parameters.get("id"));
         return new DeleteConferenceCommand()
                 .withId(id);
     }

@@ -24,11 +24,8 @@ public class InsertDayCommand extends Command {
 
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
 
-        String d = getArgument("-date", parameters, null);
-        if(d != null)
-            date = LocalDate.parse(d, formatter);
+        LocalDate date = getDate(parameters.get("date"));
         
         return new InsertDayCommand()
                 .withDate(date);

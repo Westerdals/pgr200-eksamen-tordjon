@@ -22,7 +22,7 @@ public class InsertConferenceCommand extends Command {
 
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        String name = getArgument("-name", parameters, "unkown");
+        String name = parameters.get("name");
         return new InsertConferenceCommand()
                 .withName(name);
     }

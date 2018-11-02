@@ -21,10 +21,10 @@ public class DeleteTalkCommand extends Command {
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
 
-        String id = getArgument("-id", parameters, null);
+        UUID id = getId(parameters.get("id"));
 
         return new DeleteTalkCommand()
-                .withId(UUID.fromString(id));
+                .withId(id);
     }
 
 

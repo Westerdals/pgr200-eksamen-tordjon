@@ -1,3 +1,10 @@
+# Eksamen 
+
+## Todo 
+-[ ] Refaktorer HTTP-biten 
+-[ ] Bytt til POST med data i body 
+-[ ] 
+
 # PGR200 Hovedinnlevering
 
 Innleveringsfrist: 12. november kl 09:00. **Viktig:** WiseFlow *stenger* når fristen er ute - lever i tide.

@@ -27,11 +27,8 @@ public class ConnectTimeslotWithDayCommand extends Command {
 
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        String timeslotFromInput = getArgument("-timeslot", parameters, null);
-        String dayFromInput = getArgument("-day", parameters, null);
-
-        timeslotId = timeslotFromInput != null ? UUID.fromString(timeslotFromInput) : null;
-        dayId = dayFromInput != null ? UUID.fromString(dayFromInput) : null;
+        UUID timeslotId = getId(parameters.get("timeslot"));
+        UUID dayId = getId(parameters.get("day"));
 
         return new ConnectTimeslotWithDayCommand()
                 .withTimeslotId(timeslotId)

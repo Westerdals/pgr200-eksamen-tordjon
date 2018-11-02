@@ -19,7 +19,7 @@ public class DeleteTimeslotCommand extends Command {
 
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        UUID id = UUID.fromString(getArgument("-id", parameters, null));
+        UUID id = getId(parameters.get("id"));
 
         return new DeleteTimeslotCommand()
                 .withId(id);

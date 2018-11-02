@@ -35,7 +35,6 @@ public class InsertTalkCommand extends Command {
 
     @Override
     public InsertTalkCommand build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        //String title = getArgument("-title", parameters, "unknown");
         String title = parameters.get("title");
         String description = parameters.get("description");
         String topic = parameters.get("topic");
