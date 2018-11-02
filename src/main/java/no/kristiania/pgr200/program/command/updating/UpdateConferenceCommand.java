@@ -28,10 +28,8 @@ public class UpdateConferenceCommand extends Command {
 
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        String idFromInput = getArgument("-id", parameters, null);
-
-        UUID id = idFromInput != null ? UUID.fromString(idFromInput) : null;
-        String name = getArgument("-name", parameters, "unkown");
+        UUID id = getId(parameters.get("id"));
+        String name = parameters.get("name");
         return new UpdateConferenceCommand().withName(name).withId(id);
     }
 

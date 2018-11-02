@@ -6,6 +6,7 @@ import no.kristiania.pgr200.program.InputParser;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.UUID;
 
 public abstract class Command {
 
@@ -33,5 +34,14 @@ public abstract class Command {
      * @param dataSource of database to execute on
      */
     public abstract void execute(DataSource dataSource) throws SQLException;
+
+
+    protected UUID getId(String id) {
+        try{
+            return UUID.fromString(id);
+        }catch(IllegalArgumentException e){
+            return null;
+        }
+    }
 
 }
