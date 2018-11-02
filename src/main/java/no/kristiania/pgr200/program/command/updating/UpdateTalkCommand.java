@@ -40,12 +40,11 @@ public class UpdateTalkCommand extends Command {
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
 
-        String idFromInput = getArgument("-id", parameters, null);
 
-        id = idFromInput != null ? UUID.fromString(getArgument("-id", parameters, null)) : null;
-        title = getArgument("-title", parameters, null);
-        description = getArgument("-description", parameters, null);
-        topicTitle = getArgument("-topic", parameters, null);
+        UUID id = getId(parameters.get("id"));
+        String title = parameters.get("title");
+        String description = parameters.get("description");
+        String topicTitle = parameters.get("topic");
 
         return new UpdateTalkCommand()
                 .withId(id)
