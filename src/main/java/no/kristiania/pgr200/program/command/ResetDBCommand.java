@@ -6,11 +6,12 @@ import no.kristiania.pgr200.program.Program;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class ResetDBCommand extends Command {
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
         return new ResetDBCommand();
     }
 

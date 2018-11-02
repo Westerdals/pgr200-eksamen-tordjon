@@ -5,6 +5,7 @@ import no.kristiania.pgr200.program.command.Command;
 import static no.kristiania.pgr200.program.ArgumentParser.getArgument;
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class DeleteTimeslotCommand extends Command {
@@ -17,8 +18,8 @@ public class DeleteTimeslotCommand extends Command {
     }
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
-        UUID id = UUID.fromString(getArgument("-id", strings, null));
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
+        UUID id = UUID.fromString(getArgument("-id", parameters, null));
 
         return new DeleteTimeslotCommand()
                 .withId(id);

@@ -8,6 +8,7 @@ import no.kristiania.pgr200.program.command.Command;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class InsertTalkCommand extends Command {
 
@@ -33,10 +34,12 @@ public class InsertTalkCommand extends Command {
 
 
     @Override
-    public InsertTalkCommand build(String[] strings) throws IllegalArgumentException {
-        String title = getArgument("-title", strings, "unknown");
-        String description = getArgument("-description", strings, "unknown");
-        String topic = getArgument("-topic", strings, "unknown");
+    public InsertTalkCommand build(HashMap<String, String> parameters) throws IllegalArgumentException {
+        //String title = getArgument("-title", parameters, "unknown");
+        String title = parameters.get("title");
+        String description = parameters.get("description");
+        String topic = parameters.get("topic");
+
 
         return new InsertTalkCommand()
                 .withTitle(title)

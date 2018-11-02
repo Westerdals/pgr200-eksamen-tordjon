@@ -1,9 +1,11 @@
 package no.kristiania.pgr200.program.command;
 
+import no.kristiania.pgr200.http.uri.Path;
 import no.kristiania.pgr200.program.InputParser;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public abstract class Command {
 
@@ -14,16 +16,17 @@ public abstract class Command {
      * @return command based on user input
      * @throws IllegalArgumentException
      */
-    public static Command createCommand(String[] input) throws IllegalArgumentException {
-        return InputParser.decodeInput(input);
+    public static Command createCommand(Path path, HashMap<String, String> parameters) throws IllegalArgumentException {
+        return InputParser.decodeInput(path, parameters);
     }
 
 
     /**
      * Builds _and returns_ the command based on input from user.
      * @throws IllegalArgumentException if something is wrong with the command
+     * @param parameters
      */
-    public abstract Command build(String[] strings) throws IllegalArgumentException;
+    public abstract Command build(HashMap<String, String> parameters) throws IllegalArgumentException;
 
     /**
      * Executes the command

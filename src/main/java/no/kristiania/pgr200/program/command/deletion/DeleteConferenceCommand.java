@@ -8,6 +8,7 @@ import no.kristiania.pgr200.program.command.Command;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class DeleteConferenceCommand extends Command {
@@ -20,8 +21,8 @@ public class DeleteConferenceCommand extends Command {
     }
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
-        UUID id = UUID.fromString(getArgument("-id", strings, "0"));
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
+        UUID id = UUID.fromString(getArgument("-id", parameters, "0"));
         return new DeleteConferenceCommand()
                 .withId(id);
     }

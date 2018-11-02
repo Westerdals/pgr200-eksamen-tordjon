@@ -1,5 +1,6 @@
 package no.kristiania.pgr200.program;
 
+import no.kristiania.pgr200.http.uri.Path;
 import no.kristiania.pgr200.program.command.*;
 import no.kristiania.pgr200.program.command.connecting.ConnectDayWithConference;
 import no.kristiania.pgr200.program.command.connecting.ConnectTalkWithTimeslotCommand;
@@ -27,26 +28,20 @@ import java.util.Map;
 public class InputParser {
 
 
-    /**
-     * Decodes input from user and turns it into a command-object
-     * @param strings input from user
-     * @return the commandType with values from arguments
-     * @throws IllegalArgumentException if command is invalid
-     */
-    public static Command decodeInput(String[] strings) throws IllegalArgumentException {
 
-        if (strings.length < 2) {
+    public static Command decodeInput(Path path, HashMap<String, String> parameters) throws IllegalArgumentException {
+
+
+       /* if (strings.length < 2) {
             return new HelpCommand().build(strings);
-        }
+        }*/
 
-        String type = strings[0];
-        String specification = strings[1];
 
         HashMap<String, Class<? extends Command>> map = new HashMap<>();
         populateCommandMap(map);
 
 
-        Class<? extends Command> command = map.get(type + " " + specification);
+        Class<? extends Command> command = map.get(path);
 
         if (command == null) {
             return new HelpCommand();
@@ -54,7 +49,7 @@ public class InputParser {
 
         try {
 
-            return command.newInstance().build(strings);
+            return command.newInstance().build(parameters);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -65,8 +60,10 @@ public class InputParser {
 
     private static void populateCommandMap(Map<String, Class<? extends Command>> map) {
 
+        map.put("/insert/talk", InsertTalkCommand.class);
+
         // talk
-        map.put("insert talk", InsertTalkCommand.class);
+       /* map.put("insert talk", InsertTalkCommand.class);
         map.put("list talks", ListTalksCommand.class);
         map.put("delete talk", DeleteTalkCommand.class);
         map.put("update talk", UpdateTalkCommand.class);
@@ -103,9 +100,10 @@ public class InputParser {
         //create demo conference
         map.put("create demo", CreateDemoConferenceCommand.class);
         // resetting the database
-        map.put("reset db", ResetDBCommand.class);
+        map.put("reset db", ResetDBCommand.class);*/
 
 
 
     }
+
 }

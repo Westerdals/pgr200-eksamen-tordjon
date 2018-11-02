@@ -3,13 +3,12 @@ package no.kristiania.pgr200.program.command.updating;
 import no.kristiania.pgr200.database.dao.ConferenceDao;
 import no.kristiania.pgr200.database.dao.Dao;
 import no.kristiania.pgr200.database.model.Conference;
-import no.kristiania.pgr200.database.model.Day;
 import no.kristiania.pgr200.program.command.Command;
 
 import static no.kristiania.pgr200.program.ArgumentParser.getArgument;
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class UpdateConferenceCommand extends Command {
@@ -28,11 +27,11 @@ public class UpdateConferenceCommand extends Command {
     }
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
-        String idFromInput = getArgument("-id", strings, null);
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
+        String idFromInput = getArgument("-id", parameters, null);
 
         UUID id = idFromInput != null ? UUID.fromString(idFromInput) : null;
-        String name = getArgument("-name", strings, "unkown");
+        String name = getArgument("-name", parameters, "unkown");
         return new UpdateConferenceCommand().withName(name).withId(id);
     }
 

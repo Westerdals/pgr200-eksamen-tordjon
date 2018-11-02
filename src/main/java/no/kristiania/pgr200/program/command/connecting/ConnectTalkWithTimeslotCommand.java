@@ -2,12 +2,12 @@ package no.kristiania.pgr200.program.command.connecting;
 
 import static no.kristiania.pgr200.program.ArgumentParser.getArgument;
 
-import no.kristiania.pgr200.database.dao.TalkDao;
 import no.kristiania.pgr200.database.dao.TimeslotDao;
 import no.kristiania.pgr200.program.command.Command;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class ConnectTalkWithTimeslotCommand extends Command {
@@ -26,9 +26,9 @@ public class ConnectTalkWithTimeslotCommand extends Command {
     }
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
-        UUID talkId = UUID.fromString(getArgument("-talk", strings, null));
-        UUID timeslotId = UUID.fromString(getArgument("-timeslot", strings, null));
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
+        UUID talkId = UUID.fromString(getArgument("-talk", parameters, null));
+        UUID timeslotId = UUID.fromString(getArgument("-timeslot", parameters, null));
 
         return new ConnectTalkWithTimeslotCommand()
                 .withTalkId(talkId)

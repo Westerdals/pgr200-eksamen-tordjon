@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 public class InsertDayCommand extends Command {
 
@@ -22,10 +23,10 @@ public class InsertDayCommand extends Command {
     }
 
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
 
-        String d = getArgument("-date", strings, null);
+        String d = getArgument("-date", parameters, null);
         if(d != null)
             date = LocalDate.parse(d, formatter);
         

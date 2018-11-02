@@ -10,11 +10,11 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
+import java.util.HashMap;
 
 public class CreateDemoConferenceCommand extends Command {
     @Override
-    public Command build(String[] strings) throws IllegalArgumentException {
+    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
         return new CreateDemoConferenceCommand();
     }
 
