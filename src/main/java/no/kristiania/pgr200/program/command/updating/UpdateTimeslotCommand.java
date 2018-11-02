@@ -36,20 +36,11 @@ public class UpdateTimeslotCommand extends Command {
 
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_TIME;
 
-        String idFromInput = getArgument("-id", parameters, null);
-        //String idFromInput = parameters.get("id");
+        UUID id = getId(parameters.get("id"));
 
-        id = idFromInput != null ? UUID.fromString(getArgument("-id", parameters, null)) : null;
-
-        String s = getArgument("-start", parameters, null);
-        if(s != null)
-            start = LocalTime.parse(s, formatter);
-
-        String e = getArgument("-end", parameters, null);
-        if(e != null)
-            end = LocalTime.parse(e, formatter);
+        LocalTime start = getTime(parameters.get("start"));
+        LocalTime end = getTime(parameters.get("end"));
 
         return new UpdateTimeslotCommand()
                 .withId(id)

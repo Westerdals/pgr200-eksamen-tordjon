@@ -23,13 +23,9 @@ public class UpdateDayCommand extends Command {
     }
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
 
-        String idFromInput = getArgument("-id", parameters, null);
-        String dateFromInput = getArgument("-date", parameters, null);
-
-        UUID id = idFromInput != null ? UUID.fromString(idFromInput) : null;
-        date = dateFromInput != null ? LocalDate.parse(dateFromInput, formatter) : null;
+        UUID id = getId(parameters.get("id"));
+        LocalDate date = getDate(parameters.get("date"));
 
         return new UpdateDayCommand()
                 .withDate(date)
