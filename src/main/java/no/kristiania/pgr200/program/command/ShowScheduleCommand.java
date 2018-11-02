@@ -20,12 +20,14 @@ public class ShowScheduleCommand extends Command {
 
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        UUID id = UUID.fromString(getArgument("-id", parameters, null));
+        UUID id = getId(parameters.get("id"));
 
         return new ShowScheduleCommand()
                 .withId(id);
 
     }
+
+
 
     private Command withId(UUID id) {
         this.id = id;

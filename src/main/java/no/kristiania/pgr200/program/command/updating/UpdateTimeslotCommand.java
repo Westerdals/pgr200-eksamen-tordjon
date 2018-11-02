@@ -39,6 +39,7 @@ public class UpdateTimeslotCommand extends Command {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_TIME;
 
         String idFromInput = getArgument("-id", parameters, null);
+        //String idFromInput = parameters.get("id");
 
         id = idFromInput != null ? UUID.fromString(getArgument("-id", parameters, null)) : null;
 
