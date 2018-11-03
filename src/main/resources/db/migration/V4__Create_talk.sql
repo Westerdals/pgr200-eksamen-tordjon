@@ -1,4 +1,4 @@
--- database now has uuid as ids
+-- no.kristiania.pgr200.server.database now has uuid as ids
 drop table if exists timeslot_day;
 drop table if exists timeslot;
 drop table if exists topic;

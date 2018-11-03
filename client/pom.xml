@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="no.kristiania.pgr200.core.http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="no.kristiania.pgr200.core.http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="no.kristiania.pgr200.core.http://maven.apache.org/POM/4.0.0 no.kristiania.pgr200.core.http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>eksamen</artifactId>
+        <groupId>no.kristiania.pgr200</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>client</artifactId>
+
+
+</project>

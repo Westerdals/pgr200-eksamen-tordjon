@@ -1,20 +1,16 @@
 package no.kristiania.pgr200.program;
 
+import no.kristiania.pgr200.database.Util;
 import no.kristiania.pgr200.database.dao.ConferenceDao;
 import no.kristiania.pgr200.database.dao.DayDao;
 import no.kristiania.pgr200.database.dao.TalkDao;
-import no.kristiania.pgr200.database.Util;
 import no.kristiania.pgr200.database.dao.TimeslotDao;
 import no.kristiania.pgr200.database.model.Conference;
 import no.kristiania.pgr200.database.model.Day;
 import no.kristiania.pgr200.database.model.Talk;
-
 import no.kristiania.pgr200.database.model.Timeslot;
-import no.kristiania.pgr200.program.command.HelpCommand;
-import no.kristiania.pgr200.program.command.ShowScheduleCommand;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.sql.DataSource;
@@ -29,7 +25,6 @@ import java.util.List;
 
 import static no.kristiania.pgr200.program.Program.main;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 
 public class ProgramTest {
@@ -64,7 +59,7 @@ public class ProgramTest {
         Program.setPropertiesFilename("test.properties");
 
         main(new String[]{"reset", "db"});
-        main(new String[]{"help"}); //Need to run the main method with any input to restore the database
+        main(new String[]{"help"}); //Need to run the main method with any input to restore the no.kristiania.pgr200.server.database
 
     }
 

@@ -1,4 +1,4 @@
--- database now has uuid as ids
+-- no.kristiania.pgr200.server.database now has uuid as ids
 
 create table if not exists talk (
   id uuid primary key,

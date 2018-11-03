@@ -3,7 +3,27 @@
 ## Todo 
 -[ ] Refaktorer HTTP-biten 
 -[ ] Bytt til POST med data i body 
--[ ] 
+-[ ] Pakke hete x.x.x.eksamen.x? 
+
+moduler: 
+
+server 
+    parser no.kristiania.pgr200.core.http-requests og sender response 
+    db  
+        lese/skrive fra db 
+core 
+    no.kristiania.pgr200.core.http
+    mer?  
+client  
+    tar mot brukerinput - samme som ak2?
+    sender requests til server 
+    printer svar (hjelp dersom input er ugyldig)
+
+
+
+
+
+
 
 # PGR200 Hovedinnlevering
 
@@ -15,7 +35,7 @@ Tag koden med `innlevering` i GitHub og last opp en ZIP-fil til WiseFlow. Dersom
 
 Du har funnet en konferanse du er interessert i å gå på, men du har ikke råd til billetten. Men frykt ikke: etter at du tok kontakt med de som organiserer konferansen fikk du høre at du kunne få gratisbillett dersom du hjelper til å lage noe programvare for konferansen.
 
-Oppgaven din: lag en server for appen som inneholder konferanseprogrammet i en database. Funksjonaliteten må som et minimum tillate at man legger inn og lister ut foredrag på konferansen. Du bruke datamodellen angitt under eller forenkle eller endre den slik du selv ønsker.
+Oppgaven din: lag en server for appen som inneholder konferanseprogrammet i en no.kristiania.pgr200.server.database. Funksjonaliteten må som et minimum tillate at man legger inn og lister ut foredrag på konferansen. Du bruke datamodellen angitt under eller forenkle eller endre den slik du selv ønsker.
 
 Programmet skal følge god programmeringsskikk: Det skal ha enhetstester, det skal ha en god README-dokumentasjon, det skal hente inn konfigurasjon fra en .properties-fil. Fila skal ligge i current working directory, hete `innlevering.properties` og inneholde properties `dataSource.url`, `dataSource.username` og `dataSource.password`. Når vi evaluerer oppgaven ønsker vi å bruke egne verdier for disse. Prosjektet bør også bygge automatisk på [Travis CI](https://travis-ci.com).
 
@@ -63,11 +83,11 @@ Eksempel kjøring (inkluder dette i README.md-fila deres):
 [INFO] Finished at: 2018-07-08T17:18:12+02:00
 [INFO] Final Memory: 21M/211M
 [INFO] ------------------------------------------------------------------------
-> psql --username postgres --command="create database ... with owner .."'
+> psql --username postgres --no.kristiania.pgr200.server.command="create no.kristiania.pgr200.server.database ... with owner .."'
 > Oppdater innlevering.properties med dataSource.url, dataSource.username, dataSource.password
-> java -jar target/database-innlevering.jar resetdb
-> java -jar target/database-innlevering.jar insert "Mitt foredrag"
-> java -jar target/database-innlevering.jar list
+> java -jar target/no.kristiania.pgr200.server.database-innlevering.jar resetdb
+> java -jar target/no.kristiania.pgr200.server.database-innlevering.jar insert "Mitt foredrag"
+> java -jar target/no.kristiania.pgr200.server.database-innlevering.jar list
 ```
 
 Som en del av semesterarbeidet skal dere levere en video på 3-8 minutter. Dersom dere har laget dette i forbindelse med innlevering #1 eller innlevering #2 kan dere bare legge ved denne video. I motsatt fall skal dere ta opp en video for mappeinnleveringen på 3-8 minutter der dere parprogrammerer. Velg gjerne en bit med kode som dere refactorerer. Screencast-o-matic anbefales som verktøy for video-opptaket, men andre verktøy kan benyttes. En lenke til videoen skal leveres og ikke videoen selv. Husk å åpne for tilgang til videoen ("unlisted" i Youtube) og legge inn lenke fra README.
@@ -160,7 +180,7 @@ Løsningen må oppfylle alle krav til B og ha 2-3 områder som hever den ytterli
 - At videoen får fram kvalitetene i designet
 - Uttrykksfulle enhetstester som er effektive på å fange feil og som kjører på Travis CI
 - En velbegrunnet datamodell med 4-8 klasser
-- En lettfattelig og utvidbar http-server
+- En lettfattelig og utvidbar no.kristiania.pgr200.core.http-server
 - Spennende generisk kode som egentlig er unødvendig kompleks for å løse problemet
 - Enkel kode som løser problemet presist og konsist (i konflikt med forrige)
 
