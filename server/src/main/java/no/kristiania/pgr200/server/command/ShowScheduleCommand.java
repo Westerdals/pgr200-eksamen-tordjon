@@ -1,6 +1,7 @@
 package no.kristiania.pgr200.server.command;
 
 
+import com.google.gson.Gson;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;
 import no.kristiania.pgr200.server.database.dao.Dao;
@@ -40,7 +41,7 @@ public class ShowScheduleCommand extends Command {
         Dao<Conference> dao = new ConferenceDao(dataSource);
         Conference conference = dao.retrieve(id);
 
-        System.out.println(conference.getName() + ": ");
+        /*TODO: move to client. System.out.println(conference.getName() + ": ");
         List<Day> days = conference.getDays();
         for(Day day : days) {
 
@@ -54,8 +55,12 @@ public class ShowScheduleCommand extends Command {
                 System.out.println("\t\t\t title: " + talk.getTitle());
                 System.out.println("\t\t\t description: " + talk.getDescription());
             }
-        }
+        }*/
+        ServerResponse response = new ServerResponse();
 
-        return null;
+        Gson g = new Gson();
+        response.setBody(g.toJson(conference));
+        response.setStatus(200);
+        return response;
     }
 }

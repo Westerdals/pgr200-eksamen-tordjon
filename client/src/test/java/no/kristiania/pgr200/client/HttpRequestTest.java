@@ -3,6 +3,7 @@ package no.kristiania.pgr200.client;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import model.Conference;
 import model.Talk;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +40,35 @@ public class HttpRequestTest {
         for(Talk t : talks){
             System.out.println(t);
         }
+    }
+
+
+    @Test
+    public void tryReadingConferenceFromOurServer() throws IOException {
+        HttpRequest request = new HttpRequest("localhost", 8080, "/api/showschedule?id=280d54ac-d7db-46e7-971d-1780d1c3d6d4");
+        HttpResponse response = request.execute();
+
+        //assertThat(response.getStatusCode()).isEqualTo(404);
+        String body = response.getBody();
+        System.out.println(body);
+        Gson gson = new Gson();
+
+
+        // Deserialization
+        //Type collectionType = new TypeToken<Collection<Conference>>(){}.getType();
+        //Collection<Conference> talks = gson.fromJson(body, collectionType);
+        Conference c = gson.fromJson(body, Conference.class);
+        Talk t = gson.fromJson(body, Talk.class);
+
+        /*Type collectionType = new TypeToken<Collection<Talk>>(){}.getType();
+        Collection<Talk> talks = gson.fromJson(body, collectionType);
+
+        for(Talk talz : talks)
+            System.out.println(talz);*/
+
+        System.out.println(t);
+        System.out.println(c.toString());
+
     }
 
 

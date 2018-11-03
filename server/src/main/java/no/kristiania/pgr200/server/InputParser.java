@@ -2,7 +2,9 @@ package no.kristiania.pgr200.server;
 
 import no.kristiania.pgr200.core.http.uri.Path;
 import no.kristiania.pgr200.server.command.Command;
+import no.kristiania.pgr200.server.command.CreateDemoConferenceCommand;
 import no.kristiania.pgr200.server.command.InvalidInputCommand;
+import no.kristiania.pgr200.server.command.ShowScheduleCommand;
 import no.kristiania.pgr200.server.command.insertion.InsertConferenceCommand;
 import no.kristiania.pgr200.server.command.insertion.InsertDayCommand;
 import no.kristiania.pgr200.server.command.insertion.InsertTalkCommand;
@@ -45,6 +47,8 @@ public class InputParser {
         map.put("/api/insert/day", InsertDayCommand.class);
         map.put("/api/list/talks", ListTalksCommand.class);
         map.put("/api/insert/conference", InsertConferenceCommand.class);
+        map.put("/api/insert/democonference", CreateDemoConferenceCommand.class);
+        map.put("/api/showschedule", ShowScheduleCommand.class);
 
 
         // talk
