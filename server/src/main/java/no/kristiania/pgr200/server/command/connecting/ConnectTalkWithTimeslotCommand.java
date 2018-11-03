@@ -1,5 +1,6 @@
 package no.kristiania.pgr200.server.command.connecting;
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
 
@@ -34,9 +35,10 @@ public class ConnectTalkWithTimeslotCommand extends Command {
     }
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
         TimeslotDao dao = new TimeslotDao(dataSource);
         dao.connectTalkToTimeslot(talkId, timeslotId);
+        return null;
     }
 
 }

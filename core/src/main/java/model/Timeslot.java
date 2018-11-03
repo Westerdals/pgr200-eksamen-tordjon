@@ -1,4 +1,4 @@
-package no.kristiania.pgr200.server.database.model;
+package model;
 
 
 import java.time.LocalTime;

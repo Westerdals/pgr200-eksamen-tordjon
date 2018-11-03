@@ -1,10 +1,11 @@
 package no.kristiania.pgr200.server.command.updating;
 
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;
 import no.kristiania.pgr200.server.database.dao.Dao;
-import no.kristiania.pgr200.server.database.model.Conference;
+import model.Conference;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -34,16 +35,17 @@ public class UpdateConferenceCommand extends Command {
     }
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
 
         if (id == null) {
             System.out.println("\"-id\" required.");
-            return;
+            return null;
         }
 
         Dao<Conference> dao = new ConferenceDao(dataSource);
         Conference conference = new Conference(id, name);
         dao.update(conference);
 
+        return null;
     }
 }

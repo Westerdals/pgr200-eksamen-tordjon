@@ -1,8 +1,9 @@
 package no.kristiania.pgr200.server.command.insertion;
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
-import no.kristiania.pgr200.server.database.model.Timeslot;
+import model.Timeslot;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -38,16 +39,17 @@ public class InsertTimeslotCommand extends Command {
     }
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
 
         if (start == null || end == null) {
             System.out.println("Both \"-start\" and \"-end\" are required.");
-            return;
+            return null;
         }
 
         TimeslotDao dao = new TimeslotDao(dataSource);
         Timeslot timeslot = new Timeslot(start, end);
 
         dao.insert(timeslot);
+        return null;
     }
 }

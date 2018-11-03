@@ -1,9 +1,15 @@
 package no.kristiania.pgr200.client;
 
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import model.Talk;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.Collection;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -15,6 +21,26 @@ public class HttpRequestTest {
 
         assertThat(response.getStatusCode()).isEqualTo(200);
     }
+    @Test
+    public void tryReadingTalksFromOurServer() throws IOException {
+        HttpRequest request = new HttpRequest("localhost", 8080, "/api/list/talks");
+        HttpResponse response = request.execute();
+
+        //assertThat(response.getStatusCode()).isEqualTo(404);
+        String body = response.getBody();
+        System.out.println(body);
+        Gson gson = new Gson();
+
+
+        // Deserialization
+        Type collectionType = new TypeToken<Collection<Talk>>(){}.getType();
+        Collection<Talk> talks = gson.fromJson(body, collectionType);
+        System.out.println(talks.toString());
+        for(Talk t : talks){
+            System.out.println(t);
+        }
+    }
+
 
     @Test
     public void shouldReadOtherStatusCodes() throws IOException {

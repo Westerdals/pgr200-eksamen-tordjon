@@ -2,6 +2,7 @@ package no.kristiania.pgr200.server.command;
 
 import no.kristiania.pgr200.core.http.uri.Path;
 import no.kristiania.pgr200.server.InputParser;
+import no.kristiania.pgr200.server.ServerResponse;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -36,7 +37,7 @@ public abstract class Command {
      * Executes the no.kristiania.pgr200.server.command
      * @param dataSource of no.kristiania.pgr200.server.database to execute on
      */
-    public abstract void execute(DataSource dataSource) throws SQLException;
+    public abstract ServerResponse execute(DataSource dataSource) throws SQLException;
 
 
     protected UUID getId(String id) {

@@ -1,12 +1,13 @@
 package no.kristiania.pgr200.server.command;
 
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;
 import no.kristiania.pgr200.server.database.dao.Dao;
-import no.kristiania.pgr200.server.database.model.Conference;
-import no.kristiania.pgr200.server.database.model.Day;
-import no.kristiania.pgr200.server.database.model.Talk;
-import no.kristiania.pgr200.server.database.model.Timeslot;
+import model.Conference;
+import model.Day;
+import model.Talk;
+import model.Timeslot;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -35,7 +36,7 @@ public class ShowScheduleCommand extends Command {
     }
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
         Dao<Conference> dao = new ConferenceDao(dataSource);
         Conference conference = dao.retrieve(id);
 
@@ -55,5 +56,6 @@ public class ShowScheduleCommand extends Command {
             }
         }
 
+        return null;
     }
 }

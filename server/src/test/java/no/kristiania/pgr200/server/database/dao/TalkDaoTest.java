@@ -1,8 +1,8 @@
 package no.kristiania.pgr200.server.database.dao;
 
 import no.kristiania.pgr200.server.database.Util;
-import no.kristiania.pgr200.server.database.model.Talk;
-import no.kristiania.pgr200.server.database.model.Timeslot;
+import model.Talk;
+import model.Timeslot;
 import org.junit.Before;
 import org.junit.Test;
 

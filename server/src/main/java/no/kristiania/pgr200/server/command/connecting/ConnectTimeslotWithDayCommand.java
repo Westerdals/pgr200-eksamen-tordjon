@@ -1,5 +1,6 @@
 package no.kristiania.pgr200.server.command.connecting;
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
 
@@ -34,15 +35,16 @@ public class ConnectTimeslotWithDayCommand extends Command {
     }
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
 
         if (timeslotId == null || dayId == null) {
             System.out.println("both \"-timeslot\" and \"-day\" is required.");
-            return;
+            return null;
         }
 
         TimeslotDao dao = new TimeslotDao(dataSource);
         dao.connectTimeslotToDay(timeslotId, dayId);
+        return null;
     }
 
 }

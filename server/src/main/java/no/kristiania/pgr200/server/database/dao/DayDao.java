@@ -1,7 +1,7 @@
 package no.kristiania.pgr200.server.database.dao;
 
-import no.kristiania.pgr200.server.database.model.Day;
-import no.kristiania.pgr200.server.database.model.Timeslot;
+import model.Day;
+import model.Timeslot;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;

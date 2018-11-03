@@ -1,5 +1,6 @@
 package no.kristiania.pgr200.server.command.deletion;
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.DayDao;
 
@@ -27,8 +28,9 @@ public class DeleteDayCommand extends Command {
     }
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
         DayDao dayDao = new DayDao(dataSource);
         dayDao.delete(id);
+        return null;
     }
 }

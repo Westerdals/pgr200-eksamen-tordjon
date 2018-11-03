@@ -1,9 +1,10 @@
 package no.kristiania.pgr200.server.command.insertion;
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.Dao;
 import no.kristiania.pgr200.server.database.dao.TalkDao;
-import no.kristiania.pgr200.server.database.model.Talk;
+import model.Talk;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -47,10 +48,11 @@ public class InsertTalkCommand extends Command {
 
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
         Dao<Talk> dao = new TalkDao(dataSource);
         Talk talk = new Talk(title, description, topic);
 
         dao.insert(talk);
+        return null;
     }
 }

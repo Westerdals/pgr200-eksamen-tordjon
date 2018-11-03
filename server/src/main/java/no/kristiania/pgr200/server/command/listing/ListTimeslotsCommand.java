@@ -1,9 +1,10 @@
 package no.kristiania.pgr200.server.command.listing;
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.Dao;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
-import no.kristiania.pgr200.server.database.model.Timeslot;
+import model.Timeslot;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -16,11 +17,12 @@ public class ListTimeslotsCommand extends Command {
     }
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
         Dao<Timeslot> dao = new TimeslotDao(dataSource);
         List<Timeslot> timeslots = dao.retrieveAll();
         for(Timeslot timeslot : timeslots){
             System.out.println(timeslot);
         }
+        return null;
     }
 }

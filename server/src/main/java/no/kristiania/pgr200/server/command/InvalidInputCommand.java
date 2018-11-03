@@ -1,6 +1,8 @@
 package no.kristiania.pgr200.server.command;
 
 
+import no.kristiania.pgr200.server.ServerResponse;
+
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -13,7 +15,7 @@ public class InvalidInputCommand extends Command {
     }
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
 
         System.out.println(
                 "-----------------------------------\n" +
@@ -73,5 +75,6 @@ public class InvalidInputCommand extends Command {
                 "You may also refer to the documentation for further information." +
                 "\n\n" 
         );
+        return null;
     }
 }

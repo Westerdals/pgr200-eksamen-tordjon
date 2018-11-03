@@ -1,5 +1,6 @@
 package no.kristiania.pgr200.server.command.connecting;
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.DayDao;
 
@@ -34,8 +35,9 @@ public class ConnectDayWithConference extends Command {
     }
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
         DayDao dao = new DayDao(dataSource);
         dao.connectDayToConference(conferenceId, dayId);
+        return null;
     }
 }
