@@ -1,9 +1,10 @@
 package no.kristiania.pgr200.server.command.updating;
 
-import no.kristiania.pgr200.database.dao.ConferenceDao;
-import no.kristiania.pgr200.database.dao.Dao;
-import no.kristiania.pgr200.database.model.Conference;
+
 import no.kristiania.pgr200.server.command.Command;
+import no.kristiania.pgr200.server.database.dao.ConferenceDao;
+import no.kristiania.pgr200.server.database.dao.Dao;
+import no.kristiania.pgr200.server.database.model.Conference;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
