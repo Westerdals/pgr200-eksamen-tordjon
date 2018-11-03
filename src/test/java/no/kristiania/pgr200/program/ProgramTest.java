@@ -98,7 +98,7 @@ public class ProgramTest {
         String[] args = {"show", "schedule", "-id", conference.getId().toString()};
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        new ShowScheduleCommand().build(args).execute(dataSource);
+        //new ShowScheduleCommand().build(args).execute(dataSource);
         String expectedOutput = outContent.toString().replaceAll("(\\r|\\n)", "");
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
