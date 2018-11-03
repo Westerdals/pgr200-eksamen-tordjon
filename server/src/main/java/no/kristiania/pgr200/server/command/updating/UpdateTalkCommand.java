@@ -1,7 +1,5 @@
 package no.kristiania.pgr200.server.command.updating;
 
-import no.kristiania.pgr200.database.dao.TalkDao;
-import no.kristiania.pgr200.database.model.Talk;
 import no.kristiania.pgr200.server.command.Command;
 
 import javax.sql.DataSource;

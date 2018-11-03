@@ -1,8 +1,8 @@
 package no.kristiania.pgr200.server.command.updating;
 
-import no.kristiania.pgr200.database.dao.TimeslotDao;
-import no.kristiania.pgr200.database.model.Timeslot;
 import no.kristiania.pgr200.server.command.Command;
+import no.kristiania.pgr200.server.database.dao.TimeslotDao;
+import no.kristiania.pgr200.server.database.model.Timeslot;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
