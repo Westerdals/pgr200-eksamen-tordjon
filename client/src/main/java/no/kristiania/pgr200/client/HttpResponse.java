@@ -1,4 +1,6 @@
-package no.kristiania.pgr200.core.http;
+package no.kristiania.pgr200.client;
+
+import no.kristiania.pgr200.core.http.HttpUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,12 +10,12 @@ public class HttpResponse {
 
     private String body;
     private int status;
-    private HttpResponseStreamReader reader;
+    private HttpUtil reader;
 
     public HttpResponse(Socket socket) throws IOException {
         InputStream input = socket.getInputStream();
 
-        reader = new HttpResponseStreamReader(input);
+        reader = new HttpUtil(input);
         body = reader.getBody();
         status = reader.getStatusCode();
 

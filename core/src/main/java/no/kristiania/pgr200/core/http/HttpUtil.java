@@ -1,14 +1,19 @@
 package no.kristiania.pgr200.core.http;
 
+import no.kristiania.pgr200.core.http.uri.Path;
+import no.kristiania.pgr200.core.http.uri.Query;
+import no.kristiania.pgr200.core.http.uri.Uri;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-class HttpResponseStreamReader {
+public class HttpUtil {
     List<String> lines;
 
-    HttpResponseStreamReader(InputStream input) throws IOException {
+    public HttpUtil(InputStream input) throws IOException {
         this.lines = new ArrayList<String>();
         buildInputList(input);
     }
@@ -50,12 +55,19 @@ class HttpResponseStreamReader {
     }
 
 
+
+
+
+
+
+
+
     /**
      * Return the value with specified header field
      * from response
      * @return the header value if exists, null otherwise
      */
-    String getHeader(String field) {
+    public String getHeader(String field) {
         field = field.toLowerCase();
         for (String line : lines) {
             String[] parts = line.split(": ");
@@ -76,7 +88,7 @@ class HttpResponseStreamReader {
      * @return the body if present, null if otherwise
      * @throws IOException
      */
-    String getBody() throws IOException {
+    public String getBody() throws IOException {
         String body = "";
 
         int startIndex = lines.indexOf("\r\n") + 1;
@@ -96,7 +108,7 @@ class HttpResponseStreamReader {
      * @return status code
      */
 
-    int getStatusCode() { //TODO: validation -> may fail now
+    public int getStatusCode() { //TODO: validation -> may fail now
         String statusLine = lines.get(0);
         String[] parts = statusLine.split(" ");
         String code = parts[1];

@@ -1,4 +1,4 @@
-package no.kristiania.pgr200.core;
+package no.kristiania.pgr200.client;
 
 public class Program {
     public static void main(String[] args) {

@@ -1,11 +1,11 @@
-package no.kristiania.pgr200.core.http;
+package no.kristiania.pgr200.client;
+
 
 import org.junit.Test;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.Assert.*;
 
 public class HttpRequestTest {
     @Test

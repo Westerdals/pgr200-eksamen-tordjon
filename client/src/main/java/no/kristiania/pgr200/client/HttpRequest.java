@@ -1,4 +1,4 @@
-package no.kristiania.pgr200.core.http;
+package no.kristiania.pgr200.client;
 
 import java.io.IOException;
 import java.io.OutputStream;
