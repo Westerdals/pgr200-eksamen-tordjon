@@ -23,8 +23,6 @@ create table conference (
   name varchar
 );
 
-
-
 create table timeslot (
   id uuid primary key,
   start_time time,

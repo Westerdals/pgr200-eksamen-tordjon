@@ -33,7 +33,7 @@ public class ConferenceDaoTest implements DaoTest<Conference> {
     @Before
     @Override
     public void createDao() throws IOException {
-        dataSource = Util.createDataSource("test.properties");
+        dataSource = Util.createDataSource("./../test.properties");
         dao = new ConferenceDao(dataSource);
     }
 
@@ -96,7 +96,7 @@ public class ConferenceDaoTest implements DaoTest<Conference> {
 
         TalkDao talkDao = new TalkDao(dataSource);
         // 4 x talks
-        Talk talk1 = new Talk("WoW", "Bfa sucks", "bad games");
+        Talk talk1 = new Talk("WoW 2.0", "Bfa sucks", "bad games");
         Talk talk2 = new Talk("Dialo4", "Not this year", "bad games");
         Talk talk3 = new Talk("New blizzard game", "not happening", "bad games");
         Talk talk4 = new Talk("Blizzard making money", "lots of it", "blizzard");

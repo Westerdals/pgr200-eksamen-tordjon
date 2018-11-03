@@ -24,7 +24,7 @@ public class DayDaoTest implements DaoTest<Day> {
     @Before
     @Override
     public void createDao() throws IOException {
-        dataSource = Util.createDataSource("test.properties");
+        dataSource = Util.createDataSource("./../test.properties");
         dao = new DayDao(dataSource);
     }
 

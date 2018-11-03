@@ -1,17 +1,6 @@
 package no.kristiania.pgr200.program;
 
-import no.kristiania.pgr200.database.Util;
-import no.kristiania.pgr200.database.dao.ConferenceDao;
-import no.kristiania.pgr200.database.dao.DayDao;
-import no.kristiania.pgr200.database.dao.TalkDao;
-import no.kristiania.pgr200.database.dao.TimeslotDao;
-import no.kristiania.pgr200.database.model.Conference;
-import no.kristiania.pgr200.database.model.Day;
-import no.kristiania.pgr200.database.model.Talk;
-import no.kristiania.pgr200.database.model.Timeslot;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
 
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
@@ -36,7 +25,7 @@ public class ProgramTest {
 
     @Before
     public void getDataSource() throws IOException {
-        dataSource = Util.createDataSource("test.properties");
+        dataSource = Util.createDataSource("./../test.properties");
     }
 
 

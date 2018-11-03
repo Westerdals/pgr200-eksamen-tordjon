@@ -16,6 +16,7 @@ public class DatabaseProperties {
     private String password;
 
     public DatabaseProperties(String fileName) throws IOException {
+
         File file = new File(fileName);
 
         properties = new Properties();
