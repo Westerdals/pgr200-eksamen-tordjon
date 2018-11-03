@@ -19,7 +19,7 @@ public class ListSpecificTalkCommand extends Command {
 
     private ListSpecificTalkCommand withId(UUID id) {
         this.id = id;
-        return this; 
+        return this;
     }
 
     @Override
@@ -34,13 +34,9 @@ public class ListSpecificTalkCommand extends Command {
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
         TalkDao dao =  new TalkDao(dataSource);
-        ServerResponse response = new ServerResponse();
-        Gson g = new Gson();
-
-
         Talk talk = dao.retrieve(id);
 
-        response.setBody(g.toJson(talk));
+        response.setBody(gson.toJson(talk));
         response.setStatus(200);
 
         return response;

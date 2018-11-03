@@ -1,5 +1,6 @@
 package no.kristiania.pgr200.server.command;
 
+import com.google.gson.Gson;
 import no.kristiania.pgr200.core.http.uri.Path;
 import no.kristiania.pgr200.server.InputParser;
 import no.kristiania.pgr200.server.ServerResponse;
@@ -13,6 +14,9 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public abstract class Command {
+
+    protected Gson gson = new Gson();
+    protected ServerResponse response = new ServerResponse();
 
     /**
      * Usage:
@@ -35,6 +39,7 @@ public abstract class Command {
 
     /**
      * Executes the no.kristiania.pgr200.server.command
+     * Returns the ServerResponse that should be returned to client (as protected field)
      * @param dataSource of no.kristiania.pgr200.server.database to execute on
      */
     public abstract ServerResponse execute(DataSource dataSource) throws SQLException;

@@ -1,5 +1,6 @@
 package no.kristiania.pgr200.server.command.listing;
 
+import com.google.gson.Gson;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;
@@ -22,9 +23,8 @@ public class ListConferencesCommand extends Command {
         Dao<Conference> dao = new ConferenceDao(dataSource);
         List<Conference> conferences = dao.retrieveAll();
 
-        for(Conference conference : conferences){
-            System.out.println(conference);
-        }
-        return null;
+        response.setBody(gson.toJson(conferences));
+        response.setStatus(200);
+        return response;
     }
 }

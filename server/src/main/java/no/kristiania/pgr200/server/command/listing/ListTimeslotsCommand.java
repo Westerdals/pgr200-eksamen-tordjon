@@ -20,9 +20,10 @@ public class ListTimeslotsCommand extends Command {
     public ServerResponse execute(DataSource dataSource) throws SQLException {
         Dao<Timeslot> dao = new TimeslotDao(dataSource);
         List<Timeslot> timeslots = dao.retrieveAll();
-        for(Timeslot timeslot : timeslots){
-            System.out.println(timeslot);
-        }
-        return null;
+
+        response.setBody(gson.toJson(timeslots));
+        response.setStatus(200);
+
+        return response; 
     }
 }

@@ -1,6 +1,7 @@
 package no.kristiania.pgr200.server.command.listing;
 
 
+import com.google.gson.Gson;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.Dao;
@@ -22,12 +23,10 @@ public class ListDaysCommand extends Command {
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
         Dao<Day> dao = new DayDao(dataSource);
-
         List<Day> days = dao.retrieveAll();
 
-        for(Day day : days){
-            System.out.println(day);
-        }
-        return null;
+        response.setBody(gson.toJson(days));
+        response.setStatus(200);
+        return response;
     }
 }

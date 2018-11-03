@@ -24,10 +24,7 @@ public class ListTalksCommand extends Command {
         Dao<Talk> dao = new TalkDao(dataSource);
         List<Talk> talks = dao.retrieveAll();
 
-        ServerResponse response = new ServerResponse();
-
-        Gson g = new Gson();
-        response.setBody(g.toJson(talks));
+        response.setBody(gson.toJson(talks));
         response.setStatus(200);
         return response;
     }
