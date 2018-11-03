@@ -1,7 +1,7 @@
 package no.kristiania.pgr200.server.database.dao;
 
-import no.kristiania.pgr200.server.database.model.Conference;
-import no.kristiania.pgr200.server.database.model.Day;
+import model.Conference;
+import model.Day;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;

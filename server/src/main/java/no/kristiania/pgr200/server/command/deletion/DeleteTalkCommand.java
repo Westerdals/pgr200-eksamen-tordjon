@@ -1,5 +1,6 @@
 package no.kristiania.pgr200.server.command.deletion;
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.TalkDao;
 
@@ -28,9 +29,10 @@ public class DeleteTalkCommand extends Command {
 
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
         TalkDao dao = new TalkDao(dataSource);
         dao.delete(id);
+        return null;
     }
 
 }

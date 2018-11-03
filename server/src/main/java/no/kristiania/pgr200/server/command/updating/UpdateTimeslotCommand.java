@@ -1,8 +1,9 @@
 package no.kristiania.pgr200.server.command.updating;
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
-import no.kristiania.pgr200.server.database.model.Timeslot;
+import model.Timeslot;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -47,11 +48,11 @@ public class UpdateTimeslotCommand extends Command {
     }
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
 
         if (id == null) {
             System.out.println("\"-id\" is required.");
-            return;
+            return null;
         }
 
 
@@ -65,5 +66,6 @@ public class UpdateTimeslotCommand extends Command {
         );
 
         dao.update(updated);
+        return null;
     }
 }

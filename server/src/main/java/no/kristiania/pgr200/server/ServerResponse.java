@@ -10,7 +10,7 @@ public class ServerResponse {
     private Status status = new Status(500);
     private String body;
     private String method;
-    Map<String, String> headers;
+    Map<String, String> headers = new HashMap<>();
 
     public ServerResponse() {
         headers = new HashMap<>();

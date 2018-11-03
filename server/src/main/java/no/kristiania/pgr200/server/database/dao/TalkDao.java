@@ -1,6 +1,6 @@
 package no.kristiania.pgr200.server.database.dao;
 
-import no.kristiania.pgr200.server.database.model.Talk;
+import model.Talk;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;

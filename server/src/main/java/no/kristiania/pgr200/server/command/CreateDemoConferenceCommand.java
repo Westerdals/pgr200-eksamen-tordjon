@@ -1,13 +1,14 @@
 package no.kristiania.pgr200.server.command;
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;
 import no.kristiania.pgr200.server.database.dao.DayDao;
 import no.kristiania.pgr200.server.database.dao.TalkDao;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
-import no.kristiania.pgr200.server.database.model.Conference;
-import no.kristiania.pgr200.server.database.model.Day;
-import no.kristiania.pgr200.server.database.model.Talk;
-import no.kristiania.pgr200.server.database.model.Timeslot;
+import model.Conference;
+import model.Day;
+import model.Talk;
+import model.Timeslot;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -22,7 +23,7 @@ public class CreateDemoConferenceCommand extends Command {
     }
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
         ConferenceDao conferenceDao = new ConferenceDao(dataSource);
         Conference blizzcon = new Conference("Blizzcon");
         conferenceDao.insert(blizzcon);
@@ -79,6 +80,6 @@ public class CreateDemoConferenceCommand extends Command {
         System.out.println(retrievedBlizzcon);
 
 
-
+        return null;
     }
 }

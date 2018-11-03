@@ -1,10 +1,11 @@
 package no.kristiania.pgr200.server.command.listing;
 
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.Dao;
 import no.kristiania.pgr200.server.database.dao.DayDao;
-import no.kristiania.pgr200.server.database.model.Day;
+import model.Day;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -19,7 +20,7 @@ public class ListDaysCommand extends Command {
     }
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
         Dao<Day> dao = new DayDao(dataSource);
 
         List<Day> days = dao.retrieveAll();
@@ -27,5 +28,6 @@ public class ListDaysCommand extends Command {
         for(Day day : days){
             System.out.println(day);
         }
+        return null;
     }
 }

@@ -1,8 +1,9 @@
 package no.kristiania.pgr200.server.command.insertion;
 
+import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.DayDao;
-import no.kristiania.pgr200.server.database.model.Day;
+import model.Day;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -29,16 +30,17 @@ public class InsertDayCommand extends Command {
     }
 
     @Override
-    public void execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) throws SQLException {
 
         if (date == null) {
             System.out.println("\"-date\" required");
-            return;
+            return null;
         }
 
         DayDao dao = new DayDao(dataSource);
         Day day = new Day(date);
 
         dao.insert(day);
+        return null;
     }
 }

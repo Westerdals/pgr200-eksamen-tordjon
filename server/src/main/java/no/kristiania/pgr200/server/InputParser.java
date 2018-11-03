@@ -3,7 +3,10 @@ package no.kristiania.pgr200.server;
 import no.kristiania.pgr200.core.http.uri.Path;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.command.InvalidInputCommand;
+import no.kristiania.pgr200.server.command.insertion.InsertConferenceCommand;
+import no.kristiania.pgr200.server.command.insertion.InsertDayCommand;
 import no.kristiania.pgr200.server.command.insertion.InsertTalkCommand;
+import no.kristiania.pgr200.server.command.listing.ListTalksCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,8 +42,9 @@ public class InputParser {
     private static void populateCommandMap(Map<String, Class<? extends Command>> map) {
 
         map.put("/api/insert/talk", InsertTalkCommand.class);
-        map.put("/api/insert/day", InsertTalkCommand.class);
-        map.put("/api/insert/conference", InsertTalkCommand.class);
+        map.put("/api/insert/day", InsertDayCommand.class);
+        map.put("/api/list/talks", ListTalksCommand.class);
+        map.put("/api/insert/conference", InsertConferenceCommand.class);
 
 
         // talk
