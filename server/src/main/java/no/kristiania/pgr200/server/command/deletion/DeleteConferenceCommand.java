@@ -31,4 +31,5 @@ public class DeleteConferenceCommand extends Command {
         Dao<Conference> dao = new ConferenceDao(dataSource);
         dao.delete(id);
     }
+
 }

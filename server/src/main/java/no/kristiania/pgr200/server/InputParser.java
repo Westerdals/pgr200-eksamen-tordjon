@@ -2,7 +2,7 @@ package no.kristiania.pgr200.server;
 
 import no.kristiania.pgr200.core.http.uri.Path;
 import no.kristiania.pgr200.server.command.Command;
-import no.kristiania.pgr200.server.command.HelpCommand;
+import no.kristiania.pgr200.server.command.InvalidInputCommand;
 import no.kristiania.pgr200.server.command.insertion.InsertTalkCommand;
 
 import java.util.HashMap;
@@ -15,11 +15,6 @@ public class InputParser {
     public static Command decodeInput(Path path, HashMap<String, String> parameters) throws IllegalArgumentException {
 
 
-       /* if (strings.length < 2) {
-            return new HelpCommand().build(strings);
-        }*/
-
-
         HashMap<String, Class<? extends Command>> map = new HashMap<>();
         populateCommandMap(map);
 
@@ -27,7 +22,7 @@ public class InputParser {
         Class<? extends Command> command = map.get(path.toString());
 
         if (command == null) {
-            return new HelpCommand();
+            return new InvalidInputCommand();
         }
 
         try {

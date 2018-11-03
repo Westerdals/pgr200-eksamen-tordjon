@@ -5,7 +5,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class HelpCommand extends Command {
+public class InvalidInputCommand extends Command {
 
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
