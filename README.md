@@ -4,6 +4,9 @@
 -[ ] Refaktorer HTTP-biten 
 -[ ] Bytt til POST med data i body 
 -[ ] Pakke hete x.x.x.eksamen.x? 
+-[ ] Gå over alle Fixme's og todo's 
+-[ ] Fjerne alle dependencies fra eksamen-pom
+-[ ] Ha en index.html herokuapp.com/schedule som viser schedule rendret  
 
 moduler: 
 
