@@ -7,6 +7,8 @@
 -[ ] Gå over alle Fixme's og todo's 
 -[ ] Fjerne alle dependencies fra eksamen-pom
 -[ ] Ha en index.html herokuapp.com/schedule som viser schedule rendret  
+-[ ] Skrive javadoc
+-[ ] dao + gson som protected felter i command  
 
 moduler: 
 
