@@ -19,6 +19,7 @@ public class ListSpecificTalkCommand extends Command {
 
     private ListSpecificTalkCommand withId(UUID id) {
         this.id = id;
+        return this; 
     }
 
     @Override
