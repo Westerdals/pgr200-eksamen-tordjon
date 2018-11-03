@@ -1,8 +1,9 @@
 package no.kristiania.pgr200.server.database.dao;
 
-import no.kristiania.pgr200.database.Util;
-import no.kristiania.pgr200.database.model.Conference;
-import no.kristiania.pgr200.database.model.Day;
+
+import no.kristiania.pgr200.server.database.Util;
+import no.kristiania.pgr200.server.database.model.Conference;
+import no.kristiania.pgr200.server.database.model.Day;
 import org.junit.Before;
 import org.junit.Test;
 

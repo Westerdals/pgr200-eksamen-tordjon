@@ -24,7 +24,7 @@ public class InputParser {
         populateCommandMap(map);
 
 
-        Class<? extends Command> command = map.get(path);
+        Class<? extends Command> command = map.get(path.toString());
 
         if (command == null) {
             return new HelpCommand();
@@ -43,7 +43,10 @@ public class InputParser {
 
     private static void populateCommandMap(Map<String, Class<? extends Command>> map) {
 
-        map.put("/insert/talk", InsertTalkCommand.class);
+        map.put("/api/insert/talk", InsertTalkCommand.class);
+        map.put("/api/insert/day", InsertTalkCommand.class);
+        map.put("/api/insert/conference", InsertTalkCommand.class);
+
 
         // talk
        /* map.put("insert talk", InsertTalkCommand.class);

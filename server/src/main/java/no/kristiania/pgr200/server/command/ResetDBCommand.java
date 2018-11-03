@@ -1,5 +1,6 @@
 package no.kristiania.pgr200.server.command;
 
+import no.kristiania.pgr200.server.HttpServer;
 import no.kristiania.pgr200.server.database.Util;
 
 import javax.sql.DataSource;
@@ -16,7 +17,8 @@ public class ResetDBCommand extends Command {
 
     @Override
     public void execute(DataSource dataSource) throws SQLException {
-        String filename = Program.getPropertiesFilename();
+        //FIXME:
+        String filename = HttpServer.propertiesFileName;
         try {
             Util.resetDatabase(filename);
         } catch (IOException e) {

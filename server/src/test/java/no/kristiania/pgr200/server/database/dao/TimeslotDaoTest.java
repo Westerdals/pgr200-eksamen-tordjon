@@ -1,9 +1,10 @@
 package no.kristiania.pgr200.server.database.dao;
 
-import no.kristiania.pgr200.database.Util;
-import no.kristiania.pgr200.database.model.Day;
-import no.kristiania.pgr200.database.model.Talk;
-import no.kristiania.pgr200.database.model.Timeslot;
+
+import no.kristiania.pgr200.server.database.Util;
+import no.kristiania.pgr200.server.database.model.Day;
+import no.kristiania.pgr200.server.database.model.Talk;
+import no.kristiania.pgr200.server.database.model.Timeslot;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -136,11 +137,6 @@ public class TimeslotDaoTest implements DaoTest<Timeslot> {
         assertThat(received).isEqualToComparingFieldByFieldRecursively(updated);
     }
 
-    //TODO:
-    public void shouldUpdateTimeslotTalk(){}
-    //TODO:
-    public void shouldRemoveTimeslotTalk(){}
-
 
     @Test
     public void shouldConnectTalksAndTimeslots() throws SQLException {
@@ -175,16 +171,12 @@ public class TimeslotDaoTest implements DaoTest<Timeslot> {
         getDao().insert(connected);
         getDao().insert(unconnected);
 
-
         getDao().connectTimeslotToDay(connected.getId(), day.getId());
-
-
 
         List<Timeslot> timeslots = getDao().retrieveByDay(day.getId());
 
         assertThat(timeslots)
                 .contains(connected);
-
         assertThat(timeslots)
                 .doesNotContain(unconnected);
     }
