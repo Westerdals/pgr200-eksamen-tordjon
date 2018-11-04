@@ -38,7 +38,9 @@ public class ConnectTalkWithTimeslotCommand extends ConnectingCommand {
     public ServerResponse execute(DataSource dataSource) throws SQLException {
         TimeslotDao dao = new TimeslotDao(dataSource);
         dao.connectTalkToTimeslot(talkId, timeslotId);
-        return null;
+
+        assignStandardHttp("");
+        return response;
     }
 
 }

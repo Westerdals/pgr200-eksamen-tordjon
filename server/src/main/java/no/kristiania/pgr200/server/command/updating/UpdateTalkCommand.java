@@ -72,6 +72,10 @@ public class UpdateTalkCommand extends UpdatingCommand {
         );
 
         dao.update(updated);
-        return null;
+
+        Talk afterUpdate = dao.retrieve(updated.getId());
+
+        assignStandardHttp(afterUpdate);
+        return response;
     }
 }

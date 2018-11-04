@@ -15,7 +15,9 @@ public class Status {
                 text = "OK";
                 break;
             case 201:
-                text = "Updated";  //TODO: dobbeltsjekk at dette stemmer - tog-Olav
+                text = "UPDATED";  //TODO: dobbeltsjekk at dette stemmer - tog-Olav
+            case 204:
+                text = "NO CONTENT";
             case 404:
                 text = "NOT FOUND";
                 break;

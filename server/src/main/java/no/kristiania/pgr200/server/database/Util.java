@@ -12,6 +12,7 @@ public class Util {
         Flyway flyway = getFlyway(fileName);
 
         // flyway.baseline();
+        flyway.repair();
         flyway.migrate();
 
         return flyway.getDataSource();

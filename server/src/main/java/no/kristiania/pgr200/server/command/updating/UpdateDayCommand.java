@@ -52,8 +52,12 @@ public class UpdateDayCommand extends UpdatingCommand {
                 original.getId(),
                 date == null ? original.getDate() : date
         );
-
         dao.update(updated);
-        return null;
+
+        Day afterUpdate = dao.retrieve(updated.getId());
+
+        assignStandardHttp(afterUpdate);
+
+        return response;
     }
 }

@@ -66,6 +66,9 @@ public class UpdateTimeslotCommand extends UpdatingCommand {
         );
 
         dao.update(updated);
-        return null;
+
+        Timeslot afterUpdate = dao.retrieve(updated.getId());
+        assignStandardHttp(afterUpdate);
+        return response;
     }
 }

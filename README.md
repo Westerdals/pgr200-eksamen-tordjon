@@ -3,7 +3,6 @@
 ## Todo 
 -[ ] Refaktorer HTTP-biten 
 -[ ] Bytt til POST med data i body 
--[ ] Pakke hete x.x.x.eksamen.x? 
 -[ ] Gå over alle Fixme's og todo's 
 -[ ] Fjerne alle dependencies fra eksamen-pom
 -[ ] Ha en index.html herokuapp.com/schedule som viser schedule rendret  
@@ -11,19 +10,17 @@
 -[ ] dao + gson som protected felter i command
 -[ ] client lytter etter kommandoer, behøver ikke kjøre java-jar hver gang (har en "prompt")
 
-## Notater fra tog: 
-kommandoer må sette mange like httpheadere. 
-Mitt forslag til å løse dette: 
-    en klasse for listcommands (eks.) som setter de headere som vil være felles for 
-    alle list-kommadoer. 
-    Den arver fra command og overrider applyStandardHttp()-metode fra Command. 
-    
-    Dette tillater: 
-    1. Å flytte Gson-objektet nedover -> ikke alle comamands skal jobbe med JSON, men vi slipper rot for 
-    de som skal.
-    2. Mye mindre gjentagende kode på de faktiske kommandoene 
-    
+## Notater fra tog :D 
 DaoTest.createDao() er lik i alle tester. Burde det være default-metode?
+
+-[ ] wrapper-klasser rundt JSON som sier hva slags operasjon som ble gjort mm. 
+
+## Todo sunday 
+1. Fiks commands 
+2. Bygg client 
+3. Bestem API-struktur 
+4. Test klient-alpha 
+5. Skal assignHttp opp igjen til super? 
 
 moduler: 
 

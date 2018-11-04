@@ -46,6 +46,11 @@ public class UpdateConferenceCommand extends UpdatingCommand {
         Conference conference = new Conference(id, name);
         dao.update(conference);
 
-        return null;
+        // get all data, not just the updated one //TODO: Kan bli bedre om vi wrapper JSON -Tord (samme potensial i de andre update)
+        Conference updated = dao.retrieve(conference.getId());
+
+        assignStandardHttp(updated);
+
+        return response;
     }
 }

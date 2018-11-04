@@ -44,7 +44,10 @@ public class ConnectTimeslotWithDayCommand extends ConnectingCommand {
 
         TimeslotDao dao = new TimeslotDao(dataSource);
         dao.connectTimeslotToDay(timeslotId, dayId);
-        return null;
+
+        assignStandardHttp("");
+
+        return response;
     }
 
 }
