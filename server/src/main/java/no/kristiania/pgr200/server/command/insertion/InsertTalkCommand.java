@@ -1,16 +1,15 @@
 package no.kristiania.pgr200.server.command.insertion;
 
+import model.Talk;
 import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.Dao;
 import no.kristiania.pgr200.server.database.dao.TalkDao;
-import model.Talk;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class InsertTalkCommand extends Command {
+public class InsertTalkCommand extends InsertionCommand {
 
     private String title;
     private String description;

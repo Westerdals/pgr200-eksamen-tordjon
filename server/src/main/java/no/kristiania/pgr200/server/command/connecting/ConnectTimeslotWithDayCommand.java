@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class ConnectTimeslotWithDayCommand extends Command {
+public class ConnectTimeslotWithDayCommand extends ConnectingCommand {
 
     UUID timeslotId;
     UUID dayId;

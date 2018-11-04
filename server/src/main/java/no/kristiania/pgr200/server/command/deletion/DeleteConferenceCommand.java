@@ -1,17 +1,17 @@
 package no.kristiania.pgr200.server.command.deletion;
 
+import model.Conference;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;
 import no.kristiania.pgr200.server.database.dao.Dao;
-import model.Conference;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class DeleteConferenceCommand extends Command {
+public class DeleteConferenceCommand extends DeletionCommand {
 
     private UUID id;
 

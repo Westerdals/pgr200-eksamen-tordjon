@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class DeleteTalkCommand extends Command {
+public class DeleteTalkCommand extends DeletionCommand {
 
     private UUID id;
 

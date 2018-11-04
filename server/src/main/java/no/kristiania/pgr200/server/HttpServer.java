@@ -2,7 +2,6 @@ package no.kristiania.pgr200.server;
 
 
 import no.kristiania.pgr200.core.http.uri.Path;
-import no.kristiania.pgr200.core.http.uri.Query;
 import no.kristiania.pgr200.core.http.uri.Uri;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.Util;

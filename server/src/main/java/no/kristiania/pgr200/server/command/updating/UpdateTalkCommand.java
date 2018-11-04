@@ -1,16 +1,16 @@
 package no.kristiania.pgr200.server.command.updating;
 
+import model.Talk;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.TalkDao;
-import model.Talk;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class UpdateTalkCommand extends Command {
+public class UpdateTalkCommand extends UpdatingCommand {
 
     UUID id;
     String title;

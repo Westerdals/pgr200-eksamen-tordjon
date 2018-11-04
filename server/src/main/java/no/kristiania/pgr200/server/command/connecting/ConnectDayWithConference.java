@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class ConnectDayWithConference extends Command {
+public class ConnectDayWithConference extends ConnectingCommand {
 
     private UUID conferenceId;
     private UUID dayId;
@@ -38,6 +38,9 @@ public class ConnectDayWithConference extends Command {
     public ServerResponse execute(DataSource dataSource) throws SQLException {
         DayDao dao = new DayDao(dataSource);
         dao.connectDayToConference(conferenceId, dayId);
-        return null;
+
+        assignStandardHttp("");  // no content is sent back
+
+        return response;
     }
 }

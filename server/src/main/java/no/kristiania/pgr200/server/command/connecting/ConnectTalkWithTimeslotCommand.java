@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class ConnectTalkWithTimeslotCommand extends Command {
+public class ConnectTalkWithTimeslotCommand extends ConnectingCommand {
 
     private UUID talkId;
     private UUID timeslotId;
@@ -27,7 +27,7 @@ public class ConnectTalkWithTimeslotCommand extends Command {
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
         UUID talkId = getId(parameters.get("talk"));
-        UUID timeslotId = getId(parameters.get("timeslot")); 
+        UUID timeslotId = getId(parameters.get("timeslot"));
 
         return new ConnectTalkWithTimeslotCommand()
                 .withTalkId(talkId)

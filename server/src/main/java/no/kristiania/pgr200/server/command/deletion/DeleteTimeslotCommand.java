@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class DeleteTimeslotCommand extends Command {
+public class DeleteTimeslotCommand extends DeletionCommand {
 
     private UUID id;
 

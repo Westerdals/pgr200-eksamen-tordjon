@@ -1,18 +1,18 @@
 package no.kristiania.pgr200.server.command.listing;
 
-import com.google.gson.Gson;
+import model.Conference;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;
 import no.kristiania.pgr200.server.database.dao.Dao;
-import model.Conference;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
-public class ListConferencesCommand extends Command {
+public class ListConferencesCommand extends ListCommand {
+
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
         return new ListConferencesCommand();
@@ -23,8 +23,7 @@ public class ListConferencesCommand extends Command {
         Dao<Conference> dao = new ConferenceDao(dataSource);
         List<Conference> conferences = dao.retrieveAll();
 
-        response.setBody(gson.toJson(conferences));
-        response.setStatus(200);
+        assignStandardHttp(conferences);
         return response;
     }
 }

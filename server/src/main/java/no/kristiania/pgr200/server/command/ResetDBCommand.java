@@ -3,6 +3,7 @@ package no.kristiania.pgr200.server.command;
 import no.kristiania.pgr200.server.HttpServer;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.database.Util;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -26,6 +27,11 @@ public class ResetDBCommand extends Command {
             System.out.println("Could not reset no.kristiania.pgr200.server.database.");
         }
         return null;
+    }
+
+    @Override
+    public <T> void assignStandardHttp(T content) {
+        throw new NotImplementedException();
     }
 
 }

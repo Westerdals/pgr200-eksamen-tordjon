@@ -1,18 +1,18 @@
 package no.kristiania.pgr200.server.command.updating;
 
 
+import model.Conference;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;
 import no.kristiania.pgr200.server.database.dao.Dao;
-import model.Conference;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class UpdateConferenceCommand extends Command {
+public class UpdateConferenceCommand extends UpdatingCommand {
 
     private UUID id;
     private String name;

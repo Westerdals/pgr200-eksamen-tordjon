@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class DeleteDayCommand extends Command {
+public class DeleteDayCommand extends DeletionCommand {
 
     UUID id;
 

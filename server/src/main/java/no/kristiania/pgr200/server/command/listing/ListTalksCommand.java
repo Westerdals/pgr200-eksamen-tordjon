@@ -1,19 +1,18 @@
 package no.kristiania.pgr200.server.command.listing;
 
 
-import com.google.gson.Gson;
+import model.Talk;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.Dao;
 import no.kristiania.pgr200.server.database.dao.TalkDao;
-import model.Talk;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
-public class ListTalksCommand extends Command {
+public class ListTalksCommand extends ListCommand {
     @Override
     public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
         return new ListTalksCommand();
@@ -24,8 +23,8 @@ public class ListTalksCommand extends Command {
         Dao<Talk> dao = new TalkDao(dataSource);
         List<Talk> talks = dao.retrieveAll();
 
-        response.setBody(gson.toJson(talks));
-        response.setStatus(200);
+        assignStandardHttp(talks);
+
         return response;
     }
 

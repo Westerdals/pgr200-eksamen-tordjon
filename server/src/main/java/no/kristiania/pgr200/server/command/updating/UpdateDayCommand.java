@@ -1,9 +1,9 @@
 package no.kristiania.pgr200.server.command.updating;
 
+import model.Day;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.DayDao;
-import model.Day;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class UpdateDayCommand extends Command {
+public class UpdateDayCommand extends UpdatingCommand {
 
     UUID id;
     LocalDate date;

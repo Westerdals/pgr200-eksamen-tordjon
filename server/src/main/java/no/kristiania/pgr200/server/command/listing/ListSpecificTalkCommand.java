@@ -1,7 +1,5 @@
 package no.kristiania.pgr200.server.command.listing;
 
-import com.google.gson.Gson;
-import com.sun.deploy.net.HttpResponse;
 import model.Talk;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
@@ -12,7 +10,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class ListSpecificTalkCommand extends Command {
+public class ListSpecificTalkCommand extends ListCommand {
 
     private UUID id;
 
@@ -36,8 +34,7 @@ public class ListSpecificTalkCommand extends Command {
         TalkDao dao =  new TalkDao(dataSource);
         Talk talk = dao.retrieve(id);
 
-        response.setBody(gson.toJson(talk));
-        response.setStatus(200);
+        assignStandardHttp(talk);
 
         return response;
     }

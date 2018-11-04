@@ -1,14 +1,15 @@
 package no.kristiania.pgr200.server.command;
 
+import model.Conference;
+import model.Day;
+import model.Talk;
+import model.Timeslot;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;
 import no.kristiania.pgr200.server.database.dao.DayDao;
 import no.kristiania.pgr200.server.database.dao.TalkDao;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
-import model.Conference;
-import model.Day;
-import model.Talk;
-import model.Timeslot;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -81,5 +82,10 @@ public class CreateDemoConferenceCommand extends Command {
 
 
         return null;
+    }
+
+    @Override
+    public <T> void assignStandardHttp(T content) {
+        throw new NotImplementedException();
     }
 }

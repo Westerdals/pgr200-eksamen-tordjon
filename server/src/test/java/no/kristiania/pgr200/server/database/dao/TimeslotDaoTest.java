@@ -1,10 +1,10 @@
 package no.kristiania.pgr200.server.database.dao;
 
 
-import no.kristiania.pgr200.server.database.Util;
 import model.Day;
 import model.Talk;
 import model.Timeslot;
+import no.kristiania.pgr200.server.database.Util;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +28,7 @@ public class TimeslotDaoTest implements DaoTest<Timeslot> {
     @Override
     @Before
     public void createDao() throws IOException {
-         dataSource = Util.createDataSource("./../test.properties");
+         dataSource = Util.createDataSource("test.properties");
         dao = new TimeslotDao(dataSource);
     }
 

@@ -1,6 +1,5 @@
 package no.kristiania.pgr200.server.command;
 
-import com.google.gson.Gson;
 import no.kristiania.pgr200.core.http.uri.Path;
 import no.kristiania.pgr200.server.InputParser;
 import no.kristiania.pgr200.server.ServerResponse;
@@ -15,7 +14,6 @@ import java.util.UUID;
 
 public abstract class Command {
 
-    protected Gson gson = new Gson();
     protected ServerResponse response = new ServerResponse();
 
     /**
@@ -43,6 +41,11 @@ public abstract class Command {
      * @param dataSource of no.kristiania.pgr200.server.database to execute on
      */
     public abstract ServerResponse execute(DataSource dataSource) throws SQLException;
+
+    /**
+     * Sets the standard headers for this type of command
+     */
+    public abstract <T> void assignStandardHttp(T content);
 
 
     protected UUID getId(String id) {

@@ -1,11 +1,11 @@
 package no.kristiania.pgr200.server.database.dao;
 
 
-import no.kristiania.pgr200.server.database.Util;
 import model.Conference;
 import model.Day;
 import model.Talk;
 import model.Timeslot;
+import no.kristiania.pgr200.server.database.Util;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class ConferenceDaoTest implements DaoTest<Conference> {
     @Before
     @Override
     public void createDao() throws IOException {
-        dataSource = Util.createDataSource("./../test.properties");
+        dataSource = Util.createDataSource("test.properties");
         dao = new ConferenceDao(dataSource);
     }
 

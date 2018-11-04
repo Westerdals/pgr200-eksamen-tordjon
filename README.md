@@ -12,7 +12,7 @@
 
 ## Notater fra tog: 
 kommandoer må sette mange like httpheadere. 
-Mitt forslat til å løse dette: 
+Mitt forslag til å løse dette: 
     en klasse for listcommands (eks.) som setter de headere som vil være felles for 
     alle list-kommadoer. 
     Den arver fra command og overrider applyStandardHttp()-metode fra Command. 
@@ -20,7 +20,9 @@ Mitt forslat til å løse dette:
     Dette tillater: 
     1. Å flytte Gson-objektet nedover -> ikke alle comamands skal jobbe med JSON, men vi slipper rot for 
     de som skal.
-    2. Mye mindre gjentagende kode på de faktiske kommandoene    
+    2. Mye mindre gjentagende kode på de faktiske kommandoene 
+    
+DaoTest.createDao() er lik i alle tester. Burde det være default-metode?
 
 moduler: 
 

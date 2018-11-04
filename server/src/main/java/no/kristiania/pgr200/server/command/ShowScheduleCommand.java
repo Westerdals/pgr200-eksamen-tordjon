@@ -2,18 +2,15 @@ package no.kristiania.pgr200.server.command;
 
 
 import com.google.gson.Gson;
+import model.Conference;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;
 import no.kristiania.pgr200.server.database.dao.Dao;
-import model.Conference;
-import model.Day;
-import model.Talk;
-import model.Timeslot;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -29,7 +26,10 @@ public class ShowScheduleCommand extends Command {
 
     }
 
-
+    @Override
+    public <T> void assignStandardHttp(T content) {
+        throw new NotImplementedException();
+    }
 
     private Command withId(UUID id) {
         this.id = id;

@@ -1,16 +1,16 @@
 package no.kristiania.pgr200.server.command.insertion;
 
+import model.Day;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.DayDao;
-import model.Day;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashMap;
 
-public class InsertDayCommand extends Command {
+public class InsertDayCommand extends InsertionCommand {
 
     LocalDate date;
     // timeslots are added later by user

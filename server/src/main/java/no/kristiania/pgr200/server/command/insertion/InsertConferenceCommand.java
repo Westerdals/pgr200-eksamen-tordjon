@@ -1,16 +1,16 @@
 package no.kristiania.pgr200.server.command.insertion;
 
+import model.Conference;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;
 import no.kristiania.pgr200.server.database.dao.Dao;
-import model.Conference;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class InsertConferenceCommand extends Command {
+public class InsertConferenceCommand extends InsertionCommand {
 
     private String name;
 

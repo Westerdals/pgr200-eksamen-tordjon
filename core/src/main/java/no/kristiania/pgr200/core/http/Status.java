@@ -14,6 +14,8 @@ public class Status {
             case 200:
                 text = "OK";
                 break;
+            case 201:
+                text = "Updated";  //TODO: dobbeltsjekk at dette stemmer - tog-Olav
             case 404:
                 text = "NOT FOUND";
                 break;

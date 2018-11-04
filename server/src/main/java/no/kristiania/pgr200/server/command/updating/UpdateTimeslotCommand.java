@@ -1,9 +1,9 @@
 package no.kristiania.pgr200.server.command.updating;
 
+import model.Timeslot;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
-import model.Timeslot;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -11,7 +11,7 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class UpdateTimeslotCommand extends Command {
+public class UpdateTimeslotCommand extends UpdatingCommand {
 
     private UUID id;
     private LocalTime start;

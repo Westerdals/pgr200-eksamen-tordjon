@@ -9,7 +9,7 @@ public class ServerResponse {
 
     private Status status = new Status(500);
     private String body;
-    private String method;
+    private String method; //TODO: skal ikke ha?
     Map<String, String> headers = new HashMap<>();
 
     public ServerResponse() {
