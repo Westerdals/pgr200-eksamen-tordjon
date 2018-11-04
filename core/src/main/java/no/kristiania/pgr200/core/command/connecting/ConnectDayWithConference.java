@@ -1,25 +1,21 @@
-package no.kristiania.pgr200.server.command.connecting;
+package no.kristiania.pgr200.core.command.connecting;
 
-import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.command.Command;
-import no.kristiania.pgr200.server.database.dao.DayDao;
+import no.kristiania.pgr200.core.command.Command;
 
-import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class ConnectDayWithConference extends ConnectingCommand {
+public abstract class ConnectDayWithConference extends Command {
 
-    private UUID conferenceId;
-    private UUID dayId;
+    protected UUID conferenceId;
+    protected UUID dayId;
 
-    private ConnectDayWithConference withConferenceId(UUID conferenceId) {
+    protected ConnectDayWithConference withConferenceId(UUID conferenceId) {
         this.conferenceId = conferenceId;
         return this;
     }
 
-    private ConnectDayWithConference withDayId(UUID dayId) {
+    protected ConnectDayWithConference withDayId(UUID dayId) {
         this.dayId = dayId;
         return this;
     }
@@ -29,18 +25,10 @@ public class ConnectDayWithConference extends ConnectingCommand {
         conferenceId = getId(parameters.get("conference"));
         dayId = getId(parameters.get("day"));
 
-        return new ConnectDayWithConference()
+        return this
                 .withConferenceId(conferenceId)
                 .withDayId(dayId);
     }
 
-    @Override
-    public ServerResponse execute(DataSource dataSource) throws SQLException {
-        DayDao dao = new DayDao(dataSource);
-        dao.connectDayToConference(conferenceId, dayId);
 
-        assignStandardHttp("");  // no content is sent back
-
-        return response;
-    }
 }

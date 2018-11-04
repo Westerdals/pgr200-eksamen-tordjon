@@ -1,5 +1,8 @@
 package no.kristiania.pgr200.server.command.connecting;
 
+import no.kristiania.pgr200.core.command.connecting.ConnectDayWithConference;
+import no.kristiania.pgr200.core.command.connecting.ConnectTalkWithTimeslotCommand;
+import no.kristiania.pgr200.core.command.connecting.ConnectTimeslotWithDayCommand;
 import no.kristiania.pgr200.core.model.Conference;
 import no.kristiania.pgr200.core.model.Day;
 import no.kristiania.pgr200.core.model.Talk;

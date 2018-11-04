@@ -1,8 +1,8 @@
-package no.kristiania.pgr200.core.command.updating;
+package no.kristiania.pgr200.server.command.updating;
 
 import no.kristiania.pgr200.core.model.Timeslot;
 import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.core.command.Command;
+import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
 
 import javax.sql.DataSource;

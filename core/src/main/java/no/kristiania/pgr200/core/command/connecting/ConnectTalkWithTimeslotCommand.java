@@ -1,25 +1,21 @@
-package no.kristiania.pgr200.server.command.connecting;
+package no.kristiania.pgr200.core.command.connecting;
 
-import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.command.Command;
-import no.kristiania.pgr200.server.database.dao.TimeslotDao;
+import no.kristiania.pgr200.core.command.Command;
 
-import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class ConnectTalkWithTimeslotCommand extends ConnectingCommand {
+public abstract class ConnectTalkWithTimeslotCommand extends Command {
 
-    private UUID talkId;
-    private UUID timeslotId;
+    protected UUID talkId;
+    protected UUID timeslotId;
 
-    private ConnectTalkWithTimeslotCommand withTalkId(UUID talkId) {
+    protected ConnectTalkWithTimeslotCommand withTalkId(UUID talkId) {
         this.talkId = talkId;
         return this;
     }
 
-    private ConnectTalkWithTimeslotCommand withTimeslotId(UUID timeslotId) {
+    protected ConnectTalkWithTimeslotCommand withTimeslotId(UUID timeslotId) {
         this.timeslotId = timeslotId;
         return this;
     }
@@ -29,18 +25,11 @@ public class ConnectTalkWithTimeslotCommand extends ConnectingCommand {
         UUID talkId = getId(parameters.get("talk"));
         UUID timeslotId = getId(parameters.get("timeslot"));
 
-        return new ConnectTalkWithTimeslotCommand()
+        return  this
                 .withTalkId(talkId)
                 .withTimeslotId(timeslotId);
     }
 
-    @Override
-    public ServerResponse execute(DataSource dataSource) throws SQLException {
-        TimeslotDao dao = new TimeslotDao(dataSource);
-        dao.connectTalkToTimeslot(talkId, timeslotId);
 
-        assignStandardHttp("");
-        return response;
-    }
 
 }

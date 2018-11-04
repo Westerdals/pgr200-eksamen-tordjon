@@ -1,4 +1,4 @@
-package no.kristiania.pgr200.core.command.insertion;
+package no.kristiania.pgr200.server.command.insertion;
 
 import no.kristiania.pgr200.core.model.Talk;
 import no.kristiania.pgr200.server.ServerResponse;

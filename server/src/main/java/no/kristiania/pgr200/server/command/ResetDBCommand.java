@@ -1,4 +1,4 @@
-package no.kristiania.pgr200.core.command;
+package no.kristiania.pgr200.server.command;
 
 import no.kristiania.pgr200.server.HttpServer;
 import no.kristiania.pgr200.server.ServerResponse;

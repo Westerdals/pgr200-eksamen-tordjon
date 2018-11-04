@@ -1,7 +1,7 @@
-package no.kristiania.pgr200.core.command.connecting;
+package no.kristiania.pgr200.server.command.connecting;
 
 import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.core.command.Command;
+import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
 
 import javax.sql.DataSource;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class ConnectTalkWithTimeslotCommand extends ConnectingCommand {
+public class abstract ConnectTalkWithTimeslotCommand extends Command {
 
     private UUID talkId;
     private UUID timeslotId;
@@ -34,13 +34,6 @@ public class ConnectTalkWithTimeslotCommand extends ConnectingCommand {
                 .withTimeslotId(timeslotId);
     }
 
-    @Override
-    public ServerResponse execute(DataSource dataSource) throws SQLException {
-        TimeslotDao dao = new TimeslotDao(dataSource);
-        dao.connectTalkToTimeslot(talkId, timeslotId);
 
-        assignStandardHttp("");
-        return response;
-    }
 
 }

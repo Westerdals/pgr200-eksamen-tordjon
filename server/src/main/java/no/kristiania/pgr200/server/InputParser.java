@@ -1,14 +1,7 @@
 package no.kristiania.pgr200.server;
 
-import no.kristiania.pgr200.core.http.uri.Path;
-import no.kristiania.pgr200.server.command.Command;
-import no.kristiania.pgr200.server.command.CreateDemoConferenceCommand;
-import no.kristiania.pgr200.server.command.InvalidInputCommand;
-import no.kristiania.pgr200.server.command.ShowScheduleCommand;
-import no.kristiania.pgr200.server.command.insertion.InsertConferenceCommand;
-import no.kristiania.pgr200.server.command.insertion.InsertDayCommand;
-import no.kristiania.pgr200.server.command.insertion.InsertTalkCommand;
-import no.kristiania.pgr200.server.command.listing.ListTalksCommand;
+import no.kristiania.pgr200.core.command.Command;
+import no.kristiania.pgr200.core.command.InvalidInputCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -87,11 +80,11 @@ public class InputParser {
         // connecting
         map.put("connect day-with-conference", ConnectDayWithConference.class);
         map.put("connect talk-with-timeslot", ConnectTalkWithTimeslotCommand.class);
-        map.put("connect timeslot-with-day", ConnectTimeslotWithDayCommand.class);
+        map.put("connect timeslot-with-day", ServerConnectTimeslotWithDayCommand.class);
 
         // TODO: SE OVER ISSE
         //map.put("list talk-with-timeslot", ConnectTalkWithTimeslotCommand.class);
-        //map.put("remove timeslot-with-day", ConnectTimeslotWithDayCommand.class);
+        //map.put("remove timeslot-with-day", ServerConnectTimeslotWithDayCommand.class);
 
         //show conference program
         map.put("show schedule", ShowScheduleCommand.class);

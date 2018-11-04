@@ -1,17 +1,12 @@
-package no.kristiania.pgr200.server.command.updating;
+package no.kristiania.pgr200.core.command.updating;
 
-import no.kristiania.pgr200.core.model.Timeslot;
-import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.command.Command;
-import no.kristiania.pgr200.server.database.dao.TimeslotDao;
+import no.kristiania.pgr200.core.command.Command;
 
-import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class UpdateTimeslotCommand extends UpdatingCommand {
+public abstract class UpdateTimeslotCommand extends Command {
 
     private UUID id;
     private LocalTime start;
@@ -41,34 +36,11 @@ public class UpdateTimeslotCommand extends UpdatingCommand {
         LocalTime start = getTime(parameters.get("start"));
         LocalTime end = getTime(parameters.get("end"));
 
-        return new UpdateTimeslotCommand()
+        return this
                 .withId(id)
                 .withStart(start)
                 .withEnd(end);
     }
 
-    @Override
-    public ServerResponse execute(DataSource dataSource) throws SQLException {
 
-        if (id == null) {
-            System.out.println("\"-id\" is required.");
-            return null;
-        }
-
-
-        TimeslotDao dao = new TimeslotDao(dataSource);
-
-        Timeslot original = dao.retrieve(id);
-        Timeslot updated = new Timeslot(
-                id,
-                start == null ? original.getStart() : start,
-                end == null ? original.getEnd() : end
-        );
-
-        dao.update(updated);
-
-        Timeslot afterUpdate = dao.retrieve(updated.getId());
-        assignStandardHttp(afterUpdate);
-        return response;
-    }
 }

@@ -1,8 +1,7 @@
-package no.kristiania.pgr200.server.command;
+package no.kristiania.pgr200.core.command;
 
 import no.kristiania.pgr200.core.http.uri.Path;
 import no.kristiania.pgr200.server.InputParser;
-import no.kristiania.pgr200.server.ServerResponse;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -14,7 +13,6 @@ import java.util.UUID;
 
 public abstract class Command {
 
-    protected ServerResponse response = new ServerResponse();
 
     /**
      * Usage:
@@ -40,12 +38,9 @@ public abstract class Command {
      * Returns the ServerResponse that should be returned to client (as protected field)
      * @param dataSource of no.kristiania.pgr200.server.database to execute on
      */
-    public abstract ServerResponse execute(DataSource dataSource) throws SQLException;
+    public abstract <T> T execute(DataSource dataSource) throws SQLException;
 
-    /**
-     * Sets the standard headers for this type of command
-     */
-    public abstract <T> void assignStandardHttp(T content);
+
 
 
     protected UUID getId(String id) {

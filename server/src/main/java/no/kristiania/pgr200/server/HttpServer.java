@@ -3,7 +3,7 @@ package no.kristiania.pgr200.server;
 
 import no.kristiania.pgr200.core.http.uri.Path;
 import no.kristiania.pgr200.core.http.uri.Uri;
-import no.kristiania.pgr200.server.command.Command;
+import no.kristiania.pgr200.core.command.Command;
 import no.kristiania.pgr200.server.database.Util;
 
 import javax.sql.DataSource;

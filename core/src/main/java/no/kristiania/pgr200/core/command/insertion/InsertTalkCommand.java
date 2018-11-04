@@ -1,15 +1,13 @@
-package no.kristiania.pgr200.server.command.insertion;
+package no.kristiania.pgr200.core.command.insertion;
 
+import no.kristiania.pgr200.core.command.Command;
 import no.kristiania.pgr200.core.model.Talk;
-import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.database.dao.Dao;
-import no.kristiania.pgr200.server.database.dao.TalkDao;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class InsertTalkCommand extends InsertionCommand {
+public abstract class InsertTalkCommand extends Command {
 
     private String title;
     private String description;
@@ -39,22 +37,13 @@ public class InsertTalkCommand extends InsertionCommand {
         String topic = parameters.get("topic");
 
 
-        return new InsertTalkCommand()
+        return this
                 .withTitle(title)
                 .withDescription(description)
                 .withTopic(topic);
     }
 
 
-    @Override
-    public ServerResponse execute(DataSource dataSource) throws SQLException {
-        Dao<Talk> dao = new TalkDao(dataSource);
-        Talk talk = new Talk(title, description, topic);
-
-        dao.insert(talk);
 
 
-        assignStandardHttp(talk);
-        return response;
-    }
 }

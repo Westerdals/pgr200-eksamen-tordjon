@@ -1,16 +1,14 @@
-package no.kristiania.pgr200.server.command.listing;
+package no.kristiania.pgr200.core.command.listing;
 
+import no.kristiania.pgr200.core.command.Command;
 import no.kristiania.pgr200.core.model.Talk;
-import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.command.Command;
-import no.kristiania.pgr200.server.database.dao.TalkDao;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class ListSpecificTalkCommand extends ListCommand {
+public abstract class ListSpecificTalkCommand extends Command {
 
     private UUID id;
 
@@ -25,17 +23,9 @@ public class ListSpecificTalkCommand extends ListCommand {
 
         UUID id = getId(parameters.get("id"));
 
-        return new ListSpecificTalkCommand()
+        return this
                 .withId(id);
     }
 
-    @Override
-    public ServerResponse execute(DataSource dataSource) throws SQLException {
-        TalkDao dao =  new TalkDao(dataSource);
-        Talk talk = dao.retrieve(id);
 
-        assignStandardHttp(talk);
-
-        return response;
-    }
 }

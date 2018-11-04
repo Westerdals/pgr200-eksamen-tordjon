@@ -1,4 +1,4 @@
-package no.kristiania.pgr200.core.command;
+package no.kristiania.pgr200.server.command;
 
 
 import com.google.gson.Gson;
