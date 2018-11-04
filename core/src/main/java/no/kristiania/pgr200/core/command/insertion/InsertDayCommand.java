@@ -10,10 +10,10 @@ import java.util.HashMap;
 
 public abstract class InsertDayCommand extends Command {
 
-    LocalDate date;
+    protected LocalDate date;
     // timeslots are added later by user
 
-    private InsertDayCommand withDate(LocalDate date) {
+    protected InsertDayCommand withDate(LocalDate date) {
         this.date = date;
         return this;
     }

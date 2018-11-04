@@ -8,22 +8,22 @@ import java.util.UUID;
 
 public abstract class UpdateTimeslotCommand extends Command {
 
-    private UUID id;
-    private LocalTime start;
-    private LocalTime end;
+    protected UUID id;
+    protected LocalTime start;
+    protected LocalTime end;
 
-    private UpdateTimeslotCommand withId(UUID id) {
+    protected UpdateTimeslotCommand withId(UUID id) {
 
         this.id = id != null ? id : null;
         return this;
     }
 
-    private UpdateTimeslotCommand withStart(LocalTime start) {
+    protected UpdateTimeslotCommand withStart(LocalTime start) {
         this.start = start != null ? start : null;
         return this;
     }
 
-    private UpdateTimeslotCommand withEnd(LocalTime end) {
+    protected UpdateTimeslotCommand withEnd(LocalTime end) {
         this.end = end;
         return this;
     }

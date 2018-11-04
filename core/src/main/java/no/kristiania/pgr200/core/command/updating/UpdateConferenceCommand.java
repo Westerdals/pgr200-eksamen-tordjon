@@ -8,15 +8,15 @@ import java.util.UUID;
 
 public abstract class UpdateConferenceCommand extends Command {
 
-    private UUID id;
-    private String name;
+    protected UUID id;
+    protected String name;
 
-    private UpdateConferenceCommand withName(String name){
+    protected UpdateConferenceCommand withName(String name){
         this.name = name;
         return this;
     }
 
-    private UpdateConferenceCommand withId(UUID id){
+    protected UpdateConferenceCommand withId(UUID id){
         this.id = id;
         return this;
     }

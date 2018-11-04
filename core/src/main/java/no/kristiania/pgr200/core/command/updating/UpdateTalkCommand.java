@@ -7,27 +7,27 @@ import java.util.UUID;
 
 public abstract class UpdateTalkCommand extends Command {
 
-    UUID id;
-    String title;
-    String description;
-    String topicTitle;
+    protected UUID id;
+    protected String title;
+    protected String description;
+    protected String topicTitle;
 
-    public UpdateTalkCommand withId(UUID id) {
+    protected UpdateTalkCommand withId(UUID id) {
         this.id = id;
         return this;
     }
 
-    public UpdateTalkCommand withTitle(String title) {
+    protected UpdateTalkCommand withTitle(String title) {
         this.title = title;
         return this;
     }
 
-    public UpdateTalkCommand withDescription(String description) {
+    protected UpdateTalkCommand withDescription(String description) {
         this.description = description;
         return this;
     }
 
-    public UpdateTalkCommand withTopicTitle(String topic) {
+    protected UpdateTalkCommand withTopicTitle(String topic) {
         this.topicTitle = topic;
         return this;
     }

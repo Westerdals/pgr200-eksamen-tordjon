@@ -7,9 +7,9 @@ import java.util.UUID;
 
 public abstract class DeleteConferenceCommand extends Command {
 
-    private UUID id;
+    protected UUID id;
 
-    private DeleteConferenceCommand withId(UUID id){
+    protected DeleteConferenceCommand withId(UUID id){
         this.id = id;
         return this;
     }

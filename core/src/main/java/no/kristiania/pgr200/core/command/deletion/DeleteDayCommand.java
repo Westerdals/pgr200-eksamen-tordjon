@@ -7,9 +7,9 @@ import java.util.UUID;
 
 public abstract class DeleteDayCommand extends Command {
 
-    UUID id;
+    protected UUID id;
 
-    private DeleteDayCommand withId(UUID id) {
+    protected DeleteDayCommand withId(UUID id) {
         this.id = id;
         return this;
     }

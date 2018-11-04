@@ -1,41 +1,15 @@
 package no.kristiania.pgr200.server.command.updating;
 
+import no.kristiania.pgr200.core.command.updating.UpdateDayCommand;
 import no.kristiania.pgr200.core.model.Day;
 import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.command.Command;
+import no.kristiania.pgr200.server.command.ServerCommand;
 import no.kristiania.pgr200.server.database.dao.DayDao;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.UUID;
 
-public class UpdateDayCommand extends UpdatingCommand {
-
-    UUID id;
-    LocalDate date;
-
-    private UpdateDayCommand withDate(LocalDate date) {
-        this.date = date;
-        return this;
-    }
-    @Override
-    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-
-        UUID id = getId(parameters.get("id"));
-        LocalDate date = getDate(parameters.get("date"));
-
-        return new UpdateDayCommand()
-                .withDate(date)
-                .withId(id);
-
-    }
-
-    private UpdateDayCommand withId(UUID id) {
-        this.id = id;
-        return this;
-    }
+public class ServerUpdateDayCommand extends UpdateDayCommand implements ServerCommand {
 
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {

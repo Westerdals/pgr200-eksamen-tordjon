@@ -45,37 +45,37 @@ public class InputParser {
 
   /*  private static void populateCommandMap(Map<String, Class<? extends Command>> map) {
 
-        map.put("/api/insert/talk", InsertTalkCommand.class);
-        map.put("/api/insert/day", InsertDayCommand.class);
-        map.put("/api/list/talks", ListTalksCommand.class);
-        map.put("/api/insert/conference", InsertConferenceCommand.class);
+        map.put("/api/insert/talk", ServerInsertTalkCommand.class);
+        map.put("/api/insert/day", ServerInsertDayCommand.class);
+        map.put("/api/list/talks", ServerListTalksCommand.class);
+        map.put("/api/insert/conference", ServerInsertConferenceCommand.class);
         map.put("/api/insert/democonference", CreateDemoConferenceCommand.class);
         map.put("/api/showschedule", ShowScheduleCommand.class);
 
 
         // talk
-       /map.put("insert talk", InsertTalkCommand.class);
-        map.put("list talks", ListTalksCommand.class);
-        map.put("delete talk", DeleteTalkCommand.class);
-        map.put("update talk", UpdateTalkCommand.class);
+       /map.put("insert talk", ServerInsertTalkCommand.class);
+        map.put("list talks", ServerListTalksCommand.class);
+        map.put("delete talk", ServerDeleteTalkCommand.class);
+        map.put("update talk", ServerUpdateTalkCommand.class);
 
         // day
-        map.put("insert day", InsertDayCommand.class);
-        map.put("list days", ListDaysCommand.class);
+        map.put("insert day", ServerInsertDayCommand.class);
+        map.put("list days", ServerListDaysCommand.class);
         map.put("delete day", DeleteDayCommand.class);
-        map.put("update day", UpdateDayCommand.class);
+        map.put("update day", ServerUpdateDayCommand.class);
 
         // timeslot
-        map.put("insert timeslot", InsertTimeslotCommand.class);
-        map.put("list timeslots", ListTimeslotsCommand.class);
+        map.put("insert timeslot", ServerInsertTimeslotCommand.class);
+        map.put("list timeslots", ServerListTimeslotsCommand.class);
         map.put("delete timeslot", DeleteTimeslotCommand.class);
-        map.put("update timeslot", UpdateTimeslotCommand.class);
+        map.put("update timeslot", ServerUpdateTimeslotCommand.class);
 
         // day
-        map.put("insert conference", InsertConferenceCommand.class);
-        map.put("list conferences", ListConferencesCommand.class);
+        map.put("insert conference", ServerInsertConferenceCommand.class);
+        map.put("list conferences", ServerListConferencesCommand.class);
         map.put("delete conference", DeleteConferenceCommand.class);
-        map.put("update conference", UpdateConferenceCommand.class);
+        map.put("update conference", ServerUpdateConferenceCommand.class);
 
         // connecting
         map.put("connect day-with-conference", ConnectDayWithConference.class);

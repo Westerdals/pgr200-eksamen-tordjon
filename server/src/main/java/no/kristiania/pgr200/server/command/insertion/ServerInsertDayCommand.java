@@ -1,33 +1,15 @@
 package no.kristiania.pgr200.server.command.insertion;
 
+import no.kristiania.pgr200.core.command.insertion.InsertDayCommand;
 import no.kristiania.pgr200.core.model.Day;
 import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.command.Command;
+import no.kristiania.pgr200.server.command.ServerCommand;
 import no.kristiania.pgr200.server.database.dao.DayDao;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.HashMap;
 
-public class InsertDayCommand extends InsertionCommand {
-
-    LocalDate date;
-    // timeslots are added later by user
-
-    private InsertDayCommand withDate(LocalDate date) {
-        this.date = date;
-        return this;
-    }
-
-    @Override
-    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-
-        LocalDate date = getDate(parameters.get("date"));
-        
-        return new InsertDayCommand()
-                .withDate(date);
-    }
+public class ServerInsertDayCommand extends InsertDayCommand implements ServerCommand {
 
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {

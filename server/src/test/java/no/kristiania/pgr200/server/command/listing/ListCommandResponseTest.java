@@ -1,6 +1,5 @@
 package no.kristiania.pgr200.server.command.listing;
 
-import no.kristiania.pgr200.core.command.listing.*;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.database.Util;
 import org.junit.Before;
@@ -22,11 +21,11 @@ public class ListCommandResponseTest { //TODO: Heter ListCommandResponseTest for
     public void pickRandomListCommand() {
 
         ListCommand[] commands = {
-                new ListConferencesCommand(),
-                new ListDaysCommand(),
-                new ListSpecificTalkCommand(),
-                new ListTalksCommand(),
-                new ListTimeslotsCommand()
+                new ServerListConferencesCommand(),
+                new ServerListDaysCommand(),
+                new ServerListSpecificTalkCommand(),
+                new ServerListTalksCommand(),
+                new ServerListTimeslotsCommand()
         };
 
         int index = new Random().nextInt(commands.length);

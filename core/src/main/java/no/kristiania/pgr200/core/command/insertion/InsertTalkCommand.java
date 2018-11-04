@@ -9,22 +9,22 @@ import java.util.HashMap;
 
 public abstract class InsertTalkCommand extends Command {
 
-    private String title;
-    private String description;
-    private String topic;
+    protected String title;
+    protected String description;
+    protected String topic;
 
 
-    private InsertTalkCommand withTitle(String title) {
+    protected InsertTalkCommand withTitle(String title) {
         this.title = title;
         return this;
     }
 
-    private InsertTalkCommand withDescription(String description) {
+    protected InsertTalkCommand withDescription(String description) {
         this.description = description;
         return this;
     }
 
-    private InsertTalkCommand withTopic(String topic) {
+    protected InsertTalkCommand withTopic(String topic) {
         this.topic = topic;
         return this;
     }

@@ -8,9 +8,9 @@ import java.util.HashMap;
 
 public abstract class InsertConferenceCommand extends Command {
 
-    private String name;
+    protected String name;
 
-    private  InsertConferenceCommand withName(String name){
+    protected  InsertConferenceCommand withName(String name){
         this.name = name;
         return this;
     }

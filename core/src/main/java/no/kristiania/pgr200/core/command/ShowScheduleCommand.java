@@ -6,9 +6,9 @@ import java.util.UUID;
 
 
 public abstract class ShowScheduleCommand extends Command {
-    private UUID id;
+    protected UUID id;
 
-    private Command withId(UUID id) {
+    protected Command withId(UUID id) {
         this.id = id;
         return this;
     }

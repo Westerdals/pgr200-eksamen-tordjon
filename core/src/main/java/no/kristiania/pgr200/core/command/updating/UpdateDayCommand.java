@@ -11,11 +11,16 @@ import java.util.UUID;
 
 public abstract class UpdateDayCommand extends Command {
 
-    UUID id;
-    LocalDate date;
+    protected UUID id;
+    protected LocalDate date;
 
-    private UpdateDayCommand withDate(LocalDate date) {
+    protected UpdateDayCommand withDate(LocalDate date) {
         this.date = date;
+        return this;
+    }
+
+    protected UpdateDayCommand withId(UUID id) {
+        this.id = id;
         return this;
     }
     @Override
@@ -30,10 +35,7 @@ public abstract class UpdateDayCommand extends Command {
 
     }
 
-    private UpdateDayCommand withId(UUID id) {
-        this.id = id;
-        return this;
-    }
+
 
 
 }

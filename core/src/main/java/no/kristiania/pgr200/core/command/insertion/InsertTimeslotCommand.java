@@ -11,16 +11,16 @@ import java.util.HashMap;
 public abstract class InsertTimeslotCommand extends Command {
 
 
-    private LocalTime start;
-    private LocalTime end;
+    protected LocalTime start;
+    protected LocalTime end;
     // talk manuelt av bruker senere
 
-    private InsertTimeslotCommand withStart(LocalTime start) {
+    protected InsertTimeslotCommand withStart(LocalTime start) {
         this.start = start;
         return this;
     }
 
-    private InsertTimeslotCommand withEnd(LocalTime end) {
+    protected InsertTimeslotCommand withEnd(LocalTime end) {
         this.end = end;
         return this;
     }

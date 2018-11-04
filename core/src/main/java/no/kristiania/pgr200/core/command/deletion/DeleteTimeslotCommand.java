@@ -10,9 +10,9 @@ import java.util.UUID;
 
 public abstract class DeleteTimeslotCommand extends Command {
 
-    private UUID id;
+    protected UUID id;
 
-    private DeleteTimeslotCommand withId(UUID id) {
+    protected DeleteTimeslotCommand withId(UUID id) {
         this.id = id;
         return this;
     }
