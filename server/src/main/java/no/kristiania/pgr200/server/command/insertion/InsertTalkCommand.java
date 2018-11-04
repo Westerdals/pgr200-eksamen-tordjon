@@ -52,6 +52,9 @@ public class InsertTalkCommand extends InsertionCommand {
         Talk talk = new Talk(title, description, topic);
 
         dao.insert(talk);
-        return null;
+
+
+        assignStandardHttp(talk);
+        return response;
     }
 }

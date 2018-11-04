@@ -33,14 +33,16 @@ public class InsertDayCommand extends InsertionCommand {
     public ServerResponse execute(DataSource dataSource) throws SQLException {
 
         if (date == null) {
-            System.out.println("\"-date\" required");
-            return null;
+            //System.out.println("\"-date\" required");
+            response.setStatus(400);
+            return response;
         }
 
         DayDao dao = new DayDao(dataSource);
         Day day = new Day(date);
-
         dao.insert(day);
-        return null;
+
+        assignStandardHttp(day);
+        return response;
     }
 }

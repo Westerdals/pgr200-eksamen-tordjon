@@ -1,6 +1,7 @@
 package no.kristiania.pgr200.server.command;
 
 
+import com.google.gson.Gson;
 import no.kristiania.pgr200.server.ServerResponse;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -18,7 +19,8 @@ public class InvalidInputCommand extends Command {
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
 
-        System.out.println(
+       // System.out.println(
+        String helpText =
                 "-----------------------------------\n" +
                 "|These are the possible commands: |\n" +
                 "-----------------------------------\n" +
@@ -74,13 +76,19 @@ public class InvalidInputCommand extends Command {
                 "   \t-id CONFERENCE_ID\n" +
                 "\n\n" + 
                 "You may also refer to the documentation for further information." +
-                "\n\n" 
-        );
-        return null;
+                "\n\n";
+        assignStandardHttp(helpText);
+        return response;
     }
 
     @Override
-    public <T> void assignStandardHttp(T content) {
-        throw new NotImplementedException();
+    public <T> void assignStandardHttp(T content){
+    Gson gson = new Gson();
+    String json = gson.toJson(content);
+
+        response.setStatus(200);
+        response.getHeaders().put("Content-Type", "application/json");
+        response.getHeaders().put("Content-Length", json.length() + "");
+        response.setBody(json);
     }
 }

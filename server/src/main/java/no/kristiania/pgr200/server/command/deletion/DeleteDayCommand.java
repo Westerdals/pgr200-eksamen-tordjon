@@ -31,6 +31,7 @@ public class DeleteDayCommand extends DeletionCommand {
     public ServerResponse execute(DataSource dataSource) throws SQLException {
         DayDao dayDao = new DayDao(dataSource);
         dayDao.delete(id);
-        return null;
+        assignStandardHttp(id);
+        return response;
     }
 }

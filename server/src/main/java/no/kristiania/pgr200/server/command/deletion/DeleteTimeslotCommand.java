@@ -29,6 +29,7 @@ public class DeleteTimeslotCommand extends DeletionCommand {
     public ServerResponse execute(DataSource dataSource) throws SQLException {
         TimeslotDao dao = new TimeslotDao(dataSource);
         dao.delete(id);
-        return null;
+        assignStandardHttp(id);
+        return response;
     }
 }

@@ -31,6 +31,9 @@ public class InsertConferenceCommand extends InsertionCommand {
         Dao<Conference> dao = new ConferenceDao(dataSource);
         Conference conference = new Conference(name);
         dao.insert(conference);
-        return null;
+
+
+        assignStandardHttp(conference);
+        return response;
     }
 }
