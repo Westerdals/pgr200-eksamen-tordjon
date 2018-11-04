@@ -17,14 +17,23 @@ public class InputParser {
 
 
 
-    public static Command decodeInput(Path path, HashMap<String, String> parameters) throws IllegalArgumentException {
+
+    public static Command decodeInput(Map<String, Class<? extends Command>> map,String type, HashMap<String, String> parameters) throws IllegalArgumentException {
+
+        /*HashMap<String, Class<? extends Command>> map = new HashMap<>();
+        populateCommandMap(map);*/
 
 
-        HashMap<String, Class<? extends Command>> map = new HashMap<>();
-        populateCommandMap(map);
+        //client
+       /* map = KEY: args[0] + " " + args[1], VALUE; ClientInserTalkCommand.class;
+        map = "insert talk", ClientInsertTalkCommand.class;
+        InputParser.setMap(map);
 
+        //server
+        map = KEY: "/insert/talk", VALUE; ClientInserTalkCommand.class;
+        InputParser.setMap(map);*/
 
-        Class<? extends Command> command = map.get(path.toString());
+        Class<? extends Command> command = map.get(type);
 
         if (command == null) {
             return new InvalidInputCommand();
@@ -41,7 +50,7 @@ public class InputParser {
         return null;
     }
 
-    private static void populateCommandMap(Map<String, Class<? extends Command>> map) {
+  /*  private static void populateCommandMap(Map<String, Class<? extends Command>> map) {
 
         map.put("/api/insert/talk", InsertTalkCommand.class);
         map.put("/api/insert/day", InsertDayCommand.class);
@@ -52,7 +61,7 @@ public class InputParser {
 
 
         // talk
-       /* map.put("insert talk", InsertTalkCommand.class);
+       /map.put("insert talk", InsertTalkCommand.class);
         map.put("list talks", ListTalksCommand.class);
         map.put("delete talk", DeleteTalkCommand.class);
         map.put("update talk", UpdateTalkCommand.class);
@@ -89,10 +98,10 @@ public class InputParser {
         //create demo conference
         map.put("create demo", CreateDemoConferenceCommand.class);
         // resetting the no.kristiania.pgr200.server.database
-        map.put("reset db", ResetDBCommand.class);*/
+        map.put("reset db", ResetDBCommand.class);/
 
 
 
     }
-
+*/
 }
