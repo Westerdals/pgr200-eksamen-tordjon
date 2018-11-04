@@ -8,7 +8,19 @@
 -[ ] Fjerne alle dependencies fra eksamen-pom
 -[ ] Ha en index.html herokuapp.com/schedule som viser schedule rendret  
 -[ ] Skrive javadoc
--[ ] dao + gson som protected felter i command  
+-[ ] dao + gson som protected felter i command
+
+## Notater fra tog: 
+kommandoer må sette mange like httpheadere. 
+Mitt forslat til å løse dette: 
+    en klasse for listcommands (eks.) som setter de headere som vil være felles for 
+    alle list-kommadoer. 
+    Den arver fra command og overrider applyStandardHttp()-metode fra Command. 
+    
+    Dette tillater: 
+    1. Å flytte Gson-objektet nedover -> ikke alle comamands skal jobbe med JSON, men vi slipper rot for 
+    de som skal.
+    2. Mye mindre gjentagende kode på de faktiske kommandoene    
 
 moduler: 
 
