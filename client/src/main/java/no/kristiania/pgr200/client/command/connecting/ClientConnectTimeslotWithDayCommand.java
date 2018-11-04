@@ -7,7 +7,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-public class ServerConnectTimeslotWithDayCommand extends ConnectTimeslotWithDayCommand {
+public class ClientConnectTimeslotWithDayCommand extends ConnectTimeslotWithDayCommand {
 
     @Override
     public HttpResponse execute(DataSource dataSource) throws SQLException {

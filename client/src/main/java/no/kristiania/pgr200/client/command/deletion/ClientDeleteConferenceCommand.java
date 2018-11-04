@@ -1,24 +1,17 @@
 package no.kristiania.pgr200.client.command.deletion;
 
+import no.kristiania.pgr200.client.HttpResponse;
 import no.kristiania.pgr200.core.command.deletion.DeleteConferenceCommand;
-import no.kristiania.pgr200.core.model.Conference;
-import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.command.ServerCommand;
-import no.kristiania.pgr200.server.database.dao.ConferenceDao;
-import no.kristiania.pgr200.server.database.dao.Dao;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-public class ServerDeleteConferenceCommand extends DeleteConferenceCommand implements ServerCommand {
+public class ClientDeleteConferenceCommand extends DeleteConferenceCommand {
 
     @Override
-    public ServerResponse execute(DataSource dataSource) throws SQLException {
-        Dao<Conference> dao = new ConferenceDao(dataSource);
-        dao.delete(id);
-        assignStandardHttp(id);
-        return response;
-
+    public HttpResponse execute(DataSource dataSource) throws SQLException {
+        throw new NotImplementedException();
     }
 
 }

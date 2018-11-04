@@ -5,7 +5,8 @@
 -[ ] Bytt til POST med data i body 
 -[ ] Gå over alle Fixme's og todo's 
 -[ ] Fjerne alle dependencies fra eksamen-pom
--[ ] Ha en index.html herokuapp.com/schedule som viser schedule rendret  
+-[ ] Ha en index.html herokuapp.com/schedule som viser schedule rendret
+-[ ] Gå gjennom ALLE klasser bit for bit og skriv forklarende doc for _alle_ klasser og noen metoder   
 -[ ] Skrive javadoc
 -[ ] dao + gson som protected felter i command
 -[ ] client lytter etter kommandoer, behøver ikke kjøre java-jar hver gang (har en "prompt")
