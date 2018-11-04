@@ -1,8 +1,7 @@
-package no.kristiania.pgr200.core.command.listing;
+package no.kristiania.pgr200.server.command.deletion;
 
-import no.kristiania.pgr200.core.model.Talk;
 import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.core.command.Command;
+import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.TalkDao;
 
 import javax.sql.DataSource;
@@ -10,12 +9,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class ListSpecificTalkCommand extends ListCommand {
+public class DeleteTalkCommand extends DeletionCommand {
 
     private UUID id;
 
-
-    private ListSpecificTalkCommand withId(UUID id) {
+    private Command withId(UUID id) {
         this.id = id;
         return this;
     }
@@ -25,17 +23,17 @@ public class ListSpecificTalkCommand extends ListCommand {
 
         UUID id = getId(parameters.get("id"));
 
-        return new ListSpecificTalkCommand()
+        return new DeleteTalkCommand()
                 .withId(id);
     }
 
+
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
-        TalkDao dao =  new TalkDao(dataSource);
-        Talk talk = dao.retrieve(id);
-
-        assignStandardHttp(talk);
-
+        TalkDao dao = new TalkDao(dataSource);
+        dao.delete(id);
+        assignStandardHttp(id);
         return response;
     }
+
 }

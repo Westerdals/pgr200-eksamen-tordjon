@@ -1,8 +1,9 @@
-package no.kristiania.pgr200.core.command;
+package no.kristiania.pgr200.server.command;
 
 
 import com.google.gson.Gson;
 import no.kristiania.pgr200.server.ServerResponse;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;

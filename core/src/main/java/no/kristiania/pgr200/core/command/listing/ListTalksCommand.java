@@ -1,9 +1,9 @@
-package no.kristiania.pgr200.core.command.listing;
+package no.kristiania.pgr200.server.command.listing;
 
 
 import no.kristiania.pgr200.core.model.Talk;
 import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.core.command.Command;
+import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.Dao;
 import no.kristiania.pgr200.server.database.dao.TalkDao;
 

@@ -1,19 +1,19 @@
-package no.kristiania.pgr200.core.command.deletion;
+package no.kristiania.pgr200.server.command.deletion;
 
 import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.core.command.Command;
-import no.kristiania.pgr200.server.database.dao.TalkDao;
+import no.kristiania.pgr200.server.command.Command;
+import no.kristiania.pgr200.server.database.dao.DayDao;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class DeleteTalkCommand extends DeletionCommand {
+public class DeleteDayCommand extends DeletionCommand {
 
-    private UUID id;
+    UUID id;
 
-    private Command withId(UUID id) {
+    private DeleteDayCommand withId(UUID id) {
         this.id = id;
         return this;
     }
@@ -23,17 +23,15 @@ public class DeleteTalkCommand extends DeletionCommand {
 
         UUID id = getId(parameters.get("id"));
 
-        return new DeleteTalkCommand()
-                .withId(id);
+        return new DeleteDayCommand()
+                 .withId(id);
     }
-
 
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
-        TalkDao dao = new TalkDao(dataSource);
-        dao.delete(id);
+        DayDao dayDao = new DayDao(dataSource);
+        dayDao.delete(id);
         assignStandardHttp(id);
         return response;
     }
-
 }

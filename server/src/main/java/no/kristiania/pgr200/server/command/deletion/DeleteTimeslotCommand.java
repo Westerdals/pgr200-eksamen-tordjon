@@ -1,6 +1,6 @@
-package no.kristiania.pgr200.server.command.deletion;
+package no.kristiania.pgr200.core.command.deletion;
 import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.command.Command;
+import no.kristiania.pgr200.core.command.Command;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
 
 import javax.sql.DataSource;
