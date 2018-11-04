@@ -1,26 +1,22 @@
-package no.kristiania.pgr200.server.command;
+package no.kristiania.pgr200.client.command;
 
 
-import com.google.gson.Gson;
-import no.kristiania.pgr200.server.ServerResponse;
+import no.kristiania.pgr200.client.HttpResponse;
+import no.kristiania.pgr200.core.command.InvalidInputCommand;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.HashMap;
 
-public class InvalidInputCommand extends Command {
+public class ClientInvalidInputCommand extends InvalidInputCommand {
+
 
     @Override
-    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        return this;
+    public HttpResponse execute(DataSource dataSource) throws SQLException {
+        throw new NotImplementedException();
     }
 
-    @Override
-    public ServerResponse execute(DataSource dataSource) throws SQLException {
-
-       // System.out.println(
-        String helpText =
-                "-----------------------------------\n" +
+    /*   "-----------------------------------\n" +
                 "|These are the possible commands: |\n" +
                 "-----------------------------------\n" +
                 "reset db\n" +
@@ -76,18 +72,5 @@ public class InvalidInputCommand extends Command {
                 "\n\n" + 
                 "You may also refer to the documentation for further information." +
                 "\n\n";
-        assignStandardHttp(helpText);
-        return response;
-    }
-
-    @Override
-    public <T> void assignStandardHttp(T content){
-    Gson gson = new Gson();
-    String json = gson.toJson(content);
-
-        response.setStatus(200);
-        response.getHeaders().put("Content-Type", "application/json");
-        response.getHeaders().put("Content-Length", json.length() + "");
-        response.setBody(json);
-    }
+*/
 }

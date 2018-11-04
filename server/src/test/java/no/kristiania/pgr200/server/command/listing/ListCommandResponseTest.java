@@ -14,10 +14,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ListCommandResponseTest { //TODO: Heter ListCommandResponseTest fordi det er responsen som testes. Kan også hete ListCommandTest
 
-    private ListCommand command;
+    //private ListCommand command;
     private DataSource dataSource;
 
-    @Before
+    /*@Before
     public void pickRandomListCommand() {
 
         ListCommand[] commands = {
@@ -31,7 +31,7 @@ public class ListCommandResponseTest { //TODO: Heter ListCommandResponseTest for
         int index = new Random().nextInt(commands.length);
 
         command = commands[index];
-    }
+    }*/
 
     @Before
     public void setDataSource() throws IOException {

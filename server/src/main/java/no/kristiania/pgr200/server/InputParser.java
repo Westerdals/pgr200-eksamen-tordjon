@@ -49,8 +49,8 @@ public class InputParser {
         map.put("/api/insert/day", ServerInsertDayCommand.class);
         map.put("/api/list/talks", ServerListTalksCommand.class);
         map.put("/api/insert/conference", ServerInsertConferenceCommand.class);
-        map.put("/api/insert/democonference", CreateDemoConferenceCommand.class);
-        map.put("/api/showschedule", ShowScheduleCommand.class);
+        map.put("/api/insert/democonference", ServerCreateDemoConferenceCommand.class);
+        map.put("/api/showschedule", ServerShowScheduleCommand.class);
 
 
         // talk
@@ -87,11 +87,11 @@ public class InputParser {
         //map.put("remove timeslot-with-day", ServerConnectTimeslotWithDayCommand.class);
 
         //show conference program
-        map.put("show schedule", ShowScheduleCommand.class);
+        map.put("show schedule", ServerShowScheduleCommand.class);
         //create demo conference
-        map.put("create demo", CreateDemoConferenceCommand.class);
+        map.put("create demo", ServerCreateDemoConferenceCommand.class);
         // resetting the no.kristiania.pgr200.server.database
-        map.put("reset db", ResetDBCommand.class);/
+        map.put("reset db", ServerResetDBCommand.class);/
 
 
 

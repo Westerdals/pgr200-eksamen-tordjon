@@ -1,5 +1,6 @@
 package no.kristiania.pgr200.server.command;
 
+import no.kristiania.pgr200.core.command.ResetDBCommand;
 import no.kristiania.pgr200.server.HttpServer;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.database.Util;
@@ -10,13 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class ResetDBCommand extends Command {
-
-    @Override
-    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        return new ResetDBCommand();
-    }
-
+public class ServerResetDBCommand extends ResetDBCommand implements ServerCommand {
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
         //FIXME:
@@ -29,11 +24,6 @@ public class ResetDBCommand extends Command {
             response.setStatus(500);
         }
         return response;
-    }
-
-    @Override
-    public <T> void assignStandardHttp(T content) {
-        throw new NotImplementedException();
     }
 
 }

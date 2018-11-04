@@ -1,6 +1,6 @@
 package no.kristiania.pgr200.server.command;
 
-import com.google.gson.Gson;
+import no.kristiania.pgr200.core.command.CreateDemoConferenceCommand;
 import no.kristiania.pgr200.core.model.Conference;
 import no.kristiania.pgr200.core.model.Day;
 import no.kristiania.pgr200.core.model.Talk;
@@ -15,13 +15,8 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
 
-public class CreateDemoConferenceCommand extends Command {
-    @Override
-    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        return new CreateDemoConferenceCommand();
-    }
+public class ServerCreateDemoConferenceCommand extends CreateDemoConferenceCommand implements ServerCommand{
 
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
@@ -85,14 +80,4 @@ public class CreateDemoConferenceCommand extends Command {
         return response;
     }
 
-    @Override
-    public <T> void assignStandardHttp(T content) {
-        Gson gson = new Gson();
-        String json = gson.toJson(content);
-
-        response.setStatus(200);
-        response.getHeaders().put("Content-Type", "application/json");
-        response.getHeaders().put("Content-Length", json.length() + "");
-        response.setBody(json);
-    }
 }

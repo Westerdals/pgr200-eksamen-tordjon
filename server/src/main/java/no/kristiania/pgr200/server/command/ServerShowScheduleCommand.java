@@ -2,6 +2,7 @@ package no.kristiania.pgr200.server.command;
 
 
 import com.google.gson.Gson;
+import no.kristiania.pgr200.core.command.ShowScheduleCommand;
 import no.kristiania.pgr200.core.model.Conference;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;
@@ -13,33 +14,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 
-public class ShowScheduleCommand extends Command {
-    private UUID id;
-
-    @Override
-    public Command build(HashMap<String, String> parameters) throws IllegalArgumentException {
-        UUID id = getId(parameters.get("id"));
-
-        return new ShowScheduleCommand()
-                .withId(id);
-
-    }
-
-    @Override
-    public <T> void assignStandardHttp(T content) {
-        Gson gson = new Gson();
-        String json = gson.toJson(content);
-
-        response.setStatus(200);
-        response.getHeaders().put("Content-Type", "application/json");
-        response.getHeaders().put("Content-Length", json.length() + "");
-        response.setBody(json);
-    }
-
-    private Command withId(UUID id) {
-        this.id = id;
-        return this;
-    }
+public class ServerShowScheduleCommand extends ShowScheduleCommand implements ServerCommand {
 
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
