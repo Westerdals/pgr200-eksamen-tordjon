@@ -1,25 +1,16 @@
 package no.kristiania.pgr200.client.command.listing;
 
+import no.kristiania.pgr200.client.HttpResponse;
 import no.kristiania.pgr200.core.command.listing.ListTimeslotsCommand;
-import no.kristiania.pgr200.core.model.Timeslot;
-import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.command.ServerCommand;
-import no.kristiania.pgr200.server.database.dao.Dao;
-import no.kristiania.pgr200.server.database.dao.TimeslotDao;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.List;
 
-public class ServerListTimeslotsCommand extends ListTimeslotsCommand implements ServerCommand {
+public class ClientListTimeslotsCommand extends ListTimeslotsCommand {
 
     @Override
-    public ServerResponse execute(DataSource dataSource) throws SQLException {
-        Dao<Timeslot> dao = new TimeslotDao(dataSource);
-
-        List<Timeslot> timeslots = dao.retrieveAll();
-        assignStandardHttp(timeslots);
-
-        return response;
+    public HttpResponse execute(DataSource dataSource) throws SQLException {
+        throw new NotImplementedException();
     }
 }

@@ -1,26 +1,17 @@
 package no.kristiania.pgr200.client.command.insertion;
 
+import no.kristiania.pgr200.client.HttpResponse;
 import no.kristiania.pgr200.core.command.insertion.InsertConferenceCommand;
-import no.kristiania.pgr200.core.model.Conference;
-import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.command.ServerCommand;
-import no.kristiania.pgr200.server.database.dao.ConferenceDao;
-import no.kristiania.pgr200.server.database.dao.Dao;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-public class ServerInsertConferenceCommand extends InsertConferenceCommand implements ServerCommand {
+public class ClientInsertConferenceCommand extends InsertConferenceCommand {
 
 
     @Override
-    public ServerResponse execute(DataSource dataSource) throws SQLException {
-        Dao<Conference> dao = new ConferenceDao(dataSource);
-        Conference conference = new Conference(name);
-        dao.insert(conference);
-
-
-        assignStandardHttp(conference);
-        return response;
+    public HttpResponse execute(DataSource dataSource) throws SQLException {
+        throw new NotImplementedException();
     }
 }

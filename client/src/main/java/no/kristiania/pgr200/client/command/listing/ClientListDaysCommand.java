@@ -1,26 +1,17 @@
 package no.kristiania.pgr200.client.command.listing;
 
 
+import no.kristiania.pgr200.client.HttpResponse;
 import no.kristiania.pgr200.core.command.listing.ListDaysCommand;
-import no.kristiania.pgr200.core.model.Day;
-import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.command.ServerCommand;
-import no.kristiania.pgr200.server.database.dao.Dao;
-import no.kristiania.pgr200.server.database.dao.DayDao;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.List;
 
-public class ServerListDaysCommand extends ListDaysCommand implements ServerCommand {
+public class ClientListDaysCommand extends ListDaysCommand  {
 
     @Override
-    public ServerResponse execute(DataSource dataSource) throws SQLException {
-        Dao<Day> dao = new DayDao(dataSource);
-        List<Day> days = dao.retrieveAll();
-
-        assignStandardHttp(days);
-
-        return response;
+    public HttpResponse execute(DataSource dataSource) throws SQLException {
+        throw new NotImplementedException();
     }
 }
