@@ -1,16 +1,15 @@
 package no.kristiania.pgr200.server.command;
 
 import com.google.gson.Gson;
-import model.Conference;
-import model.Day;
-import model.Talk;
-import model.Timeslot;
+import no.kristiania.pgr200.core.model.Conference;
+import no.kristiania.pgr200.core.model.Day;
+import no.kristiania.pgr200.core.model.Talk;
+import no.kristiania.pgr200.core.model.Timeslot;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;
 import no.kristiania.pgr200.server.database.dao.DayDao;
 import no.kristiania.pgr200.server.database.dao.TalkDao;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;

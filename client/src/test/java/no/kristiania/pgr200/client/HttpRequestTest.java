@@ -3,9 +3,8 @@ package no.kristiania.pgr200.client;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import model.Conference;
-import model.Talk;
-import org.junit.Before;
+import no.kristiania.pgr200.core.model.Conference;
+import no.kristiania.pgr200.core.model.Talk;
 import org.junit.Test;
 
 import java.io.IOException;

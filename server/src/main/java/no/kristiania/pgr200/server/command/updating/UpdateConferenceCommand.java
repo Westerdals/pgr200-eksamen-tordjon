@@ -1,7 +1,7 @@
 package no.kristiania.pgr200.server.command.updating;
 
 
-import model.Conference;
+import no.kristiania.pgr200.core.model.Conference;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.ConferenceDao;

@@ -1,4 +1,4 @@
-package model;
+package no.kristiania.pgr200.core.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package no.kristiania.pgr200.server.command.updating;
 
-import model.Talk;
+import no.kristiania.pgr200.core.model.Talk;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.TalkDao;

@@ -1,6 +1,6 @@
 package no.kristiania.pgr200.server.command.listing;
 
-import model.Timeslot;
+import no.kristiania.pgr200.core.model.Timeslot;
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.Command;
 import no.kristiania.pgr200.server.database.dao.Dao;

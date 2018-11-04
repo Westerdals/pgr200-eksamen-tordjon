@@ -9,6 +9,7 @@
 -[ ] Ha en index.html herokuapp.com/schedule som viser schedule rendret  
 -[ ] Skrive javadoc
 -[ ] dao + gson som protected felter i command
+-[ ] client lytter etter kommandoer, behøver ikke kjøre java-jar hver gang (har en "prompt")
 
 ## Notater fra tog: 
 kommandoer må sette mange like httpheadere. 
@@ -125,7 +126,7 @@ I tilbakemeldingen er det lurt å stille spørsmålene: 1. Hva lærte jeg av den
 
 ### Forslag til datamodell
 
-![Datamodell](doc/conference-data-model.png)
+![Datamodell](doc/conference-data-no.kristiania.pgr200.core.model.png)
 
 ## Sjekkliste for innleveringen
 

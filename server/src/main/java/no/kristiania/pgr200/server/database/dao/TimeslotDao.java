@@ -1,7 +1,7 @@
 package no.kristiania.pgr200.server.database.dao;
 
-import model.Talk;
-import model.Timeslot;
+import no.kristiania.pgr200.core.model.Talk;
+import no.kristiania.pgr200.core.model.Timeslot;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;

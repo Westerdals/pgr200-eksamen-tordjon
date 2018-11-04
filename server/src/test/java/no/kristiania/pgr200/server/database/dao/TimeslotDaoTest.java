@@ -1,9 +1,9 @@
 package no.kristiania.pgr200.server.database.dao;
 
 
-import model.Day;
-import model.Talk;
-import model.Timeslot;
+import no.kristiania.pgr200.core.model.Day;
+import no.kristiania.pgr200.core.model.Talk;
+import no.kristiania.pgr200.core.model.Timeslot;
 import no.kristiania.pgr200.server.database.Util;
 import org.junit.Before;
 import org.junit.Test;
