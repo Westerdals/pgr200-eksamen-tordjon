@@ -13,6 +13,13 @@
 ## Notater fra tog :D 
 DaoTest.createDao() er lik i alle tester. Burde det være default-metode?
 
+
+## Notes 
+Refaktorering: 
+Commands ligger i core -> client/server implementerer bare execute.
+For at det skal fungere, må også client gi et map med eks. "title", "Tords toalettguide"
+Dvs. at parsing i client fungerer litt som i første øving, men at argumenter parsers på forhånd.          
+
 -[ ] wrapper-klasser rundt JSON som sier hva slags operasjon som ble gjort mm. 
 
 ## Todo sunday 
