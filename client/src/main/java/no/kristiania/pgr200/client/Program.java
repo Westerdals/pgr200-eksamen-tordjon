@@ -1,9 +1,6 @@
 package no.kristiania.pgr200.client;
 
 
-
-
-
 import no.kristiania.pgr200.client.command.ClientCreateDemoConferenceCommand;
 import no.kristiania.pgr200.client.command.ClientResetDBCommand;
 import no.kristiania.pgr200.client.command.ClientShowScheduleCommand;
@@ -25,12 +22,12 @@ import no.kristiania.pgr200.client.command.updating.ClientUpdateConferenceComman
 import no.kristiania.pgr200.client.command.updating.ClientUpdateDayCommand;
 import no.kristiania.pgr200.client.command.updating.ClientUpdateTalkCommand;
 import no.kristiania.pgr200.client.command.updating.ClientUpdateTimeslotCommand;
+
 import no.kristiania.pgr200.core.ArgumentParser;
 import no.kristiania.pgr200.core.command.Command;
 import no.kristiania.pgr200.server.command.connecting.ClientConnectDayWithConference;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,11 +49,12 @@ public class Program {
 
         //path = args[0] + " " + [1];
         //parameters = ArgumentParser.parse(args); <- returnerer et map med f.eks. "title", "toalettguiden"
-        HashMap<String, String> parameters = new HashMap<>(); //ArgumentParser.getArgument("-title", args, "lala");
+        HashMap<String, String> parameters = ArgumentParser.getArguments(args);
         Command command = Command.createCommand(populateCommandMap(), args[0] + " " + args[1], parameters);
 
         try {
-            command.execute(dataSource);
+            HttpResponse response = command.execute(dataSource);
+            System.out.println(response.getBody());
         } catch (SQLException e) {
             //client should never experience an SQLException(?), but it is thrown by execute in Command.
             e.printStackTrace();
