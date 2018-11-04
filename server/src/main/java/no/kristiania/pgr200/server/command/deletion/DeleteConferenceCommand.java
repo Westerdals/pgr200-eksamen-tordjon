@@ -31,7 +31,9 @@ public class DeleteConferenceCommand extends DeletionCommand {
     public ServerResponse execute(DataSource dataSource) throws SQLException {
         Dao<Conference> dao = new ConferenceDao(dataSource);
         dao.delete(id);
-        return null;
+        assignStandardHttp(id);
+        return response;
+
     }
 
 }

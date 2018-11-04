@@ -50,6 +50,9 @@ public class InsertTimeslotCommand extends InsertionCommand {
         Timeslot timeslot = new Timeslot(start, end);
 
         dao.insert(timeslot);
-        return null;
+
+
+        assignStandardHttp(timeslot);
+        return response;
     }
 }

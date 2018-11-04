@@ -23,10 +23,12 @@ public class ResetDBCommand extends Command {
         String filename = HttpServer.propertiesFileName;
         try {
             Util.resetDatabase(filename);
+            response.setStatus(200);
         } catch (IOException e) {
             System.out.println("Could not reset no.kristiania.pgr200.server.database.");
+            response.setStatus(500);
         }
-        return null;
+        return response;
     }
 
     @Override

@@ -28,7 +28,13 @@ public class ShowScheduleCommand extends Command {
 
     @Override
     public <T> void assignStandardHttp(T content) {
-        throw new NotImplementedException();
+        Gson gson = new Gson();
+        String json = gson.toJson(content);
+
+        response.setStatus(200);
+        response.getHeaders().put("Content-Type", "application/json");
+        response.getHeaders().put("Content-Length", json.length() + "");
+        response.setBody(json);
     }
 
     private Command withId(UUID id) {
@@ -56,11 +62,7 @@ public class ShowScheduleCommand extends Command {
                 System.out.println("\t\t\t description: " + talk.getDescription());
             }
         }*/
-        ServerResponse response = new ServerResponse();
-
-        Gson g = new Gson();
-        response.setBody(g.toJson(conference));
-        response.setStatus(200);
+        assignStandardHttp(conference);
         return response;
     }
 }

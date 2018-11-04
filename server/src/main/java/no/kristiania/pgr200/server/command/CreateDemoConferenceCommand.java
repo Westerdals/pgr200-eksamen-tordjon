@@ -1,5 +1,6 @@
 package no.kristiania.pgr200.server.command;
 
+import com.google.gson.Gson;
 import model.Conference;
 import model.Day;
 import model.Talk;
@@ -81,11 +82,18 @@ public class CreateDemoConferenceCommand extends Command {
         System.out.println(retrievedBlizzcon);
 
 
-        return null;
+        assignStandardHttp(retrievedBlizzcon);
+        return response;
     }
 
     @Override
     public <T> void assignStandardHttp(T content) {
-        throw new NotImplementedException();
+        Gson gson = new Gson();
+        String json = gson.toJson(content);
+
+        response.setStatus(200);
+        response.getHeaders().put("Content-Type", "application/json");
+        response.getHeaders().put("Content-Length", json.length() + "");
+        response.setBody(json);
     }
 }

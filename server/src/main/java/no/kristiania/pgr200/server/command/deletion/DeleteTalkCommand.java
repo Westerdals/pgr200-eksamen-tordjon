@@ -32,7 +32,8 @@ public class DeleteTalkCommand extends DeletionCommand {
     public ServerResponse execute(DataSource dataSource) throws SQLException {
         TalkDao dao = new TalkDao(dataSource);
         dao.delete(id);
-        return null;
+        assignStandardHttp(id);
+        return response;
     }
 
 }
