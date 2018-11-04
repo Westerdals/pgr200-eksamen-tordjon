@@ -28,7 +28,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ConnectingCommandResponseTest {
 
-    private ConnectingCommand command;
+    /*private ConnectingCommand command;
     private DataSource dataSource;
 
 
@@ -87,6 +87,6 @@ public class ConnectingCommandResponseTest {
 
         assertThat(response.getHeaders().get("Content-Length"))
                 .isEqualTo("0");
-    }
+    }*/
 
 }

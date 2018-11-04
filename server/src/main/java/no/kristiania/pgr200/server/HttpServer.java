@@ -4,6 +4,13 @@ package no.kristiania.pgr200.server;
 import no.kristiania.pgr200.core.http.uri.Path;
 import no.kristiania.pgr200.core.http.uri.Uri;
 import no.kristiania.pgr200.core.command.Command;
+import no.kristiania.pgr200.server.command.ServerCommand;
+import no.kristiania.pgr200.server.command.ServerCreateDemoConferenceCommand;
+import no.kristiania.pgr200.server.command.ServerShowScheduleCommand;
+import no.kristiania.pgr200.server.command.insertion.ServerInsertConferenceCommand;
+import no.kristiania.pgr200.server.command.insertion.ServerInsertDayCommand;
+import no.kristiania.pgr200.server.command.insertion.ServerInsertTalkCommand;
+import no.kristiania.pgr200.server.command.listing.ServerListTalksCommand;
 import no.kristiania.pgr200.server.database.Util;
 
 import javax.sql.DataSource;
@@ -76,9 +83,18 @@ public class HttpServer {
         //done "retrieving request"
 
 
+        if(path.toString().equals("/favicon.ico")){
+            ServerResponse sr = new ServerResponse();
+            sr.setStatus(404);
+            writeResponse(output, sr );
+            return;
+        }
+
+
+
         dataSource = Util.createDataSource(propertiesFileName);
         // User input is passed on
-        Command command = Command.createCommand(path, parameters);
+        Command command = Command.createCommand(populateCommandMap(), path.toString(), parameters);
 
         try {
             serverResponse = command.execute(dataSource);
@@ -111,7 +127,7 @@ public class HttpServer {
             output.write((entry.getKey() + ": " + entry.getValue() + "\r\n").getBytes());
         }
 
-        output.write(("Content-length: " + response.getBody().length() + "\r\n").getBytes());
+        //output.write(("Content-length: " + response.getBody().length() + "\r\n").getBytes());
         output.write("\r\n".getBytes());
         output.write(response.getBody().getBytes());
         output.flush();
@@ -151,6 +167,21 @@ public class HttpServer {
 
     public int getPort() {
         return actualPort;
+    }
+
+
+    private Map<String, Class<? extends Command>> populateCommandMap() {
+        Map<String, Class<? extends Command>> map = new HashMap<>();
+
+        map.put("/api/insert/talk", ServerInsertTalkCommand.class);
+        map.put("/api/insert/day", ServerInsertDayCommand.class);
+        map.put("/api/list/talks", ServerListTalksCommand.class);
+        map.put("/api/insert/conference", ServerInsertConferenceCommand.class);
+        map.put("/api/insert/democonference", ServerCreateDemoConferenceCommand.class);
+        map.put("/api/showschedule", ServerShowScheduleCommand.class);
+
+        return map;
+
     }
 
 }

@@ -1,7 +1,7 @@
 package no.kristiania.pgr200.core.command;
 
+import no.kristiania.pgr200.core.InputParser;
 import no.kristiania.pgr200.core.http.uri.Path;
-import no.kristiania.pgr200.server.InputParser;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public abstract class Command {
@@ -21,8 +22,8 @@ public abstract class Command {
      * @return no.kristiania.pgr200.server.command based on user input
      * @throws IllegalArgumentException
      */
-    public static Command createCommand(Path path, HashMap<String, String> parameters) throws IllegalArgumentException {
-        return InputParser.decodeInput(path, parameters);
+    public static Command createCommand(Map<String, Class<? extends Command>> map, String path, HashMap<String, String> parameters) throws IllegalArgumentException {
+        return InputParser.decodeInput(map, path, parameters);
     }
 
 

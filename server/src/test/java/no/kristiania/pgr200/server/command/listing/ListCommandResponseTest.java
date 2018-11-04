@@ -31,7 +31,7 @@ public class ListCommandResponseTest { //TODO: Heter ListCommandResponseTest for
         int index = new Random().nextInt(commands.length);
 
         command = commands[index];
-    }*/
+    }
 
     @Before
     public void setDataSource() throws IOException {
@@ -61,5 +61,5 @@ public class ListCommandResponseTest { //TODO: Heter ListCommandResponseTest for
 
         assertThat(response.getHeaders().get("Content-Type"))
                 .isEqualTo("application/json");
-    }
+    }*/
 }
