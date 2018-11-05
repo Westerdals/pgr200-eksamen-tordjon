@@ -6,11 +6,27 @@ import no.kristiania.pgr200.core.http.uri.Uri;
 import no.kristiania.pgr200.core.command.Command;
 import no.kristiania.pgr200.server.command.ServerCommand;
 import no.kristiania.pgr200.server.command.ServerCreateDemoConferenceCommand;
+import no.kristiania.pgr200.server.command.ServerResetDBCommand;
 import no.kristiania.pgr200.server.command.ServerShowScheduleCommand;
+import no.kristiania.pgr200.server.command.connecting.ServerConnectDayWithConference;
+import no.kristiania.pgr200.server.command.connecting.ServerConnectTalkWithTimeslotCommand;
+import no.kristiania.pgr200.server.command.connecting.ServerConnectTimeslotWithDayCommand;
+import no.kristiania.pgr200.server.command.deletion.ServerDeleteConferenceCommand;
+import no.kristiania.pgr200.server.command.deletion.ServerDeleteDayCommand;
+import no.kristiania.pgr200.server.command.deletion.ServerDeleteTalkCommand;
+import no.kristiania.pgr200.server.command.deletion.ServerDeleteTimeslotCommand;
 import no.kristiania.pgr200.server.command.insertion.ServerInsertConferenceCommand;
 import no.kristiania.pgr200.server.command.insertion.ServerInsertDayCommand;
 import no.kristiania.pgr200.server.command.insertion.ServerInsertTalkCommand;
+import no.kristiania.pgr200.server.command.insertion.ServerInsertTimeslotCommand;
+import no.kristiania.pgr200.server.command.listing.ServerListConferencesCommand;
+import no.kristiania.pgr200.server.command.listing.ServerListDaysCommand;
 import no.kristiania.pgr200.server.command.listing.ServerListTalksCommand;
+import no.kristiania.pgr200.server.command.listing.ServerListTimeslotsCommand;
+import no.kristiania.pgr200.server.command.updating.ServerUpdateConferenceCommand;
+import no.kristiania.pgr200.server.command.updating.ServerUpdateDayCommand;
+import no.kristiania.pgr200.server.command.updating.ServerUpdateTalkCommand;
+import no.kristiania.pgr200.server.command.updating.ServerUpdateTimeslotCommand;
 import no.kristiania.pgr200.server.database.Util;
 
 import javax.sql.DataSource;
@@ -98,8 +114,12 @@ public class HttpServer {
 
         try {
             serverResponse = command.execute(dataSource);
-        } catch (SQLException e) {
-            serverResponse.setStatus(500);
+        } catch (Exception e) {
+            if(e instanceof SQLException){
+                serverResponse.setStatus(500);
+            }else{
+                e.printStackTrace();
+            }
         }
 
         //send response
@@ -177,13 +197,42 @@ public class HttpServer {
     private Map<String, Class<? extends Command>> populateCommandMap() {
         Map<String, Class<? extends Command>> map = new HashMap<>();
 
-        map.put("/api/insert/talk", ServerInsertTalkCommand.class);
-        map.put("/api/insert/day", ServerInsertDayCommand.class);
-        map.put("/api/list/talks", ServerListTalksCommand.class);
-        map.put("/api/insert/conference", ServerInsertConferenceCommand.class);
-        map.put("/api/insert/democonference", ServerCreateDemoConferenceCommand.class);
-        map.put("/api/showschedule", ServerShowScheduleCommand.class);
+        // talk
+        map.put("insert talk", ServerInsertTalkCommand.class);
+        map.put("list talks", ServerListTalksCommand.class);
+        map.put("delete talk", ServerDeleteTalkCommand.class);
+        map.put("update talk", ServerUpdateTalkCommand.class);
 
+        // day
+        map.put("insert day", ServerInsertDayCommand.class);
+        map.put("list days", ServerListDaysCommand.class);
+        map.put("delete day", ServerDeleteDayCommand.class);
+        map.put("update day", ServerUpdateDayCommand.class);
+
+        // timeslot
+        map.put("insert timeslot", ServerInsertTimeslotCommand.class);
+        map.put("list timeslots", ServerListTimeslotsCommand.class);
+        map.put("delete timeslot", ServerDeleteTimeslotCommand.class);
+        map.put("update timeslot", ServerUpdateTimeslotCommand.class);
+
+        // day
+        map.put("insert conference", ServerInsertConferenceCommand.class);
+        map.put("list conferences", ServerListConferencesCommand.class);
+        map.put("delete conference", ServerDeleteConferenceCommand.class);
+        map.put("update conference", ServerUpdateConferenceCommand.class);
+
+        // connecting
+        map.put("connect day-with-conference", ServerConnectDayWithConference.class);
+        map.put("connect talk-with-timeslot", ServerConnectTalkWithTimeslotCommand.class);
+        map.put("connect timeslot-with-day", ServerConnectTimeslotWithDayCommand.class);
+
+
+        //show conference program
+        map.put("show schedule", ServerShowScheduleCommand.class);
+        //create demo conference
+        map.put("create demo", ServerCreateDemoConferenceCommand.class);
+        // resetting the database
+        map.put("reset db", ServerResetDBCommand.class);
         return map;
 
     }

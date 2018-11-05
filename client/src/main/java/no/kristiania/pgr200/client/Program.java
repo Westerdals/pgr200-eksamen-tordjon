@@ -59,15 +59,6 @@ public class Program {
             }
         }
 
-
-        /*try {
-            command.execute(dataSource);
-        } catch (SQLException e) {
-            //client should never experience an SQLException(?), but it is thrown by execute in Command.
-            e.printStackTrace();
-        }*/
-
-
     }
     static private Map<String, Class<? extends Command>> populateCommandMap() {
         Map<String, Class<? extends Command>> map = new HashMap<>();
@@ -100,10 +91,6 @@ public class Program {
         map.put("connect day-with-conference", ClientConnectDayWithConference.class);
         map.put("connect talk-with-timeslot", ClientConnectTalkWithTimeslotCommand.class);
         map.put("connect timeslot-with-day", ClientConnectTimeslotWithDayCommand.class);
-
-        // TODO: SE OVER ISSE
-        //map.put("list talk-with-timeslot", ConnectTalkWithTimeslotCommand.class);
-        //map.put("remove timeslot-with-day", ConnectTimeslotWithDayCommand.class);
 
         //show conference program
         map.put("show schedule", ClientShowScheduleCommand.class);
