@@ -10,7 +10,7 @@ public abstract class UpdateTalkCommand extends Command {
     protected UUID id;
     protected String title;
     protected String description;
-    protected String topicTitle;
+    protected String topic;
 
     protected UpdateTalkCommand withId(UUID id) {
         this.id = id;
@@ -28,7 +28,7 @@ public abstract class UpdateTalkCommand extends Command {
     }
 
     protected UpdateTalkCommand withTopicTitle(String topic) {
-        this.topicTitle = topic;
+        this.topic = topic;
         return this;
     }
 
@@ -39,13 +39,13 @@ public abstract class UpdateTalkCommand extends Command {
         UUID id = getId(parameters.get("id"));
         String title = parameters.get("title");
         String description = parameters.get("description");
-        String topicTitle = parameters.get("topic");
+        String topic = parameters.get("topic");
 
         return this
                 .withId(id)
                 .withTitle(title)
                 .withDescription(description)
-                .withTopicTitle(topicTitle);
+                .withTopicTitle(topic);
     }
 
 }

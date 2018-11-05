@@ -26,7 +26,7 @@ public class ServerUpdateTalkCommand extends UpdateTalkCommand implements Server
                 id == null ? original.getId() : id,
                 title == null ? original.getTitle(): title,
                 description == null ? original.getDescription() : description,
-                topicTitle == null ? original.getTopicTitle() : topicTitle
+                topic == null ? original.getTopicTitle() : topic
         );
 
         dao.update(updated);
