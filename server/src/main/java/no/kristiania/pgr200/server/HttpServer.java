@@ -43,7 +43,6 @@ import java.util.Map;
 
 public class HttpServer {
 
-    private ServerSocket serverSocket;
     private int port;
     private int actualPort;
 
@@ -53,6 +52,10 @@ public class HttpServer {
     private HashMap<String, String> parameters;
     private Path path;
 
+    public HttpServer(int port, String propertiesFileName) {
+        this(port);
+        this.propertiesFileName = propertiesFileName;
+    }
 
     public HttpServer(int port) {
         this.port = port;
@@ -63,7 +66,7 @@ public class HttpServer {
     }
 
     public void start() throws IOException {
-        serverSocket = new ServerSocket(port);
+        ServerSocket serverSocket = new ServerSocket(port);
         this.actualPort = serverSocket.getLocalPort();
         Thread thread = new Thread(() ->  serverThread(serverSocket));
         thread.start();

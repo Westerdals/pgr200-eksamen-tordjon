@@ -2,17 +2,18 @@ package no.kristiania.pgr200.client;
 
 
 
+import no.kristiania.pgr200.client.command.insertion.ClientInsertTalkCommand;
 import no.kristiania.pgr200.client.command.listing.ClientListConferencesCommand;
+import no.kristiania.pgr200.server.HttpServer;
 import no.kristiania.pgr200.server.ServerManager;
 import no.kristiania.pgr200.server.database.Util;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.HashMap;
 
 
 import static no.kristiania.pgr200.client.Program.main;
@@ -41,6 +42,7 @@ public class ProgramTest {
         System.setOut(new PrintStream(outContent));
 
     }
+    /*@Ignore
     @Before
     public void init() throws IOException {
         setDatasource();
@@ -48,10 +50,22 @@ public class ProgramTest {
         main(new String[]{"reset", "db"});
         main(new String[]{"help"}); //Need to run the main method with any input to restore the no.kristiania.pgr200.server.database
         ServerManager.main(new String[]{});
-    }
+    }*/
+
+   /* @Ignore
     @After
     public void tearDown() throws IOException {
         ServerManager.kill();
+    }*/
+
+
+    @Before
+    public void init() throws IOException {
+
+        HttpServer httpServer = new HttpServer( 8080, "./../test.properties");
+        httpServer.start();
+
+        setDatasource();
     }
 
 
@@ -61,15 +75,7 @@ public class ProgramTest {
 
     @Test
     public void shouldCreateDemoConference() throws IOException {
-        ;
-        /*
 
-
-        assertThat(conferenceDao.retrieveAll().size()).isEqualTo(1);
-        assertThat(dayDao.retrieveAll().size()).isEqualTo(2);
-        assertThat(timeslotDao.retrieveAll().size()).isEqualTo(4);
-        assertThat(talkDao.retrieveAll().size()).isEqualTo(4);
-*/
         main(new String[]{
                 "create", "demo"
         });
@@ -78,7 +84,6 @@ public class ProgramTest {
                 new ClientListConferencesCommand().execute(dataSource);
         System.out.println("something");
         System.out.println(response.getBody());
-
     }
 
     /*
