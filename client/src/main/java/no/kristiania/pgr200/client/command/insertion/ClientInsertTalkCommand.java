@@ -20,6 +20,7 @@ public class ClientInsertTalkCommand extends InsertTalkCommand implements Client
         parameters.put("description", description);
         parameters.put("topic", topic);
 
+        System.out.println(parameters);
         Uri uri = new Uri("/api/insert/talk", parameters);
         HttpRequest req = new HttpRequest("localhost", 8080, uri.toString());
 
@@ -29,7 +30,7 @@ public class ClientInsertTalkCommand extends InsertTalkCommand implements Client
         }
 
 
-        System.out.println("Inserted new client: ");
+        System.out.println("Inserted new talk: ");
         Talk retrieved = gson.fromJson(response.getBody(), Talk.class);
         System.out.println(retrieved);
         return response;

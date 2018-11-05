@@ -2,19 +2,22 @@ package no.kristiania.pgr200.core.http.uri;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Query {
 
-    private HashMap<String, String> arguments;
+    private HashMap<String, String> arguments = new HashMap<>();
 
     public Query(String arguments) {
         this.arguments = getArgumentsFrom(arguments);
     }
 
     public Query(HashMap<String, String> arguments) {
-        this.arguments = arguments;
+        for(Map.Entry e : arguments.entrySet()){
+            this.arguments.put(URLEncoder.encode(e.getKey().toString()), URLEncoder.encode(e.getValue().toString()));
+        }
     }
 
     public String getArgument(String key) {
@@ -52,7 +55,7 @@ public class Query {
 
     @Override
     public String toString() {
-
+        System.out.println(arguments);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("?");
         for(Map.Entry entry : arguments.entrySet()) {

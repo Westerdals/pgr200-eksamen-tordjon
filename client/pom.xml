@@ -85,7 +85,7 @@
                             <artifactSet>
                                 <includes>
                                     <include>no.kristiania.pgr200:core</include>
-                                    <include>com.google.code:gson</include>
+                                    <include>com.google.code.gson:gson</include>
 
                                 </includes>
                             </artifactSet>
