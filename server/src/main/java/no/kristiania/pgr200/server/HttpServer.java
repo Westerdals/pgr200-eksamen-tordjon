@@ -197,42 +197,53 @@ public class HttpServer {
     private Map<String, Class<? extends Command>> populateCommandMap() {
         Map<String, Class<? extends Command>> map = new HashMap<>();
 
+        map.put("/api/insert/talk", ServerInsertTalkCommand.class);
+        map.put("/api/insert/day", ServerInsertDayCommand.class);
+        map.put("/api/list/talks", ServerListTalksCommand.class);
+        map.put("/api/list/conferences", ServerListConferencesCommand.class);
+        map.put("/api/insert/conference", ServerInsertConferenceCommand.class);
+        map.put("/api/insert/democonference", ServerCreateDemoConferenceCommand.class);
+        map.put("/api/showschedule", ServerShowScheduleCommand.class);
+
+
+
+
         // talk
-        map.put("insert talk", ServerInsertTalkCommand.class);
-        map.put("list talks", ServerListTalksCommand.class);
-        map.put("delete talk", ServerDeleteTalkCommand.class);
-        map.put("update talk", ServerUpdateTalkCommand.class);
+        map.put("/api/insert/talk", ServerInsertTalkCommand.class);
+        map.put("/api/list/talks", ServerListTalksCommand.class);
+        map.put("/api/delete/talk", ServerDeleteTalkCommand.class);
+        map.put("/api/update/talk", ServerUpdateTalkCommand.class);
 
         // day
-        map.put("insert day", ServerInsertDayCommand.class);
-        map.put("list days", ServerListDaysCommand.class);
-        map.put("delete day", ServerDeleteDayCommand.class);
-        map.put("update day", ServerUpdateDayCommand.class);
+        map.put("/api/insert/day", ServerInsertDayCommand.class);
+        map.put("/api/insert/day", ServerListDaysCommand.class);
+        map.put("/api/insert/day", ServerDeleteDayCommand.class);
+        map.put("/api/insert/day", ServerUpdateDayCommand.class);
 
         // timeslot
-        map.put("insert timeslot", ServerInsertTimeslotCommand.class);
-        map.put("list timeslots", ServerListTimeslotsCommand.class);
-        map.put("delete timeslot", ServerDeleteTimeslotCommand.class);
-        map.put("update timeslot", ServerUpdateTimeslotCommand.class);
+        map.put("/api/insert/day", ServerInsertTimeslotCommand.class);
+        map.put("/api/insert/day", ServerListTimeslotsCommand.class);
+        map.put("/api/insert/day", ServerDeleteTimeslotCommand.class);
+        map.put("/api/insert/day", ServerUpdateTimeslotCommand.class);
 
         // day
-        map.put("insert conference", ServerInsertConferenceCommand.class);
-        map.put("list conferences", ServerListConferencesCommand.class);
-        map.put("delete conference", ServerDeleteConferenceCommand.class);
-        map.put("update conference", ServerUpdateConferenceCommand.class);
+        map.put("/api/insert/day", ServerInsertConferenceCommand.class);
+        map.put("/api/insert/day", ServerListConferencesCommand.class);
+        map.put("/api/insert/day", ServerDeleteConferenceCommand.class);
+        map.put("/api/insert/day", ServerUpdateConferenceCommand.class);
 
         // connecting
-        map.put("connect day-with-conference", ServerConnectDayWithConference.class);
-        map.put("connect talk-with-timeslot", ServerConnectTalkWithTimeslotCommand.class);
-        map.put("connect timeslot-with-day", ServerConnectTimeslotWithDayCommand.class);
+        map.put("/api/connect/day-with-conference", ServerConnectDayWithConference.class);
+        map.put("/api/connect/talk-with-timeslot", ServerConnectTalkWithTimeslotCommand.class);
+        map.put("/api/connect/timeslot-with-day", ServerConnectTimeslotWithDayCommand.class);
 
 
         //show conference program
-        map.put("show schedule", ServerShowScheduleCommand.class);
+        map.put("/api/showschedule", ServerShowScheduleCommand.class);
         //create demo conference
-        map.put("create demo", ServerCreateDemoConferenceCommand.class);
+        map.put("/api/createdemo", ServerCreateDemoConferenceCommand.class);
         // resetting the database
-        map.put("reset db", ServerResetDBCommand.class);
+        map.put("/api/resetdb", ServerResetDBCommand.class);
         return map;
 
     }
