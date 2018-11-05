@@ -30,7 +30,7 @@ public class ClientInsertTalkCommand extends InsertTalkCommand implements Client
         }
 
 
-        System.out.println("Inserted new talk: ");
+        System.out.println("Inserted new client: ");
         Talk retrieved = gson.fromJson(response.getBody(), Talk.class);
         System.out.println(retrieved);
         return response;

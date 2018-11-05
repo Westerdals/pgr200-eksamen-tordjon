@@ -27,7 +27,7 @@ Dvs. at parsing i client fungerer litt som i første øving, men at argumenter p
 1. rydd i clientinserttalkcommand
 2. fyll inn alle client-commands
 3. TordTest, Olav JavaDoc + rydd  
-
+4. "localhost" er hardkodet, ligge i proeprties-fil? 
 
 moduler: 
 
