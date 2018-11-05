@@ -2,60 +2,62 @@ package no.kristiania.pgr200.core.http.uri;
 
 import org.junit.Test;
 
+import java.io.UnsupportedEncodingException;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.Assert.*;
 
 public class QueryTest {
     @Test
-    public void shouldReturnQuery() {
-        Query query = new Query("example.com/path?first=value1&second=value2");
+    public void shouldReturnQuery() throws UnsupportedEncodingException {
+        Query query = new Uri("example.com/path?first=value1&second=value2").getQuery();
 
-        assertThat(query.getQuery()).isEqualTo("first=value1&second=value2");
+        assertThat(query.toString()).isEqualTo("first=value1&second=value2");
     }
 
     @Test
-    public void shouldHandleEmtpyQuery() {
-        Query query = new Query("example.com/path");
+    public void shouldHandleEmtpyQuery() throws UnsupportedEncodingException {
+        Query query = new Uri("example.com/path").getQuery();
 
-        assertThat(query.getQuery()).isEqualTo("");
+        assertThat(query.toString()).isEqualTo("");
     }
 
     @Test
-    public void shouldHandleEmptyButSpecifiedQuery() {
+    public void shouldHandleEmptyButSpecifiedQuery() throws UnsupportedEncodingException {
         Query query = new Query("ex.com/path?");
 
-        assertThat(query.getQuery()).isEqualTo("");
+        assertThat(query.toString()).isEqualTo("");
     }
 
     @Test
-    public void shoudGiveValue() {
-        Query query = new Query("example.com/path?name=john");
+    public void shoudGiveValue() throws UnsupportedEncodingException {
+        Query query = new Query("name=john");
 
-        assertThat(query.getValue("name")).isEqualTo("john");
+        assertThat(query.getArgument("name")).isEqualTo("john");
     }
 
     @Test
-    public void shoudGiveAnotherValue() {
-        Query query = new Query("example.com/path?name=guro");
+    public void shoudGiveAnotherValue() throws UnsupportedEncodingException {
+        Query query = new Query("name=guro");
 
-        assertThat(query.getValue("name")).isEqualTo("guro");
+        assertThat(query.getArgument("name")).isEqualTo("guro");
     }
 
 
 
     @Test
-    public void shouldHandleMultipleParameters() {
-        Query query = new Query("example.com/path?name=john&age=25");
+    public void shouldHandleMultipleParameters() throws UnsupportedEncodingException {
+        Query query = new Query("name=john&age=25");
 
-        assertThat(query.getValue("name")).isEqualTo("john");
-        assertThat(query.getValue("age")).isEqualTo("25");
+        assertThat(query.getArgument("name")).isEqualTo("john");
+        assertThat(query.getArgument("age")).isEqualTo("25");
     }
 
     @Test
-    public void shouldHandleInvalidPair() {
+    public void shouldHandleInvalidPair() throws UnsupportedEncodingException {
         Query query = new Query("example.com/path?name&age=25");
 
-        assertThat(query.getValue("age")).isEqualTo("25");
-        assertThat(query.getValue("name")).isEqualTo("");
+        assertThat(query.getArgument("age")).isEqualTo("25");
+        assertThat(query.getArgument("name")).isEqualTo(null);
     }
 }

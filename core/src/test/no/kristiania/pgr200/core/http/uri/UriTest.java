@@ -2,12 +2,14 @@ package no.kristiania.pgr200.core.http.uri;
 
 import org.junit.Test;
 
+import java.io.UnsupportedEncodingException;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.Assert.*;
 
 public class UriTest {
     @Test
-    public void shouldParseUrlWithEmptyPath() {
+    public void shouldParseUrlWithEmptyPath() throws UnsupportedEncodingException {
         Uri uri = new Uri("example.com?name=elon&age=3");
 
         Path path = uri.getPath();
@@ -17,7 +19,7 @@ public class UriTest {
     }
 
     @Test
-    public void shouldParseUrlWithEmptyQuery() {
+    public void shouldParseUrlWithEmptyQuery() throws UnsupportedEncodingException {
         Uri uri = new Uri("example.com/path/to/file.html");
 
         Query query = uri.getQuery();
@@ -25,11 +27,11 @@ public class UriTest {
 
         assertThat(path.toString()).isEqualTo("/path/to/file.html");
 
-        assertThat(query.getQuery()).isEqualTo("");
+        assertThat(query.toString()).isEqualTo("");
     }
 
     @Test
-    public void shouldParseUrl() {
+    public void shouldParseUrl() throws UnsupportedEncodingException {
         Uri uri = new Uri("example.com/path/to/file.html?name=elon&age=3");
 
         Query query = uri.getQuery();
@@ -38,7 +40,7 @@ public class UriTest {
         assertThat(path.toString()).isEqualTo("/path/to/file.html");
         assertThat(path.getPathParts()).containsExactly("path", "to", "file.html");
 
-        assertThat(query.getValue("name")).isEqualTo("elon");
-        assertThat(query.getValue("age")).isEqualTo("3");
+        assertThat(query.getArgument("name")).isEqualTo("elon");
+        assertThat(query.getArgument("age")).isEqualTo("3");
     }
 }
