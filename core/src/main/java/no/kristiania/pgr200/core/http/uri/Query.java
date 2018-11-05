@@ -3,58 +3,28 @@ package no.kristiania.pgr200.core.http.uri;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Query {
-    private String query;
 
-    public Query(String url) {
-        this.query = extractQuery(url);
+    private Map<String, String> arguments;
+
+    public Query(String arguments) throws UnsupportedEncodingException {
+        this.arguments = getArgumentsFrom(arguments);
     }
 
-    public String getValue(String parameterToFind) {
-        for(String query : getQueries()) {
-            String[] pair = query.split("=");
-
-            if (isValidPair(pair)) {
-
-                String parameter = pair[0];
-                String value = pair[1];
-
-                if (parameter.equals(parameterToFind)) {
-                    return value;
-                }
-            }
-        }
-
-        return "";
+    public Query(Map<String, String> arguments) {
+        this.arguments = arguments;
     }
 
-    public String getQuery() {
-        return query;
+    public String getArgument(String key) {
+        return arguments.get(key);
     }
 
-    private String extractQuery(String url) {
-        String[] parts = url.split("\\?");
+    private HashMap<String, String> getArgumentsFrom(String url) throws UnsupportedEncodingException {
 
-        // no "?"
-        if (parts.length == 1) return "";
-
-        return url.split("\\?")[1];
-    }
-
-    private String[] getQueries() {
-        String[] queries = this.query.split("&");
-        return queries;
-    }
-
-    private boolean isValidPair(String[] pair) {
-        return pair.length == 2;
-    }
-
-    public HashMap<String, String> getParameterValuePairs() throws UnsupportedEncodingException {
-
-        HashMap<String, String> parameterValuePairs = new HashMap<>();
-        String[] pairs = getQueries();
+        HashMap<String, String> arguments = new HashMap<>();
+        String[] pairs = url.split("&");
 
         for (String pair : pairs) {
             String[] splitted = pair.split("=");
@@ -65,10 +35,23 @@ public class Query {
             String parameter = URLDecoder.decode(splitted[0], "UTF-8");
             String value = URLDecoder.decode(splitted[1], "UTF-8");
 
-            parameterValuePairs.put(parameter.toLowerCase(), value);
+            arguments.put(parameter, value);
 
         }
 
-        return parameterValuePairs;
+        return arguments;
+    }
+
+    @Override
+    public String toString() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Map.Entry entry : arguments.entrySet()) {
+                stringBuilder.append(entry.getKey() + "=" + entry.getValue() + "&");
+        }
+        if (stringBuilder.length() > 0)
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+
+        return stringBuilder.toString();
     }
 }
