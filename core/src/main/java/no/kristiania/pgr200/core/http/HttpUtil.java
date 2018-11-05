@@ -100,7 +100,7 @@ public class HttpUtil {
             body += lines.get(i);
         }
 
-        return body;
+        return body.trim();
     }
 
     /**

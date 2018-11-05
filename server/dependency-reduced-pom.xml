@@ -17,7 +17,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>no.kristiania.pgr200.server.WebServer</mainClass>
+              <mainClass>no.kristiania.pgr200.server.ServerManager</mainClass>
             </manifest>
           </archive>
         </configuration>

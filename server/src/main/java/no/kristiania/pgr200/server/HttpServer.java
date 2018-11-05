@@ -43,7 +43,7 @@ import java.util.Map;
 
 public class HttpServer {
 
-
+    private ServerSocket serverSocket;
     private int port;
     private int actualPort;
 
@@ -62,8 +62,8 @@ public class HttpServer {
         this(0);
     }
 
-    public void start() throws IOException, InterruptedException {
-        ServerSocket serverSocket = new ServerSocket(port);
+    public void start() throws IOException {
+        serverSocket = new ServerSocket(port);
         this.actualPort = serverSocket.getLocalPort();
         Thread thread = new Thread(() ->  serverThread(serverSocket));
         thread.start();

@@ -13,6 +13,12 @@
     <dependencies>
         <dependency>
             <groupId>no.kristiania.pgr200</groupId>
+            <artifactId>server</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>test</scope><!-- Need to start and stop server between tests-->
+        </dependency>
+        <dependency>
+            <groupId>no.kristiania.pgr200</groupId>
             <artifactId>core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
