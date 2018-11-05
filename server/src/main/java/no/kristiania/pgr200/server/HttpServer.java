@@ -139,10 +139,14 @@ public class HttpServer {
     }
 
     private void parseUri(String statusLine) throws UnsupportedEncodingException {
+        System.out.println(statusLine.split(" ")[1]);
         Uri uri = new Uri(statusLine.split(" ")[1]);
+
+        System.out.println(uri);
+        System.out.println(uri.getQuery().getArguments());
         //metode (GET, POST): statusLine.split( " ")[0];
         path = uri.getPath();
-        parameters = uri.getQuery().getParameterValuePairs();
+        parameters = uri.getQuery().getArguments();
     }
 
 

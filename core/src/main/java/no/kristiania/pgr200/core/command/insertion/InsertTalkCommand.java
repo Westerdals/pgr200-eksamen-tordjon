@@ -4,14 +4,17 @@ import no.kristiania.pgr200.core.command.Command;
 import no.kristiania.pgr200.core.model.Talk;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class InsertTalkCommand extends Command {
 
     protected String title;
     protected String description;
     protected String topic;
+
 
 
     protected InsertTalkCommand withTitle(String title) {
@@ -42,8 +45,6 @@ public abstract class InsertTalkCommand extends Command {
                 .withDescription(description)
                 .withTopic(topic);
     }
-
-
 
 
 }

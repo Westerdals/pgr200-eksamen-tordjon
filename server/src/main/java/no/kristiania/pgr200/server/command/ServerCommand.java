@@ -13,10 +13,10 @@ public interface ServerCommand {
 
     default <T> void assignStandardHttp(T content) {
         Gson gson = new Gson();
-
+        String json = gson.toJson(content);
         response.setStatus(201);
-        response.getHeaders().put("Content-Length", "0");
-        response.setBody(gson.toJson(content));
+        response.getHeaders().put("Content-Length", json.length() + "");
+        response.setBody(json);
     }
 
 }

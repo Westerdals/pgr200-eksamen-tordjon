@@ -34,4 +34,13 @@ public class HttpResponse {
     public String getBody() {
         return body.trim();
     }
+
+    @Override
+    public String toString() {
+        return "HttpResponse{" +
+                "body='" + body + '\'' +
+                ", status=" + status +
+                ", reader=" + reader +
+                '}';
+    }
 }
