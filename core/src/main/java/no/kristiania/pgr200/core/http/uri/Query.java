@@ -37,7 +37,7 @@ public class Query {
 
             try {
                 parameter = URLDecoder.decode(splitted[0], "UTF-8");
-                URLDecoder.decode(splitted[1], "UTF-8");
+                value = URLDecoder.decode(splitted[1], "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 // UnsupportedEncodingException should never happen @jhannes  :-)
                 continue;

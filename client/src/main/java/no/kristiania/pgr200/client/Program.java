@@ -53,8 +53,7 @@ public class Program {
         Command command = Command.createCommand(populateCommandMap(), args[0] + " " + args[1], parameters);
 
         try {
-            HttpResponse response = command.execute(dataSource);
-            System.out.println(response);
+            command.execute(dataSource);
         } catch (SQLException e) {
             //client should never experience an SQLException(?), but it is thrown by execute in Command.
             e.printStackTrace();

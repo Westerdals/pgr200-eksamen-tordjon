@@ -4,6 +4,7 @@ import no.kristiania.pgr200.core.InputParser;
 import no.kristiania.pgr200.core.http.uri.Path;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public abstract class Command {
+
 
     /**
      * Usage:
