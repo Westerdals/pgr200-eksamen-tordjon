@@ -37,7 +37,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>no.kristiania.pgr200.program.Program</mainClass>
+              <mainClass>no.kristiania.pgr200.EKSAMEN.Program</mainClass>
             </manifest>
           </archive>
         </configuration>

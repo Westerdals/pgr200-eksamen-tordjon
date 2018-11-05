@@ -12,7 +12,7 @@ public class QueryTest {
     public void shouldReturnQuery() throws UnsupportedEncodingException {
         Query query = new Uri("example.com/path?first=value1&second=value2").getQuery();
 
-        assertThat(query.toString()).isEqualTo("first=value1&second=value2");
+        assertThat(query.toString()).isEqualTo("?first=value1&second=value2");
     }
 
     @Test

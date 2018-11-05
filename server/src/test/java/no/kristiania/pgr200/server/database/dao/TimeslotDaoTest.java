@@ -28,7 +28,7 @@ public class TimeslotDaoTest implements DaoTest<Timeslot> {
     @Override
     @Before
     public void createDao() throws IOException {
-         dataSource = Util.createDataSource("test.properties");
+        dataSource = Util.createDataSource("./../test.properties");
         dao = new TimeslotDao(dataSource);
     }
 
