@@ -3,6 +3,7 @@ package no.kristiania.pgr200.client.command.insertion;
 import no.kristiania.pgr200.client.HttpRequest;
 import no.kristiania.pgr200.client.HttpResponse;
 import no.kristiania.pgr200.core.command.insertion.InsertTalkCommand;
+import no.kristiania.pgr200.core.http.uri.Uri;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
@@ -18,31 +19,18 @@ public class ClientInsertTalkCommand extends InsertTalkCommand {
     public HttpResponse execute(DataSource dataSource) throws SQLException {
         System.out.println("insert talk");
 
-        Map<String, String> parameters = new HashMap<>();
+        HashMap<String, String> parameters = new HashMap<>();
+
+        parameters.put("title", title);
+        parameters.put("description", description);
+        parameters.put("topic", topic);
 
 
-        /*Field[] fields = this.getClass().getSuperclass().getDeclaredFields();
-        for(Field f : fields){
-            try {
-                System.out.println(f.getName() + "..." + f.get(this));
-                parameters.put(f.getName(), (String) f.get(this));
-
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }*/
-
-
-        System.out.println(parameters);
-       // String uri = new Uri("/api/insert/talk", parameters) //Map<String,String>
-       /* "/api/insert/talk" +
-                "?title=" + title
-                + "&description=" + description
-                + "&topic=" + topic);*/
+        Uri uri = new Uri("/api/insert/talk", parameters); //Map<String,String>
 
 
 
-        HttpRequest req = new HttpRequest("localhost", 8080, null);
+        HttpRequest req = new HttpRequest("localhost", 8080, uri.toString());
         try {
             HttpResponse response = req.execute();
             return response;

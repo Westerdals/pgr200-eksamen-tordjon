@@ -142,7 +142,7 @@ public class HttpServer {
         Uri uri = new Uri(statusLine.split(" ")[1]);
         //metode (GET, POST): statusLine.split( " ")[0];
         path = uri.getPath();
-        parameters = uri.getQuery().getParameterValuePairs();
+        parameters = uri.getQuery().getArguments();
     }
 
 

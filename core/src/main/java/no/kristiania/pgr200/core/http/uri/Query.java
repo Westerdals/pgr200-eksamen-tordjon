@@ -7,13 +7,13 @@ import java.util.Map;
 
 public class Query {
 
-    private Map<String, String> arguments;
+    private HashMap<String, String> arguments;
 
-    public Query(String arguments) throws UnsupportedEncodingException {
+    public Query(String arguments) {
         this.arguments = getArgumentsFrom(arguments);
     }
 
-    public Query(Map<String, String> arguments) {
+    public Query(HashMap<String, String> arguments) {
         this.arguments = arguments;
     }
 
@@ -21,7 +21,7 @@ public class Query {
         return arguments.get(key);
     }
 
-    private HashMap<String, String> getArgumentsFrom(String url) throws UnsupportedEncodingException {
+    private HashMap<String, String> getArgumentsFrom(String url) {
 
         HashMap<String, String> arguments = new HashMap<>();
         String[] pairs = url.split("&");
@@ -32,8 +32,16 @@ public class Query {
 
             if (splitted.length != 2) continue;
 
-            String parameter = URLDecoder.decode(splitted[0], "UTF-8");
-            String value = URLDecoder.decode(splitted[1], "UTF-8");
+            String parameter = null;
+            String value = null;
+
+            try {
+                parameter = URLDecoder.decode(splitted[0], "UTF-8");
+                URLDecoder.decode(splitted[1], "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                // UnsupportedEncodingException should never happen @jhannes  :-)
+                continue;
+            }
 
             arguments.put(parameter, value);
 
@@ -46,6 +54,7 @@ public class Query {
     public String toString() {
 
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("?");
         for(Map.Entry entry : arguments.entrySet()) {
                 stringBuilder.append(entry.getKey() + "=" + entry.getValue() + "&");
         }
@@ -53,5 +62,9 @@ public class Query {
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 
         return stringBuilder.toString();
+    }
+
+    public HashMap<String, String> getArguments() {
+        return arguments;
     }
 }
