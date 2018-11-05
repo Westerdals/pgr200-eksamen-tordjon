@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class ClientInsertTalkCommand extends InsertTalkCommand implements ClientCommand  {
 
     @Override
-    public HttpResponse execute(DataSource dataSource) throws SQLException {
+    public HttpResponse execute(DataSource dataSource) throws IOException {
 
         parameters.put("title", title);
         parameters.put("description", description);
@@ -23,21 +23,17 @@ public class ClientInsertTalkCommand extends InsertTalkCommand implements Client
         Uri uri = new Uri("/api/insert/talk", parameters);
         HttpRequest req = new HttpRequest("localhost", 8080, uri.toString());
 
-        try {
-            HttpResponse response = req.execute();
-            if(checkForError(response)) {
-                return response;
-            }
 
-
-            System.out.println("Inserted new talk: ");
-            Talk retrieved = gson.fromJson(response.getBody(), Talk.class);
-            System.out.println(retrieved);
-
+        HttpResponse response = req.execute();
+        if(checkForError(response)) {
             return response;
-        } catch (IOException e) {
-            System.out.println("Something went wrong the servers response.");
         }
-        return null;
+
+
+        System.out.println("Inserted new talk: ");
+        Talk retrieved = gson.fromJson(response.getBody(), Talk.class);
+        System.out.println(retrieved);
+        return response;
+
     }
 }

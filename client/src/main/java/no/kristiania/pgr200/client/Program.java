@@ -28,6 +28,7 @@ import no.kristiania.pgr200.core.command.Command;
 import no.kristiania.pgr200.server.command.connecting.ClientConnectDayWithConference;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,19 +46,26 @@ public class Program {
             return;
 
 
-
-
-        //path = args[0] + " " + [1];
-        //parameters = ArgumentParser.parse(args); <- returnerer et map med f.eks. "title", "toalettguiden"
         HashMap<String, String> parameters = ArgumentParser.getArguments(args);
         Command command = Command.createCommand(populateCommandMap(), args[0] + " " + args[1], parameters);
 
         try {
             command.execute(dataSource);
+        }catch(Exception e){
+            if(e instanceof IOException){
+                e.printStackTrace();
+            }else{
+                e.printStackTrace();
+            }
+        }
+
+
+        /*try {
+            command.execute(dataSource);
         } catch (SQLException e) {
             //client should never experience an SQLException(?), but it is thrown by execute in Command.
             e.printStackTrace();
-        }
+        }*/
 
 
     }

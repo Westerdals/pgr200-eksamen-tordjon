@@ -40,7 +40,7 @@ public abstract class Command {
      * Returns the ServerResponse that should be returned to client (as protected field)
      * @param dataSource of no.kristiania.pgr200.server.database to execute on
      */
-    public abstract <T> T execute(DataSource dataSource) throws SQLException;
+    public abstract <T, E extends Exception> T execute(DataSource dataSource) throws E, IOException;
 
 
 
