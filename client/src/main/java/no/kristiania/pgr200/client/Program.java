@@ -54,7 +54,7 @@ public class Program {
 
         try {
             HttpResponse response = command.execute(dataSource);
-            System.out.println(response.getBody());
+            System.out.println(response);
         } catch (SQLException e) {
             //client should never experience an SQLException(?), but it is thrown by execute in Command.
             e.printStackTrace();
@@ -62,7 +62,6 @@ public class Program {
 
 
     }
-
     static private Map<String, Class<? extends Command>> populateCommandMap() {
         Map<String, Class<? extends Command>> map = new HashMap<>();
 

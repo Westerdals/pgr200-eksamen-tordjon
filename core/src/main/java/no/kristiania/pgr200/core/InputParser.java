@@ -28,6 +28,7 @@ public class InputParser {
 
         Class<? extends Command> command = map.get(type);
 
+
         if (command == null) {
 
             return null;//FIXME: which command to use? new InvalidInputCommand();

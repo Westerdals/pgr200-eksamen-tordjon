@@ -14,7 +14,6 @@ import java.util.UUID;
 
 public abstract class Command {
 
-
     /**
      * Usage:
      * args = {"insert", "talk", "-title", "TITLE", "-description", "DESCRIPTION", "-topicTitle", "TOPIC"}
