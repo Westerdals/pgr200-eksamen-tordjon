@@ -23,12 +23,11 @@ Dvs. at parsing i client fungerer litt som i første øving, men at argumenter p
 
 -[ ] wrapper-klasser rundt JSON som sier hva slags operasjon som ble gjort mm. 
 
-## Todo sunday 
-1. Fiks commands 
-2. Bygg client 
-3. Bestem API-struktur 
-4. Test klient-alpha 
-5. Skal assignHttp opp igjen til super? 
+## Todo monday 
+1. rydd i clientinserttalkcommand
+2. fyll inn alle client-commands
+3. TordTest, Olav JavaDoc + rydd  
+4. "localhost" er hardkodet, ligge i proeprties-fil? 
 
 moduler: 
 
