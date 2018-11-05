@@ -23,6 +23,8 @@ public class ServerResetDBCommand extends ResetDBCommand implements ServerComman
             System.out.println("Could not reset no.kristiania.pgr200.server.database.");
             response.setStatus(500);
         }
+        //response.setBody("");
+
         return response;
     }
 

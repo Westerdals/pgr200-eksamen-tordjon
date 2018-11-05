@@ -1,28 +1,32 @@
 package no.kristiania.pgr200.client;
 
 
-
-import no.kristiania.pgr200.client.command.insertion.ClientInsertTalkCommand;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import no.kristiania.pgr200.client.command.listing.ClientListConferencesCommand;
+import no.kristiania.pgr200.client.command.listing.ClientListTalksCommand;
+import no.kristiania.pgr200.core.command.listing.ListTalksCommand;
+import no.kristiania.pgr200.core.model.Conference;
 import no.kristiania.pgr200.server.HttpServer;
-import no.kristiania.pgr200.server.ServerManager;
 import no.kristiania.pgr200.server.database.Util;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.HashMap;
-
+import java.lang.reflect.Type;
+import java.util.Collection;
 
 import static no.kristiania.pgr200.client.Program.main;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.Assert.assertEquals;
 
 public class ProgramTest {
 
-    private DataSource dataSource;
+    private static DataSource dataSource;
 
     private  ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -40,27 +44,10 @@ public class ProgramTest {
     private void resetStreams(){
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-
     }
-    /*@Ignore
-    @Before
-    public void init() throws IOException {
-        setDatasource();
 
-        main(new String[]{"reset", "db"});
-        main(new String[]{"help"}); //Need to run the main method with any input to restore the no.kristiania.pgr200.server.database
-        ServerManager.main(new String[]{});
-    }*/
-
-   /* @Ignore
-    @After
-    public void tearDown() throws IOException {
-        ServerManager.kill();
-    }*/
-
-
-    @Before
-    public void init() throws IOException {
+    @BeforeClass
+    public static void init() throws IOException {
 
         HttpServer httpServer = new HttpServer( 8080, "./../test.properties");
         httpServer.start();
@@ -68,13 +55,18 @@ public class ProgramTest {
         setDatasource();
     }
 
+    @Test
+    public void tearDown() {
+        main(new String[]{"reset", "db"});
+    }
 
-    public void setDatasource() throws IOException {
+
+    public static void setDatasource() throws IOException {
         dataSource = Util.createDataSource("./../test.properties");
     }
 
     @Test
-    public void shouldCreateDemoConference() throws IOException {
+    public void shouldCreateDemoConferenceWithCorrectName() throws IOException {
 
         main(new String[]{
                 "create", "demo"
@@ -84,7 +76,35 @@ public class ProgramTest {
                 new ClientListConferencesCommand().execute(dataSource);
         System.out.println("something");
         System.out.println(response.getBody());
+
+        Gson gson = new Gson();
+        Type collectionType = new TypeToken<Collection<Conference>>(){}.getType();
+        Collection<Conference> conferences = gson.fromJson(response.getBody(), collectionType);
+
+
+        conferences.stream()
+                .forEach(conference -> {
+                    assertThat(conference.getName())
+                            .isEqualTo("Blizzcon");
+
+                });
     }
+
+    @Test
+    public void shouldInsertTalk() throws IOException {
+        main(new String[]{
+            "insert", "talk", "-title", "this is my title",
+            "-description", "some description",
+            "-topic", "topicname"
+        });
+
+        HttpResponse response = new ClientListTalksCommand().execute(dataSource);
+
+        System.out.println(response.getBody());
+
+    }
+
+
 
     /*
 
