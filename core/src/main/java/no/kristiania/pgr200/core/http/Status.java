@@ -16,8 +16,10 @@ public class Status {
                 break;
             case 201:
                 text = "UPDATED";  //TODO: dobbeltsjekk at dette stemmer - tog-Olav
+                break;
             case 204:
                 text = "NO CONTENT";
+                break;
             case 404:
                 text = "NOT FOUND";
                 break;
@@ -25,15 +27,6 @@ public class Status {
                 this.code = 500;
                 text = "Internal Server Error";
         }
-    }
-
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getText() {
-        return text;
     }
 
     @Override
