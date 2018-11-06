@@ -28,6 +28,7 @@ import java.io.PrintStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -202,90 +203,56 @@ public class ServerTest {
 
     }
 
-/*
     @Test
-    public void shouldConnectDayToConference() throws IOException, SQLException {
-        main(new String[]{"help"});
-        ConferenceDao conferenceDao = new ConferenceDao(dataSource);
-        DayDao dayDao = new DayDao(dataSource);
+    public void TestTalkCommands() throws SQLException, IOException {
 
-        Conference conference = new Conference("Blizzcon");
-        Day day = new Day(LocalDate.of(2019, 9, 19));
-        Day day2 = new Day(LocalDate.of(2019, 9, 20));
-        Day day3 = new Day(LocalDate.of(2019, 9, 24));
+        //----INSERT----//
+        Talk talk = new Talk("testtalk", "med desc", "kjedelig topic");
+        HashMap<String, String> params = new HashMap<>();
+        params.put("title", talk.getTitle());
+        params.put("description", talk.getDescription());
+        params.put("topic", talk.getTopicTitle());
 
-        conferenceDao.insert(conference);
-        dayDao.insert(day);
-        dayDao.insert(day2);
-        dayDao.insert(day3);
+        HttpRequest request = new HttpRequest(hostname, port,
+                new Uri("/api/insert/talk", params).toString());
+        HttpResponse response = request.execute();
 
-        String[] connectArgs = {"connect", "day-with-conference",
-                                "-day", day.getId().toString(),
-                                "-conference", conference.getId().toString()};
+        Talk retrievedTalk = gson.fromJson(response.getBody(), Talk.class);
 
-        main(connectArgs);
-        List<Day> connectedDays = dayDao.retrieveByConference(conference.getId());
+        assertThat(retrievedTalk).isEqualToComparingOnlyGivenFields(talk, "title", "topicTitle", "description");
+        assertEquals(200,response.getStatusCode());
 
-        assertThat(connectedDays).asList().contains(day);
-        assertThat(connectedDays).asList().doesNotContain(day2);
-        assertThat(connectedDays).asList().doesNotContain(day3);
+        talk = retrievedTalk;
+
+
+        //----UPDATE---//
+        Talk updatedTalk = new Talk(talk.getId(), talk.getTitle(), talk.getDescription(), "updated topic");
+        params = new HashMap<>();
+        params.put("id", updatedTalk.getId().toString());
+        params.put("title", updatedTalk.getTitle());
+        params.put("description", updatedTalk.getDescription());
+        params.put("topic", updatedTalk.getTopicTitle());
+
+        request = new HttpRequest(hostname, port,
+                new Uri("/api/update/talk", params).toString());
+        response = request.execute();
+
+        retrievedTalk = gson.fromJson(response.getBody(), Talk.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(200);
+        assertThat(retrievedTalk).isEqualToComparingFieldByField(updatedTalk);
+        assertThat(retrievedTalk.toString()).isNotEqualTo(talk.toString());
+
+        //----DELETE----/
+        request = new HttpRequest(hostname, port,
+                new Uri("/api/delete/talk?id=" + retrievedTalk.getId()).toString());
+        response = request.execute();
+        assertThat(response.getStatusCode()).isEqualTo(200);
+        assertThat(response.getBody().equals(gson.toJson(retrievedTalk.getId())));
+
     }
 
-
-    @Test
-    public void shouldConnectTimeslotToDay() throws IOException, SQLException {
-        main(new String[]{"help"});
-        TimeslotDao timeslotDao = new TimeslotDao(dataSource);
-        DayDao dayDao = new DayDao(dataSource);
-
-        Timeslot timeslot = new Timeslot(LocalTime.of(10,30), LocalTime.of(12,15));
-        Timeslot timeslot2 = new Timeslot(LocalTime.of(12,30), LocalTime.of(13,15));
-        Day day = new Day(LocalDate.of(2019, 9, 19));
-
-
-        timeslotDao.insert(timeslot);
-        timeslotDao.insert(timeslot2);
-        dayDao.insert(day);
-
-
-        timeslot = timeslotDao.retrieve(timeslot.getId());
-        day = dayDao.retrieve(day.getId());
-
-
-        String[] connectArgs = {"connect", "timeslot-with-day",
-                "-timeslot", timeslot.getId().toString(),
-                "-day", day.getId().toString(),
-        };
-
-        main(connectArgs);
-        List<Timeslot> connectedTimeslots = timeslotDao.retrieveByDay(day.getId());
-
-        assertThat(connectedTimeslots).asList().contains(timeslot);
-        assertThat(connectedTimeslots).asList().doesNotContain(timeslot2);
-    }
-
-
-    @Test
-    public void shouldConnectTalkToTimeslot() throws IOException, SQLException {
-        TimeslotDao timeslotDao = new TimeslotDao(dataSource);
-        TalkDao talkDao = new TalkDao(dataSource);
-
-        Timeslot timeslot = new Timeslot(LocalTime.of(8,40), LocalTime.of(9,55));
-        Talk talk = new Talk("Testtalk", "talkdesc", "...");
-        talkDao.insert(talk);
-        timeslotDao.insert(timeslot);
-
-        String[] connectArgs = {"connect", "talk-with-timeslot",
-                "-talk", talk.getId().toString(),
-                "-timeslot", timeslot.getId().toString()};
-
-        main(connectArgs);
-        List<Talk> connectedTalks = talkDao.retrieveByTimeslot(timeslot.getId());
-
-        assertThat(connectedTalks).asList().contains(talk);
-
-    }
-    @Test
+   /* @Test
     public void shouldInsertTalk() throws IOException, SQLException {
         Talk inserted = new Talk("inserted title", "inserted description", "inserted topic");
         String[] args = {
@@ -372,49 +339,7 @@ public class ServerTest {
 
 
 
-    @Test
-    public void TestTalkCommands() throws  SQLException {
 
-        TalkDao talkDao = new TalkDao(dataSource);
-
-        Talk talk = new Talk("Delete this talk", "delete", "..");
-        String[] insertArgs = {
-                "insert", "talk",
-                "-title", talk.getTitle(),
-                "-description", talk.getDescription(),
-                "-topic", talk.getTopicTitle()
-        };
-
-        main(insertArgs);
-        Talk retrievedTalk = talkDao.retrieveAll().get(0);
-        assertThat(retrievedTalk).isEqualToComparingOnlyGivenFields(talk, "title", "topicTitle", "description");
-        talk = retrievedTalk;
-
-
-
-        Talk updatedTalk = new Talk(talk.getId(), talk.getTitle(), talk.getDescription(), "updated description");
-        String[] updateArgs = {
-                "update", "talk",
-                "-id", updatedTalk.getId().toString(),
-                "-topic", updatedTalk.getTopicTitle()
-        };
-
-        main(updateArgs);
-        retrievedTalk = talkDao.retrieve(updatedTalk.getId());
-
-        assertThat(retrievedTalk).isEqualToComparingFieldByField(updatedTalk);
-        assertThat(retrievedTalk.toString()).isNotEqualTo(talk.toString());
-
-
-        String[] deleteArgs = {
-                "delete", "talk",
-                "-id", updatedTalk.getId().toString(),
-        };
-        main(deleteArgs);
-        retrievedTalk = talkDao.retrieve(updatedTalk.getId());
-        assertThat(retrievedTalk).isNull();
-
-    }
 
 
     @Test
@@ -541,6 +466,90 @@ public class ServerTest {
         main(deleteArgs);
         retrievedConference = conferenceDao.retrieve(updatedConference.getId());
         assertThat(retrievedConference).isNull();
+
+    }
+
+
+    @Test
+    public void shouldConnectDayToConference() throws IOException, SQLException {
+        main(new String[]{"help"});
+        ConferenceDao conferenceDao = new ConferenceDao(dataSource);
+        DayDao dayDao = new DayDao(dataSource);
+
+        Conference conference = new Conference("Blizzcon");
+        Day day = new Day(LocalDate.of(2019, 9, 19));
+        Day day2 = new Day(LocalDate.of(2019, 9, 20));
+        Day day3 = new Day(LocalDate.of(2019, 9, 24));
+
+        conferenceDao.insert(conference);
+        dayDao.insert(day);
+        dayDao.insert(day2);
+        dayDao.insert(day3);
+
+        String[] connectArgs = {"connect", "day-with-conference",
+                                "-day", day.getId().toString(),
+                                "-conference", conference.getId().toString()};
+
+        main(connectArgs);
+        List<Day> connectedDays = dayDao.retrieveByConference(conference.getId());
+
+        assertThat(connectedDays).asList().contains(day);
+        assertThat(connectedDays).asList().doesNotContain(day2);
+        assertThat(connectedDays).asList().doesNotContain(day3);
+    }
+
+
+    @Test
+    public void shouldConnectTimeslotToDay() throws IOException, SQLException {
+        main(new String[]{"help"});
+        TimeslotDao timeslotDao = new TimeslotDao(dataSource);
+        DayDao dayDao = new DayDao(dataSource);
+
+        Timeslot timeslot = new Timeslot(LocalTime.of(10,30), LocalTime.of(12,15));
+        Timeslot timeslot2 = new Timeslot(LocalTime.of(12,30), LocalTime.of(13,15));
+        Day day = new Day(LocalDate.of(2019, 9, 19));
+
+
+        timeslotDao.insert(timeslot);
+        timeslotDao.insert(timeslot2);
+        dayDao.insert(day);
+
+
+        timeslot = timeslotDao.retrieve(timeslot.getId());
+        day = dayDao.retrieve(day.getId());
+
+
+        String[] connectArgs = {"connect", "timeslot-with-day",
+                "-timeslot", timeslot.getId().toString(),
+                "-day", day.getId().toString(),
+        };
+
+        main(connectArgs);
+        List<Timeslot> connectedTimeslots = timeslotDao.retrieveByDay(day.getId());
+
+        assertThat(connectedTimeslots).asList().contains(timeslot);
+        assertThat(connectedTimeslots).asList().doesNotContain(timeslot2);
+    }
+
+
+    @Test
+    public void shouldConnectTalkToTimeslot() throws IOException, SQLException {
+        TimeslotDao timeslotDao = new TimeslotDao(dataSource);
+        TalkDao talkDao = new TalkDao(dataSource);
+
+        Timeslot timeslot = new Timeslot(LocalTime.of(8,40), LocalTime.of(9,55));
+        Talk talk = new Talk("Testtalk", "talkdesc", "...");
+        talkDao.insert(talk);
+        timeslotDao.insert(timeslot);
+
+        String[] connectArgs = {"connect", "talk-with-timeslot",
+                "-talk", talk.getId().toString(),
+                "-timeslot", timeslot.getId().toString()};
+
+        main(connectArgs);
+        List<Talk> connectedTalks = talkDao.retrieveByTimeslot(timeslot.getId());
+
+        assertThat(connectedTalks).asList().contains(talk);
 
     }
     */

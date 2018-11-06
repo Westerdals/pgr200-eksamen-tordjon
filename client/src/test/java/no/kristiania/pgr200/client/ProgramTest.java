@@ -7,9 +7,11 @@ import no.kristiania.pgr200.client.command.listing.ClientListConferencesCommand;
 import no.kristiania.pgr200.client.command.listing.ClientListTalksCommand;
 import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.core.model.Conference;
+import no.kristiania.pgr200.core.model.Talk;
 import no.kristiania.pgr200.server.HttpServer;
 import no.kristiania.pgr200.server.database.Util;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -89,10 +91,46 @@ public class ProgramTest {
     @Test
     public void shouldInsertTalk() throws IOException {
 
+        Talk talk = new Talk("this is my title", "some description", "topicnamead");
         main(new String[]{
-            "insert", "talk", "-title", "this is my title",
-            "-description", "some description",
-            "-topic", "topicname"
+            "insert", "talk", "-title", talk.getTitle(),
+            "-description", talk.getDescription(),
+            "-topic", talk.getTopicTitle()
+        });
+
+        HttpResponse response = new ClientListTalksCommand().execute(dataSource);
+        Gson gson = new Gson();
+
+        Type collectionType = new TypeToken<Collection<Talk>>(){}.getType();
+        Collection<Talk> talks = gson.fromJson(response.getBody(), collectionType);
+
+        assertThat(talks).contains(talk);
+    }
+
+    @Test
+    public void shouldInsertConference() throws IOException {
+
+        Conference conference = new Conference("olavpraterdagenlangkonferansen2019");
+        main(new String[]{
+                "insert", "conference", "-name", conference.getName(),
+
+        });
+
+        HttpResponse response = new ClientListConferencesCommand().execute(dataSource);
+        Gson gson = new Gson();
+
+        Type collectionType = new TypeToken<Collection<Conference>>(){}.getType();
+        Collection<Conference> conferences = gson.fromJson(response.getBody(), collectionType);
+
+        assertThat(conferences).contains(conference);
+    }
+
+
+    @Test @Ignore
+    public void shouldInsertDay() throws IOException {
+
+        main(new String[]{
+                "insert", "day", "-date", "16.09.2018"
         });
 
         HttpResponse response = new ClientListTalksCommand().execute(dataSource);
@@ -100,7 +138,6 @@ public class ProgramTest {
         System.out.println(response.getBody());
 
     }
-
 
 
     /*

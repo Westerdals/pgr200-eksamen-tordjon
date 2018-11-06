@@ -16,6 +16,7 @@
     </parent>
 
     <dependencies>
+
         <dependency>
             <groupId>no.kristiania.pgr200</groupId>
             <artifactId>core</artifactId>
