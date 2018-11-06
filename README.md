@@ -8,10 +8,10 @@
 -[ ] Ha en index.html herokuapp.com/schedule som viser schedule rendret
 -[ ] Gå gjennom ALLE klasser bit for bit og skriv forklarende doc for _alle_ klasser og noen metoder   
 -[ ] Skrive javadoc
--[ ] dao + gson som protected felter i command
 -[ ] client lytter etter kommandoer, behøver ikke kjøre java-jar hver gang (har en "prompt")
 -[ ] sjekke warnings fra intellij
 -[ ] Skrive om de største testene som integrasjonstester 
+
 ## Notater fra tog :D 
 DaoTest.createDao() er lik i alle tester. Burde det være default-metode?
 
@@ -26,7 +26,7 @@ Dvs. at parsing i client fungerer litt som i første øving, men at argumenter p
 
 ## Todo tuesday
 1. Argumentparser/inputparser-tester + sever og client test 
-1. rydd i clientinserttalkcommand
+2. rydd i clientinserttalkcommand
 3. TordTest, Olav JavaDoc + rydd  
 4. "localhost" er hardkodet, ligge i proeprties-fil?
  
@@ -45,8 +45,77 @@ client
     sender requests til server 
     printer svar (hjelp dersom input er ugyldig)
 
+- [Eksamen](#eksamen)
+    - [Todo](#todo)
+    - [Notater fra tog :D](#notater-fra-tog-d)
+    - [Notes](#notes)
+    - [Todo tuesday](#todo-tuesday)
+- [Dokumentasjon](#dokumentasjon)
+    - [Evaluering av samarbeid](#evaluering-av-samarbeid)
+    - [Video](#video)
+    - [Diagrammer](#diagrammer)
+    - [Egenevaluering](#egenevaluering)
+- [PGR200 Hovedinnlevering](#pgr200-hovedinnlevering)
+    - [Oppgave](#oppgave)
+        - [Arkitektur](#arkitektur)
+        - [Programflyt](#programflyt)
+        - [Forslag til datamodell](#forslag-til-datamodell)
+    - [Sjekkliste for innleveringen](#sjekkliste-for-innleveringen)
+        - [Forberedelse](#forberedelse)
+        - [Innlevering](#innlevering)
+    - [Retningslinjer for vurdering](#retningslinjer-for-vurdering)
+        - [Minimum krav for bestått](#minimum-krav-for-best%C3%A5tt)
+        - [Minimum krav for C](#minimum-krav-for-c)
+        - [Minimum krav for B](#minimum-krav-for-b)
+        - [Krav for A](#krav-for-a)
 
 
+# Dokumentasjon 
+Olav Sundfør - sunola17 <br>
+Tord Jon - jontor17 <br>
+
+    - [X] Navn og Feide-ID på dere de som var på teamet
+    - [ ] Inkluderer dokumentasjonen hvordan man tester ut funksjonaliteten programmet manuelt? (Inkludert eventuell ekstra funksjonalitet dere har tatt med)
+    - [X] Inkluderer dokumentasjonen en evaluering av hvordan man jobbet sammen?
+    - [X] Inkluderer dokumentasjonen en screencast av en parprogrammeringsesjon?
+    - [ ] Inkluderer dokumentasjonen en evaluering *fra* en annen gruppe og en evaluering *til* en annen gruppe?
+    - [ ] Inkluderer dokumentasjonen en UML diagram med datamodellen?
+    - [X] Inkluderer dokumentasjonen en link til screencast av programmeringsesjon?
+    - [ ] Inkluderer dokumentasjonen en egenevaluering med hvilken karakter gruppen mener de fortjener?
+
+
+## Evaluering av samarbeid 
+Vi har stort sett jobbet sammen, ofte på en maskin. Når vi ikke har gjort det, har vi jobbet over nett, med Git og samtaleverktøy som voicechats i Slack og Discord. Vi har også delt skjerm gjennom disse tjenestene og på den måten fått gjort en slags form for parprogrammering når vi har sett behov for det.
+
+Hva samarbeidet angår, finner vi ofte gode løsninger. Det er ikke alltid vi er enige, men vi opplever at samtalen er konstruktiv, heller enn å være en konflikt. Vi har jevnt over funnet en god løsning som begge kan si seg fornøyde med, til tross for at ikke alle elementer er slik som hver av oss opprinnelig hadde sett for seg.
+
+I arbeidskrav 2 skrev vi at vi har et forbedringspotensiale på det å sette konkrete mål for hva som skal gjøres, fremfor å jobbe sporadisk og hoppe mellom arbeidsoppgaver. Her har vi blitt flinkere. 
+En teknikk vi har brukt er å sette opp konkrete lister over hva som må gjøres. 
+
+## [Video](https://www.youtube.com/watch?v=3axZ6puyq0s&feature=youtu.be)
+
+## Diagrammer 
+![Databasediagram](./diagrams/database/database.png)
+
+__LAG To til, som viser kode__ 
+
+
+- [ ] evaluering av prosjektet 
+- [ ] Hvilken karakter vi mener vi fortjener
+## Egenevaluering
+Vårt prosjekt har brukt noe av logikken fra tidligere arbeidskrav. Det gikk lettere å slå sammen de to prosjektene denne gangen, siden vi hadde gjort det tidligere. Vi tok plugins som _maven-shade-plugin_ og _jacoco_ med oss fra tidligere arbeidskrav. Under oppsettet kom nytten av å ha gjort det samme tidligere tydelig frem. 
+
+Til forskjell fra tidligere oppgaver, har vi i den endelige innleveringen delt prosjektet opp i flere maven-moduler. 
+Dette har gitt oss en mye bedre fordeling av oppgaver ("Separation of concerns") i programmet enn vi ellers ville hatt. 
+
+Kommandoer ("Commands") spiller en stor rolle i vår struktur. En kommando er en handling som programmet gjør, basert på et input. Et eksempel på en kommando er `InsertTalkCommand`. Den har som oppgave å legge inn et foredrag ("talk") i databasen. 
+Kommandoer som denne fyller to roller:  
+1. Bruker forteller clienten at dette skal skje
+2. Server får beskjed av klienten og utfører den faktiske operasjonen
+Denne egenskapen gjelder alle kommandoer i programmet vårt. Derfor har alle kommandoer et felles sett med  abstrakte "base"-klasser i `Core`-modulen. 
+`Server`- og `Client`-modulene implementerer så konkrete versjoner av disse. (f.eks. `ServerInsertTalkCommand`og `ClientInserTalkCommand`)
+
+Tester -> forklare hvorfor store 
 
 
 
@@ -138,19 +207,19 @@ I tilbakemeldingen er det lurt å stille spørsmålene: 1. Hva lærte jeg av den
 
 - [ ] Kodekvalitet
   - [x] Koden er klonet fra GitHub classrom
-  - [ ] Produserer `mvn package` en executable jar? (tips: Bruk `maven-shade-plugin`)
-  - [ ] Bruker koden Java 8 og UTF-8
+  - [X] Produserer `mvn package` en executable jar? (tips: Bruk `maven-shade-plugin`)
+  - [X] Bruker koden Java 8 og UTF-8
   - [ ] Bygger prosjektet på [https://travis-ci.com](https://travis-ci.com)?
   - [ ] Har du god test-dekning? (tips: Sett opp jacoco-maven-plugin til å kreve at minst 65% av linjene har testdekning)
-  - [ ] Er koden delt inn i flere Maven `<modules>`?
+  - [X] Er koden delt inn i flere Maven `<modules>`?
   - [ ] Bruker kommunikasjon mellom klient og server HTTP korrekt?
-  - [ ] Kobler serveren seg opp mot PostgreSQL ved hjelp av konfigurasjon i fila `innlevering.properties` i *current working directory* med `dataSource.url`, `dataSource.username`, `dataSource.password`?
+  - [X] Kobler serveren seg opp mot PostgreSQL ved hjelp av konfigurasjon i fila `innlevering.properties` i *current working directory* med `dataSource.url`, `dataSource.username`, `dataSource.password`?
 - [ ] Funksjonalitet
-  - [ ] add: Legg til et foredrag i databasen med title, description og topic (valgfritt)
-  - [ ] list: List opp alle foredrag i basen med et valgfritt topic
+  - [X] add: Legg til et foredrag i databasen med title, description og topic (valgfritt)
+  - [X] list: List opp alle foredrag i basen med et valgfritt topic
   - [ ] show: Vis detaljer for et foredrag
   - [ ] update: Endre title, description eller topic for et foredrag
-  - [ ] Valgfri tillegg: Kommandoer for å sette opp hvor mange dager og timer konferansen skal vare og hvor mange parallelle spor den skal inneholde.
+  - [X] Valgfri tillegg: Kommandoer for å sette opp hvor mange dager og timer konferansen skal vare og hvor mange parallelle spor den skal inneholde.
 - [ ] Dokumentasjon i form av README.md
   - [ ] Navn og Feide-ID på dere de som var på teamet
   - [ ] Inkluderer dokumentasjonen hvordan man tester ut funksjonaliteten programmet manuelt? (Inkludert eventuell ekstra funksjonalitet dere har tatt med)
@@ -163,8 +232,8 @@ I tilbakemeldingen er det lurt å stille spørsmålene: 1. Hva lærte jeg av den
 
 ### Forberedelse
 
-- [ ] Finn endelig grupperpartner innen 1. november
-- [ ] Finn en gruppe for gjensidig evaluering innen 1. november
+- [X] Finn endelig grupperpartner innen 1. november
+- [X] Finn en gruppe for gjensidig evaluering innen 1. november
 
 ### Innlevering
 
