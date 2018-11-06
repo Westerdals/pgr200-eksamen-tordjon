@@ -23,11 +23,12 @@ Dvs. at parsing i client fungerer litt som i første øving, men at argumenter p
 
 -[ ] wrapper-klasser rundt JSON som sier hva slags operasjon som ble gjort mm. 
 
-## Todo monday 
+## Todo tuesday
+1. Argumentparser/inputparser-tester + sever og client test 
 1. rydd i clientinserttalkcommand
-2. fyll inn alle client-commands
 3. TordTest, Olav JavaDoc + rydd  
-4. "localhost" er hardkodet, ligge i proeprties-fil? 
+4. "localhost" er hardkodet, ligge i proeprties-fil?
+ 
 
 moduler: 
 

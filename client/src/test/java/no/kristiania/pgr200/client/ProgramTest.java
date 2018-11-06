@@ -74,8 +74,6 @@ public class ProgramTest {
 
         HttpResponse response =
                 new ClientListConferencesCommand().execute(dataSource);
-        System.out.println("something");
-        System.out.println(response.getBody());
 
         Gson gson = new Gson();
         Type collectionType = new TypeToken<Collection<Conference>>(){}.getType();
@@ -92,6 +90,7 @@ public class ProgramTest {
 
     @Test
     public void shouldInsertTalk() throws IOException {
+
         main(new String[]{
             "insert", "talk", "-title", "this is my title",
             "-description", "some description",
