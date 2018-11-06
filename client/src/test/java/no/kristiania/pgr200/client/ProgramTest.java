@@ -299,10 +299,10 @@ public class ProgramTest {
 
 
         main(new String[]{
-                "delete", "day", "-id", id.toString()
+                "delete", "timeslot", "-id", id.toString()
         });
 
-        response = new ClientListDaysCommand().execute(dataSource);
+        response = new ClientListTimeslotsCommand().execute(dataSource);
         timeslots = gson.fromJson(response.getBody(), collectionType);
 
         assertThat(timeslots).doesNotContain(timeslot);
