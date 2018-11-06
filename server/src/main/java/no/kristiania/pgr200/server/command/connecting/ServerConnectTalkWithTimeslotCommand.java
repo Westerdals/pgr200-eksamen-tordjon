@@ -16,7 +16,7 @@ public class  ServerConnectTalkWithTimeslotCommand extends ConnectTalkWithTimesl
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
         TimeslotDao dao = new TimeslotDao(dataSource);
-        //TODO: FIXME: 
+        dao.connectTalkToTimeslot(talkId, timeslotId);
         return response;
     }
 }

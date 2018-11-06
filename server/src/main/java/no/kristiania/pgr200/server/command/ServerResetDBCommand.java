@@ -13,18 +13,17 @@ import java.sql.SQLOutput;
 import java.util.HashMap;
 
 public class ServerResetDBCommand extends ResetDBCommand implements ServerCommand {
+    String filename;
+
     @Override
     public ServerResponse execute(DataSource dataSource) {
-        //FIXME:
-        String filename = HttpServer.propertiesFileName;
 
-        System.out.println(filename);
+        filename = HttpServer.propertiesFileName;
         try {
             Util.resetDatabase(filename);
             response.setStatus(200);
         } catch (IOException e) {
             System.out.println("Could not reset no.kristiania.pgr200.server.database.");
-            e.printStackTrace();
             response.setStatus(500);
         }
 

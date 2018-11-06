@@ -430,14 +430,10 @@ public class ServerTest {
 
 
 
-/*
+
 
     @Test
     public void shouldConnectDayToConference() throws IOException, SQLException {
-        main(new String[]{"help"});
-        ConferenceDao conferenceDao = new ConferenceDao(dataSource);
-        DayDao dayDao = new DayDao(dataSource);
-
         Conference conference = new Conference("Blizzcon");
         Day day = new Day(LocalDate.of(2019, 9, 19));
         Day day2 = new Day(LocalDate.of(2019, 9, 20));
@@ -448,11 +444,15 @@ public class ServerTest {
         dayDao.insert(day2);
         dayDao.insert(day3);
 
-        String[] connectArgs = {"connect", "day-with-conference",
-                                "-day", day.getId().toString(),
-                                "-conference", conference.getId().toString()};
+        HashMap<String, String> params = new HashMap<>();
+        params.put("day", day.getId().toString());
+        params.put("conference", conference.getId().toString());
 
-        main(connectArgs);
+        HttpRequest request = new HttpRequest(hostname, port,
+                new Uri("/api/connect/day-with-conference", params).toString());
+        HttpResponse response = request.execute();
+
+
         List<Day> connectedDays = dayDao.retrieveByConference(conference.getId());
 
         assertThat(connectedDays).asList().contains(day);
@@ -461,11 +461,11 @@ public class ServerTest {
     }
 
 
+
+
     @Test
     public void shouldConnectTimeslotToDay() throws IOException, SQLException {
-        main(new String[]{"help"});
-        TimeslotDao timeslotDao = new TimeslotDao(dataSource);
-        DayDao dayDao = new DayDao(dataSource);
+
 
         Timeslot timeslot = new Timeslot(LocalTime.of(10,30), LocalTime.of(12,15));
         Timeslot timeslot2 = new Timeslot(LocalTime.of(12,30), LocalTime.of(13,15));
@@ -480,13 +480,15 @@ public class ServerTest {
         timeslot = timeslotDao.retrieve(timeslot.getId());
         day = dayDao.retrieve(day.getId());
 
+        HashMap<String, String> params = new HashMap<>();
+        params.put("timeslot", timeslot.getId().toString());
+        params.put("day", day.getId().toString());
 
-        String[] connectArgs = {"connect", "timeslot-with-day",
-                "-timeslot", timeslot.getId().toString(),
-                "-day", day.getId().toString(),
-        };
+        HttpRequest request = new HttpRequest(hostname, port,
+                new Uri("/api/connect/timeslot-with-day", params).toString());
+        HttpResponse response = request.execute();
 
-        main(connectArgs);
+
         List<Timeslot> connectedTimeslots = timeslotDao.retrieveByDay(day.getId());
 
         assertThat(connectedTimeslots).asList().contains(timeslot);
@@ -496,23 +498,24 @@ public class ServerTest {
 
     @Test
     public void shouldConnectTalkToTimeslot() throws IOException, SQLException {
-        TimeslotDao timeslotDao = new TimeslotDao(dataSource);
-        TalkDao talkDao = new TalkDao(dataSource);
 
         Timeslot timeslot = new Timeslot(LocalTime.of(8,40), LocalTime.of(9,55));
         Talk talk = new Talk("Testtalk", "talkdesc", "...");
         talkDao.insert(talk);
         timeslotDao.insert(timeslot);
 
-        String[] connectArgs = {"connect", "talk-with-timeslot",
-                "-talk", talk.getId().toString(),
-                "-timeslot", timeslot.getId().toString()};
+        HashMap<String, String> params = new HashMap<>();
+        params.put("talk", talk.getId().toString());
+        params.put("timeslot", timeslot.getId().toString());
 
-        main(connectArgs);
+        HttpRequest request = new HttpRequest(hostname, port,
+                new Uri("/api/connect/talk-with-timeslot", params).toString());
+        request.execute();
+
         List<Talk> connectedTalks = talkDao.retrieveByTimeslot(timeslot.getId());
 
         assertThat(connectedTalks).asList().contains(talk);
 
     }
-    */
+
 }
