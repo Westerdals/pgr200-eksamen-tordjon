@@ -110,6 +110,21 @@ public class ProgramTest {
     }
 
     @Test
+    public void shouldPrintSchedule() throws IOException {
+        main(new String[]{
+                "create", "demo"
+        });
+
+        HttpResponse response =
+                new ClientListConferencesCommand().execute(dataSource);
+        Type collectionType = new TypeToken<List<Conference>>(){}.getType();
+        List<Conference> conferences = gson.fromJson(response.getBody(), collectionType);
+        Conference conference = conferences.get(0);
+
+        main(new String[]{"show", "schedule", "-id", conference.getId().toString()});
+    }
+
+    @Test
     public void shouldInsertTalk() throws IOException {
 
         Talk talk = new Talk("this is my title", "some description", "topicnamead");

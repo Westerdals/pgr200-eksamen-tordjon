@@ -16,6 +16,8 @@ public class Query {
 
     public Query(HashMap<String, String> arguments) {
         for(Map.Entry e : arguments.entrySet()){
+            if(e.getValue() == null)
+                continue;
             this.arguments.put(URLEncoder.encode(e.getKey().toString()), URLEncoder.encode(e.getValue().toString()));
         }
     }
