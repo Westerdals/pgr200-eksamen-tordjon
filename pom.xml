@@ -11,6 +11,13 @@
     </modules>
     <name>Eksamen PGR200</name>
 
+<dependencies>
+  <dependency>
+    <groupId>org.logevents</groupId>
+    <artifactId>logevents</artifactId>
+    <version>0.1.7</version>
+  </dependency>
+</dependencies>
 
 <build>
   <plugins>
