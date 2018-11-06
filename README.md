@@ -11,6 +11,7 @@
 -[ ] dao + gson som protected felter i command
 -[ ] client lytter etter kommandoer, behøver ikke kjøre java-jar hver gang (har en "prompt")
 -[ ] sjekke warnings fra intellij
+-[ ] Skrive om de største testene som integrasjonstester 
 ## Notater fra tog :D 
 DaoTest.createDao() er lik i alle tester. Burde det være default-metode?
 

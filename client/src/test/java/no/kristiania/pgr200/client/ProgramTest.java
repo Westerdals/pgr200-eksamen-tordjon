@@ -34,12 +34,18 @@ import java.util.UUID;
 import static no.kristiania.pgr200.client.Program.main;
 import static org.assertj.core.api.Assertions.assertThat;
 
+
+/**
+ * This class covers all use cases
+ * for our client.
+ */
 public class ProgramTest {
 
     private static DataSource dataSource;
 
     private  ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
+    private Gson gson = new Gson();
 
 
 
@@ -91,7 +97,6 @@ public class ProgramTest {
         HttpResponse response =
                 new ClientListConferencesCommand().execute(dataSource);
 
-        Gson gson = new Gson();
         Type collectionType = new TypeToken<Collection<Conference>>(){}.getType();
         Collection<Conference> conferences = gson.fromJson(response.getBody(), collectionType);
 
@@ -115,7 +120,6 @@ public class ProgramTest {
         });
 
         HttpResponse response = new ClientListTalksCommand().execute(dataSource);
-        Gson gson = new Gson();
 
         Type collectionType = new TypeToken<Collection<Talk>>(){}.getType();
         Collection<Talk> talks = gson.fromJson(response.getBody(), collectionType);
@@ -133,7 +137,6 @@ public class ProgramTest {
         });
 
         HttpResponse response = new ClientListConferencesCommand().execute(dataSource);
-        Gson gson = new Gson();
 
         Type collectionType = new TypeToken<Collection<Conference>>(){}.getType();
         List<Conference> conferences = gson.fromJson(response.getBody(), collectionType);
@@ -152,7 +155,6 @@ public class ProgramTest {
         });
 
         HttpResponse response = new ClientListDaysCommand().execute(dataSource);
-        Gson gson = new Gson();
 
         Type collectionType = new TypeToken<List<Day>>(){}.getType();
         List<Day> days = gson.fromJson(response.getBody(), collectionType);
@@ -171,7 +173,6 @@ public class ProgramTest {
         });
 
         HttpResponse response = new ClientListTimeslotsCommand().execute(dataSource);
-        Gson gson = new Gson();
 
         Type collectionType = new TypeToken<List<Timeslot>>(){}.getType();
         List<Timeslot> timeslots = gson.fromJson(response.getBody(), collectionType);
@@ -186,8 +187,6 @@ public class ProgramTest {
 
     @Test
     public void shouldDeleteTalk() throws IOException {
-        Gson gson = new Gson();
-
         Talk talk = new Talk("My fun talk!", "my fun description", "my amazing topic");
 
         // insert first
@@ -216,7 +215,6 @@ public class ProgramTest {
 
     @Test
     public void shouldDeleteConference() throws IOException {
-        Gson gson = new Gson();
 
         Conference conference = new Conference("This is an awesome conference!");
 
@@ -247,7 +245,6 @@ public class ProgramTest {
 
     @Test
     public void shouldDeleteDay() throws IOException {
-        Gson gson = new Gson();
 
         Day day = new Day(LocalDate.of(2018, 12, 24));
 
@@ -278,7 +275,6 @@ public class ProgramTest {
 
     @Test
     public void shouldDeleteTimeslot() throws IOException {
-        Gson gson = new Gson();
 
         Timeslot timeslot = new Timeslot(LocalTime.of(11, 00), LocalTime.of(14, 22));
 
@@ -309,23 +305,167 @@ public class ProgramTest {
     }
 
     @Test
-    public void shouldConnectDayWithConference() throws SQLException {
+    public void shouldConnectDayWithConference() throws SQLException, IOException {
 
         Day day = new Day(LocalDate.of(1212, 12, 12));
         Conference conference = new Conference("What a time to run a computer program!");
 
-        // insert talk, day through main
+        // insert conference, day through main
         // connect them through main
         // get conference and confirm that it has list of days
-        main(new String[]{ "connect day-with-conference",
-                "-day", day.getId().toString(),
-                "-conference", day.getId().toString()
+        main(new String[]{
+            "insert", "day",
+            "-date", "12.12.1212"
+
         });
 
-        assertThat(false).isTrue(); // intentioanlly failing 
+        main(new String[]{
+            "insert", "conference",
+            "-name", conference.getName()
+        });
+
+        HttpResponse response = new ClientListDaysCommand().execute(dataSource);
+        Type collectionType = new TypeToken<Collection<Day>>(){}.getType();
+        List<Day> days = gson.fromJson(response.getBody(), collectionType);
+
+        response = new ClientListConferencesCommand().execute(dataSource);
+        collectionType = new TypeToken<Collection<Conference>>(){}.getType();
+        List<Conference> conferences = gson.fromJson(response.getBody(), collectionType);
+
+
+        Day retrievedDay = days.get(0);
+        Conference retrievedConference = conferences.get(0);
+
+        // actually connecting:
+        main(new String[]{
+                "connect", "day-with-conference",
+                "-day", retrievedDay.getId().toString(),
+                "-conference", retrievedConference.getId().toString()
+        });
+
+
+        // asserting that the connection is registered and applied to retrieved days
+        response = new ClientListConferencesCommand().execute(dataSource);
+        collectionType = new TypeToken<Collection<Conference>>(){}.getType();
+        List<Conference> conferencesWithDays = gson.fromJson(response.getBody(), collectionType);
+
+        Conference conferenceWithDays = conferencesWithDays.get(0);
+
+        Day connectedDay = conferenceWithDays.getDays().get(0);
+
+        assertThat(connectedDay.getId())
+            .isEqualTo(retrievedDay.getId());
+
     }
 
 
+    @Test
+    public void shouldConnectTalkWithTimeslot() throws IOException {
+
+        Talk talk = new Talk("Apple and oranges", "A talk about something fruity", "fruits");
+        Timeslot timeslot = new Timeslot(LocalTime.of(20, 00), LocalTime.of(23, 20));
+
+        main(new String[]{
+                "insert", "talk",
+                "-title", talk.getTitle(),
+                "-description", talk.getDescription(),
+                "-topic", talk.getTopicTitle()
+
+        });
+
+        main(new String[]{
+                "insert", "timeslot",
+                "-start", "20:00",
+                "-end", "23:20"
+        });
+
+        HttpResponse response = new ClientListTalksCommand().execute(dataSource);
+        Type collectionType = new TypeToken<Collection<Talk>>(){}.getType();
+        List<Talk> talks = gson.fromJson(response.getBody(), collectionType);
+
+        response = new ClientListTimeslotsCommand().execute(dataSource);
+        collectionType = new TypeToken<Collection<Timeslot>>(){}.getType();
+        List<Timeslot> timeslots = gson.fromJson(response.getBody(), collectionType);
+
+
+        Talk retrievedTalk = talks.get(0);
+        Timeslot retrievedTimeslot = timeslots.get(0);
+
+        // actually connecting:
+        main(new String[]{
+                "connect", "talk-with-timeslot",
+                "-talk", retrievedTalk.getId().toString(),
+                "-timeslot", retrievedTimeslot.getId().toString()
+        });
+
+
+        // asserting that the connection is registered and applied to retrieved talks
+        response = new ClientListTimeslotsCommand().execute(dataSource);
+        collectionType = new TypeToken<Collection<Timeslot>>(){}.getType();
+        List<Timeslot> timeslotsWithDays = gson.fromJson(response.getBody(), collectionType);
+
+        Timeslot timeslotWithTalks = timeslotsWithDays.get(0);
+
+        Talk connectedTalk = timeslotWithTalks.getTalk();
+
+
+        assertThat(connectedTalk.getId())
+                .isEqualTo(retrievedTalk.getId());
+
+    }
+
+
+    @Test
+    public void shouldConnectTimeslotWithDay() throws IOException {
+
+        Timeslot timeslot = new Timeslot(LocalTime.of(20, 00), LocalTime.of(23, 20));
+        Day day = new Day(LocalDate.of(2020, 12, 12));
+        main(new String[]{
+                "insert", "timeslot",
+                "-start", "20:00",
+                "-end", "23:20"
+        });
+
+        main(new String[]{
+                "insert", "day",
+                "-date", "12.12.2020"
+
+        });
+
+
+        HttpResponse response = new ClientListTimeslotsCommand().execute(dataSource);
+        Type collectionType = new TypeToken<Collection<Timeslot>>(){}.getType();
+        List<Timeslot> timeslots = gson.fromJson(response.getBody(), collectionType);
+
+        response = new ClientListDaysCommand().execute(dataSource);
+        collectionType = new TypeToken<Collection<Day>>(){}.getType();
+        List<Day> days = gson.fromJson(response.getBody(), collectionType);
+
+
+        Timeslot retrievedTimeslot = timeslots.get(0);
+        Day retrievedDay = days.get(0);
+
+        // actually connecting:
+        main(new String[]{
+                "connect", "timeslot-with-day",
+                "-timeslot", retrievedTimeslot.getId().toString(),
+                "-day", retrievedDay.getId().toString()
+        });
+
+
+        // asserting that the connection is registered and applied to retrieved timeslots
+        response = new ClientListDaysCommand().execute(dataSource);
+        collectionType = new TypeToken<Collection<Day>>(){}.getType();
+        List<Day> daysWithTimeslots = gson.fromJson(response.getBody(), collectionType);
+
+
+        Timeslot connectedTimeslot = daysWithTimeslots.get(0).getTimeslots().get(0);
+
+
+        assertThat(connectedTimeslot.getId())
+                .isEqualTo(retrievedTimeslot.getId());
+
+    }
     /*
 
     @Test
