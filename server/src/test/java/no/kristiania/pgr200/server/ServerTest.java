@@ -16,10 +16,7 @@ import no.kristiania.pgr200.server.database.dao.DayDao;
 import no.kristiania.pgr200.server.database.dao.TalkDao;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
 import org.assertj.core.internal.bytebuddy.implementation.bind.annotation.Super;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
@@ -28,6 +25,7 @@ import java.io.PrintStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -252,64 +250,158 @@ public class ServerTest {
 
     }
 
-   /* @Test
-    public void shouldInsertTalk() throws IOException, SQLException {
-        Talk inserted = new Talk("inserted title", "inserted description", "inserted topic");
-        String[] args = {
-                "insert", "talk",
-                "-title", inserted.getTitle(),
-                "-description", inserted.getDescription(),
-                "-topic", inserted.getTopicTitle()
-        };
 
-        Program.setPropertiesFilename("test.properties");
-
-        main(new String[]{"reset", "db"});
-        main(args);
-
-        TalkDao talkDao = new TalkDao(dataSource);
-        Talk talk = talkDao.retrieveAll().get(0);
-
-        assertThat(talk)
-                .isEqualToComparingOnlyGivenFields(inserted,
-                        "title", "description", "topicTitle");
-
-    }
 
     @Test
-    public void shouldThrowIllegalArgumentException() {
+    public void TestConferenceCommands() throws SQLException, IOException {
 
-        String[] args = new String[]{
-                "insert", "talk", "-id", "-title"
-        };
+        //----INSERT----//
+        Conference conference = new Conference("Testconference");
+        HashMap<String, String> params = new HashMap<>();
+        params.put("name", conference.getName());
 
-        main(args);
+        HttpRequest request = new HttpRequest(hostname, port,
+                new Uri("/api/insert/conference", params).toString());
+        HttpResponse response = request.execute();
 
-        String expectedOutput = "option (\"-option\") cannot be followed by another option";
-        String actualOutput = outContent.toString().replaceAll("(\\r|\\n)", "");
-        assertThat(actualOutput)
-                .isEqualTo(expectedOutput);
+        Conference retrievedConference = gson.fromJson(response.getBody(), Conference.class);
+
+        assertThat(retrievedConference).isEqualToComparingOnlyGivenFields(conference, "name");
+        assertEquals(200,response.getStatusCode());
+
+        conference = retrievedConference;
+
+
+        //----UPDATE---//
+        Conference updatedConference = new Conference(conference.getId(), "TestconferenceNewName");
+        params = new HashMap<>();
+        params.put("id", updatedConference.getId().toString());
+        params.put("name", updatedConference.getName());
+
+        request = new HttpRequest(hostname, port,
+                new Uri("/api/update/conference", params).toString());
+        response = request.execute();
+
+        retrievedConference = gson.fromJson(response.getBody(), Conference.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(200);
+        assertThat(retrievedConference).isEqualToComparingFieldByField(updatedConference);
+        assertThat(retrievedConference.toString()).isNotEqualTo(conference.toString());
+
+        //----DELETE----/
+        request = new HttpRequest(hostname, port,
+                new Uri("/api/delete/conference?id=" + retrievedConference.getId()).toString());
+        response = request.execute();
+        assertThat(response.getStatusCode()).isEqualTo(200);
+        assertThat(response.getBody().equals(gson.toJson(retrievedConference.getId())));
+
     }
+
 
     @Test
-    public void invalidSourceShouldPrintMessage() throws IOException {
+
+    public void TestDayCommands() throws SQLException, IOException {
+
+        //----INSERT----//
+        Day day = new Day(LocalDate.of(2019,11,14));
+        HashMap<String, String> params = new HashMap<>();
+        params.put("date", day.getDate().format(DateTimeFormatter.ofPattern("d.MM.yyyy")));
 
 
-        String[] args = {
-                "insert", "talk",
-                "-title", "talkname",
-                "-description", "talkdescription",
-                "-topic", "topictittel"
-        };
-        Program.setPropertiesFilename("WRONG.properties");
+        HttpRequest request = new HttpRequest(hostname, port,
+                new Uri("/api/insert/day", params).toString());
+        HttpResponse response = request.execute();
 
-        main(args);
+        Day retrievedDay = gson.fromJson(response.getBody(), Day.class);
 
-        String expectedOutput = "Something went wrong when configuring datasource";
-        String actualOutput = outContent.toString().replaceAll("(\\r|\\n)", "");
-        assertThat(actualOutput)
-                .isEqualTo(expectedOutput);
+        assertThat(retrievedDay).isEqualToComparingOnlyGivenFields(day, "date");
+        assertEquals(200,response.getStatusCode());
+
+        day = retrievedDay;
+
+
+        //----UPDATE---//
+        Day updatedDay = new Day(day.getId(), LocalDate.of(2019,10,2));
+        params = new HashMap<>();
+        params.put("id", updatedDay.getId().toString());
+        params.put("date", updatedDay.getDate().format(DateTimeFormatter.ofPattern("d.MM.yyyy")));
+
+        request = new HttpRequest(hostname, port,
+                new Uri("/api/update/day", params).toString());
+        response = request.execute();
+
+        retrievedDay = gson.fromJson(response.getBody(), Day.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(200);
+        assertThat(retrievedDay).isEqualToComparingFieldByField(updatedDay);
+        assertThat(retrievedDay.toString()).isNotEqualTo(day.toString());
+
+        //----DELETE----/
+        request = new HttpRequest(hostname, port,
+                new Uri("/api/delete/day?id=" + retrievedDay.getId()).toString());
+        response = request.execute();
+        assertThat(response.getStatusCode()).isEqualTo(200);
+        assertThat(response.getBody().equals(gson.toJson(retrievedDay.getId())));
+
     }
+
+
+
+    @Test
+    public void TestTimeslotCommands() throws SQLException, IOException {
+
+
+        //----INSERT----//
+        Timeslot timeslot = new Timeslot(LocalTime.of(12,30,0), LocalTime.of(13,45,0));
+        HashMap<String, String> params = new HashMap<>();
+        params.put("start", timeslot.getStart().toString());
+        params.put("end", timeslot.getEnd().toString());
+
+        HttpRequest request = new HttpRequest(hostname, port,
+                new Uri("/api/insert/timeslot", params).toString());
+        HttpResponse response = request.execute();
+
+        Timeslot retrievedTimeslot = gson.fromJson(response.getBody(), Timeslot.class);
+
+        assertThat(retrievedTimeslot).isEqualToComparingOnlyGivenFields(timeslot, "start", "end");
+        assertEquals(200,response.getStatusCode());
+
+        timeslot = retrievedTimeslot;
+
+
+        //----UPDATE---//
+        Timeslot updatedTimeslot = new Timeslot(timeslot.getId(), LocalTime.of(13,10,0), timeslot.getEnd());
+        params = new HashMap<>();
+        params.put("id", updatedTimeslot.getId().toString());
+        params.put("start", updatedTimeslot.getStart().toString());
+
+        request = new HttpRequest(hostname, port,
+                new Uri("/api/update/timeslot", params).toString());
+        response = request.execute();
+
+        retrievedTimeslot = gson.fromJson(response.getBody(), Timeslot.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(200);
+        assertThat(retrievedTimeslot).isEqualToComparingFieldByField(updatedTimeslot);
+        assertThat(retrievedTimeslot.toString()).isNotEqualTo(timeslot.toString());
+
+        //----DELETE----/
+        request = new HttpRequest(hostname, port,
+                new Uri("/api/delete/timeslot?id=" + retrievedTimeslot.getId()).toString());
+        response = request.execute();
+        assertThat(response.getStatusCode()).isEqualTo(200);
+        assertThat(response.getBody().equals(gson.toJson(retrievedTimeslot.getId())));
+
+
+
+
+
+    }
+
+   /*
+
+
+
 
 
     @Test
@@ -342,132 +434,8 @@ public class ServerTest {
 
 
 
-    @Test
-    public void TestTimeslotCommands() throws  SQLException {
-
-        TimeslotDao timeslotDao = new TimeslotDao(dataSource);
-
-        Timeslot timeslot = new Timeslot(LocalTime.of(10, 30, 0), LocalTime.of(12,0,0));
-        String[] insertArgs = {
-                "insert", "timeslot",
-                "-start", timeslot.getStart().toString(),
-                "-end", timeslot.getEnd().toString()
-        };
-
-        main(insertArgs);
-        Timeslot retrievedTimeslot = timeslotDao.retrieveAll().get(0);
-        assertThat(retrievedTimeslot).isEqualToComparingOnlyGivenFields(timeslot, "start", "end");
-        timeslot = retrievedTimeslot;
 
 
-
-        Timeslot updatedTimeslot = new Timeslot(timeslot.getId(), timeslot.getStart(), LocalTime.of(12,30,0));
-        String x = updatedTimeslot.getStart().toString();
-
-        String[] updateArgs = {
-                "update", "timeslot",
-                "-id", updatedTimeslot.getId().toString(),
-                "-end", updatedTimeslot.getEnd().toString()
-        };
-
-        main(updateArgs);
-        retrievedTimeslot = timeslotDao.retrieve(updatedTimeslot.getId());
-
-        assertThat(retrievedTimeslot).isEqualToComparingFieldByField(updatedTimeslot);
-        assertThat(retrievedTimeslot.toString()).isNotEqualTo(timeslot.toString());
-
-
-        String[] deleteArgs = {
-                "delete", "timeslot",
-                "-id", updatedTimeslot.getId().toString(),
-        };
-        main(deleteArgs);
-        retrievedTimeslot = timeslotDao.retrieve(updatedTimeslot.getId());
-        assertThat(retrievedTimeslot).isNull();
-
-    }
-
-    @Test
-    public void TestDayCommands() throws  SQLException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
-        DayDao dayDao = new DayDao(dataSource);
-
-        Day day = new Day(LocalDate.of(2019, 6, 13));
-        String[] insertArgs = {
-                "insert", "day",
-                "-date", day.getDate().format(formatter)
-        };
-
-        main(insertArgs);
-        Day retrievedDay = dayDao.retrieveAll().get(0);
-        assertThat(retrievedDay).isEqualToComparingOnlyGivenFields(day, "date");
-        day = retrievedDay;
-
-        Day updatedDay = new Day(day.getId(), LocalDate.of(2019, 6,14));
-
-        String[] updateArgs = {
-                "update", "day",
-                "-id", updatedDay.getId().toString(),
-                "-date", updatedDay.getDate().format(formatter)
-        };
-
-        main(updateArgs);
-        retrievedDay = dayDao.retrieve(updatedDay.getId());
-
-        assertThat(retrievedDay).isEqualToComparingFieldByField(updatedDay);
-        assertThat(retrievedDay.toString()).isNotEqualTo(day.toString());
-
-
-        String[] deleteArgs = {
-                "delete", "day",
-                "-id", updatedDay.getId().toString(),
-        };
-        main(deleteArgs);
-        retrievedDay = dayDao.retrieve(updatedDay.getId());
-        assertThat(retrievedDay).isNull();
-
-    }
-
-    @Test
-    public void TestConferenceCommands() throws  SQLException {
-
-        ConferenceDao conferenceDao = new ConferenceDao(dataSource);
-
-        Conference conference = new Conference("Twitchcon");
-        String[] insertArgs = {
-                "insert", "conference",
-                "-name", conference.getName()
-        };
-
-        main(insertArgs);
-        Conference retrievedConference = conferenceDao.retrieveAll().get(0);
-        assertThat(retrievedConference).isEqualToComparingOnlyGivenFields(conference, "name");
-        conference = retrievedConference;
-
-        Conference updatedConference = new Conference(conference.getId(), "TwitchCon 2019");
-
-        String[] updateArgs = {
-                "update", "conference",
-                "-id", updatedConference.getId().toString(),
-                "-name", updatedConference.getName()
-        };
-
-        main(updateArgs);
-        retrievedConference = conferenceDao.retrieve(updatedConference.getId());
-
-        assertThat(retrievedConference).isEqualToComparingFieldByField(updatedConference);
-        assertThat(retrievedConference.toString()).isNotEqualTo(conference.toString());
-
-
-        String[] deleteArgs = {
-                "delete", "conference",
-                "-id", updatedConference.getId().toString(),
-        };
-        main(deleteArgs);
-        retrievedConference = conferenceDao.retrieve(updatedConference.getId());
-        assertThat(retrievedConference).isNull();
-
-    }
 
 
     @Test
