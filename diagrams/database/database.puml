@@ -1,0 +1,51 @@
+@startuml Arbeidskrav 2
+
+    object talk {
+        id : UUID 
+        title : VARCHAR 
+        description : VARCHAR 
+        topic_title : VARCHAR 
+    }
+
+    object timeslot {
+        id : UUID
+        start_time : time 
+        end_time : time 
+        talk_id : UUID 
+    }
+
+    object conference {
+        id : UUID 
+        name : VARCHAR
+    }
+
+    object day {
+        id : UUID 
+        date : date 
+    }
+
+    object timeslot_day {
+        timeslot_id : UUID 
+        day_ID : UUID 
+    }
+
+    object talk_timeslot {
+        talk_id : UUID 
+        timeslot_id : UUID 
+    }
+
+    object conference_day {
+        conference_id : UUID 
+        day_id : UUID 
+    }
+
+    talk "1" .. "*" timeslot_day
+    day "1"  .. "*" timeslot_day
+
+    talk "1"     .. "*" talk_timeslot
+    timeslot "1" .. "*" talk_timeslot
+
+    conference "1" .. "*" conference_day
+    day "1"        .. "*" conference_day
+    
+@enduml
