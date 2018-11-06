@@ -9,21 +9,24 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.util.HashMap;
 
 public class ServerResetDBCommand extends ResetDBCommand implements ServerCommand {
     @Override
-    public ServerResponse execute(DataSource dataSource) throws SQLException {
+    public ServerResponse execute(DataSource dataSource) {
         //FIXME:
         String filename = HttpServer.propertiesFileName;
+
+        System.out.println(filename);
         try {
             Util.resetDatabase(filename);
             response.setStatus(200);
         } catch (IOException e) {
             System.out.println("Could not reset no.kristiania.pgr200.server.database.");
+            e.printStackTrace();
             response.setStatus(500);
         }
-        //response.setBody("");
 
         return response;
     }

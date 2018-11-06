@@ -31,8 +31,7 @@ public class Util {
     }
 
     public static void resetDatabase(String fileName) throws IOException {
-        System.out.println(fileName);
-        Flyway flyway = getFlyway("filename" + fileName);
+        Flyway flyway = getFlyway(fileName);
         flyway.clean();
 
 
