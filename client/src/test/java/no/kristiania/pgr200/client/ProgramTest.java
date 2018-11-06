@@ -4,12 +4,17 @@ package no.kristiania.pgr200.client;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import no.kristiania.pgr200.client.command.listing.ClientListConferencesCommand;
+import no.kristiania.pgr200.client.command.listing.ClientListDaysCommand;
 import no.kristiania.pgr200.client.command.listing.ClientListTalksCommand;
+import no.kristiania.pgr200.client.command.listing.ClientListTimeslotsCommand;
 import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.core.model.Conference;
+import no.kristiania.pgr200.core.model.Day;
 import no.kristiania.pgr200.core.model.Talk;
+import no.kristiania.pgr200.core.model.Timeslot;
 import no.kristiania.pgr200.server.HttpServer;
 import no.kristiania.pgr200.server.database.Util;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,7 +25,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import java.util.List;
 
 import static no.kristiania.pgr200.client.Program.main;
 
@@ -55,8 +64,8 @@ public class ProgramTest {
         setDatasource();
     }
 
-    @Test
-    public void tearDown() {
+    @Before
+    public void resetDb() {
         main(new String[]{"reset", "db"});
     }
 
@@ -120,23 +129,57 @@ public class ProgramTest {
         Gson gson = new Gson();
 
         Type collectionType = new TypeToken<Collection<Conference>>(){}.getType();
-        Collection<Conference> conferences = gson.fromJson(response.getBody(), collectionType);
+        List<Conference> conferences = gson.fromJson(response.getBody(), collectionType);
 
-        assertThat(conferences).contains(conference);
+        assertThat(conferences.get(0)).isEqualToComparingOnlyGivenFields(conference, "name");
     }
 
 
-    @Test @Ignore
+    @Test
     public void shouldInsertDay() throws IOException {
+
+        Day day = new Day(LocalDate.of(2018, 9, 16));
 
         main(new String[]{
                 "insert", "day", "-date", "16.09.2018"
         });
 
-        HttpResponse response = new ClientListTalksCommand().execute(dataSource);
+        HttpResponse response = new ClientListDaysCommand().execute(dataSource);
+        Gson gson = new Gson();
 
-        System.out.println(response.getBody());
+        Type collectionType = new TypeToken<List<Day>>(){}.getType();
+        List<Day> days = gson.fromJson(response.getBody(), collectionType);
 
+
+        assertThat(days.get(0)).isEqualToComparingOnlyGivenFields(day, "date");
+
+    }
+
+    @Test
+    public void shouldInsertTimeslot() throws IOException {
+        Timeslot timeslot = new Timeslot(LocalTime.of(14,20), LocalTime.of(15,30));
+
+        main(new String[]{
+                "insert", "timeslot", "-start", "14:20", "-end", "15:30"
+        });
+
+        HttpResponse response = new ClientListTimeslotsCommand().execute(dataSource);
+        Gson gson = new Gson();
+
+        Type collectionType = new TypeToken<List<Timeslot>>(){}.getType();
+        List<Timeslot> timeslots = gson.fromJson(response.getBody(), collectionType);
+
+        Timeslot retrieved = timeslots.get(0);
+        assertThat(retrieved)
+                .isEqualToComparingOnlyGivenFields(timeslot, "start", "end");
+
+    }
+
+    @Test @Ignore
+    public void shouldListHelpOnInvalidInput() {
+        main(new String[]{
+
+        });
     }
 
 

@@ -9,12 +9,13 @@ import no.kristiania.pgr200.core.model.Day;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 public class ClientInsertDayCommand extends InsertDayCommand implements ClientCommand {
 
     @Override
     public HttpResponse execute(DataSource dataSource) throws IOException {
-        parameters.put("date", date.toString());
+        parameters.put("date", date.format(DateTimeFormatter.ofPattern("d.MM.yyyy")));
 
         Uri uri = new Uri("/api/insert/day", parameters);
         HttpRequest req = new HttpRequest("localhost", 8080, uri.toString());

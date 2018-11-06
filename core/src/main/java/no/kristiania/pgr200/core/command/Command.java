@@ -54,7 +54,7 @@ public abstract class Command {
     }
 
     protected LocalDate getDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
 
         try{
             return LocalDate.parse(date, formatter);
