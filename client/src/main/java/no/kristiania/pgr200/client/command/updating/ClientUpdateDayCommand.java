@@ -9,12 +9,13 @@ import no.kristiania.pgr200.core.model.Day;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 public class ClientUpdateDayCommand extends UpdateDayCommand implements ClientCommand {
     @Override
     public HttpResponse execute(DataSource dataSource) throws IOException {
 
-        parameters.put("date", date.toString());
+        parameters.put("date", date.format(DateTimeFormatter.ofPattern("d.MM.yyyy")));
         parameters.put("id", id.toString());
 
 

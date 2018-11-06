@@ -43,24 +43,8 @@ public class ProgramTest {
 
     private static DataSource dataSource;
 
-    private  ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
     private Gson gson = new Gson();
 
-
-
-    public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
-
-    public void restoreStreams() {
-        System.setOut(originalOut);
-    }
-
-    private void resetStreams(){
-        outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-    }
 
     @BeforeClass
     public static void init() throws IOException {
@@ -68,7 +52,6 @@ public class ProgramTest {
         HttpServer httpServer = new HttpServer( 8080, "./../test.properties");
         httpServer.start();
         setDatasource();
-
     }
 
     @Before
@@ -466,16 +449,17 @@ public class ProgramTest {
 
     }
 
+
     @Test
     public void shouldUpdateTalk() throws IOException {
         Talk original = new Talk("original title", "some desc", "some topic");
         String newTitle = "Some new and shiny title!";
 
         main(new String[]{
-            "insert", "talk",
-            "-title", original.getTitle(),
-            "-description", original.getDescription(),
-            "-toic", original.getTopicTitle()
+                "insert", "talk",
+                "-title", original.getTitle(),
+                "-description", original.getDescription(),
+                "-topic", original.getTopicTitle()
         });
 
 
@@ -488,9 +472,9 @@ public class ProgramTest {
         assertThat(talk).isEqualTo(original);
 
         main(new String[]{
-            "update", "talk",
-            "-id", talk.getId().toString(),
-            "-title", newTitle
+                "update", "talk",
+                "-id", talk.getId().toString(),
+                "-title", newTitle
         });
 
         // fetch the updated one
@@ -501,7 +485,78 @@ public class ProgramTest {
         Talk updated = talks.get(0);
 
         assertThat(updated.getTitle())
-            .isEqualTo(newTitle);
+                .isEqualTo(newTitle);
     }
 
+    @Test
+    public void shouldUpdateConference() throws IOException {
+        Conference original = new Conference("original conference name");
+        String newName = "Some new and shiny confernce name!";
+
+        main(new String[]{
+                "insert", "conference",
+                "-name", original.getName()
+        });
+
+
+        // must retrieve the talk to get the ID that the server uses
+        HttpResponse response = new ClientListConferencesCommand().execute(dataSource);
+        Type collectionType = new TypeToken<Collection<Conference>>(){}.getType();
+        List<Conference> conferences = gson.fromJson(response.getBody(), collectionType);
+        Conference conference = conferences.get(0);
+
+        assertThat(conference).isEqualToComparingOnlyGivenFields(original, "name");
+
+        main(new String[]{
+                "update", "conference",
+                "-id", conference.getId().toString(),
+                "-name", newName
+        });
+
+        // fetch the updated one
+        // must retrieve the talk to get the ID that the server uses
+        response = new ClientListConferencesCommand().execute(dataSource);
+        collectionType = new TypeToken<Collection<Conference>>(){}.getType();
+        conferences = gson.fromJson(response.getBody(), collectionType);
+        Conference updated = conferences.get(0);
+
+        assertThat(updated.getName())
+                .isEqualTo(newName);
+    }
+
+    @Test
+    public void shouldUpdateDay() throws IOException {
+        Day original = new Day(LocalDate.of(2000, 1, 1));
+        LocalDate newDate = LocalDate.of(2020, 12,12);
+
+        main(new String[]{
+                "insert", "day",
+                "-date", "01.01.2000"
+        });
+
+
+        // must retrieve the talk to get the ID that the server uses
+        HttpResponse response = new ClientListDaysCommand().execute(dataSource);
+        Type collectionType = new TypeToken<Collection<Day>>(){}.getType();
+        List<Day> days = gson.fromJson(response.getBody(), collectionType);
+        Day day = days.get(0);
+
+        assertThat(day).isEqualToComparingOnlyGivenFields(original, "date");
+
+        main(new String[]{
+                "update", "day",
+                "-id", day.getId().toString(),
+                "-date", "12.12.2020"
+        });
+
+        // fetch the updated one
+        // must retrieve the talk to get the ID that the server uses
+        response = new ClientListDaysCommand().execute(dataSource);
+        collectionType = new TypeToken<Collection<Day>>(){}.getType();
+        days = gson.fromJson(response.getBody(), collectionType);
+        Day updated = days.get(0);
+
+        assertThat(updated.getDate())
+                .isEqualTo(newDate);
+    }
 }
