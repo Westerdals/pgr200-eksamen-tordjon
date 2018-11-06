@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class ClientShowScheduleCommand extends ShowScheduleCommand {
 
     @Override
-    public HttpResponse execute(DataSource dataSource) throws SQLException {
+    public HttpResponse execute(DataSource dataSource) {
         throw new NotImplementedException();
     }
 

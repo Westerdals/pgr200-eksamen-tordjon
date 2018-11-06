@@ -116,7 +116,11 @@ public class HttpServer {
         Command command = Command.createCommand(populateCommandMap(), path.toString(), parameters);
 
         try {
-            serverResponse = command.execute(dataSource);
+            if(command == null){
+                serverResponse.setStatus(404);
+            } else{
+                serverResponse = command.execute(dataSource);
+            }
         } catch (Exception e) {
             if(e instanceof SQLException){
                 serverResponse.setStatus(500);

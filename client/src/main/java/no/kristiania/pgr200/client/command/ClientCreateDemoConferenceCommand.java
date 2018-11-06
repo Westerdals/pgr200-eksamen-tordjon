@@ -13,7 +13,7 @@ public class ClientCreateDemoConferenceCommand extends CreateDemoConferenceComma
     @Override
     public HttpResponse execute(DataSource dataSource) throws IOException {
 
-        Uri uri = new Uri("/api/insert/democonference", parameters);
+        Uri uri = new Uri("/api/createdemo", parameters);
         HttpRequest req = new HttpRequest("localhost", 8080, uri.toString());
 
         HttpResponse response = req.execute();

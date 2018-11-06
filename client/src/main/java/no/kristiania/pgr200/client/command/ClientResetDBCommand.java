@@ -16,7 +16,6 @@ public class ClientResetDBCommand extends ResetDBCommand implements ClientComman
         HttpRequest req = new HttpRequest("localhost", 8080, uri.toString());
 
         HttpResponse response = req.execute();
-        System.out.println("hei tord");
 
         if(checkForError(response)) {
             return response;

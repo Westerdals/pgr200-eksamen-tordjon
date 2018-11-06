@@ -18,13 +18,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Type;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;
@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static no.kristiania.pgr200.client.Program.main;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProgramTest {
 
@@ -60,15 +61,14 @@ public class ProgramTest {
 
         HttpServer httpServer = new HttpServer( 8080, "./../test.properties");
         httpServer.start();
-
         setDatasource();
+
     }
 
     @Before
     public void resetDb() {
         main(new String[]{"reset", "db"});
     }
-
 
     public static void setDatasource() throws IOException {
         dataSource = Util.createDataSource("./../test.properties");
@@ -306,6 +306,23 @@ public class ProgramTest {
         timeslots = gson.fromJson(response.getBody(), collectionType);
 
         assertThat(timeslots).doesNotContain(timeslot);
+    }
+
+    @Test
+    public void shouldConnectDayWithConference() throws SQLException {
+
+        Day day = new Day(LocalDate.of(1212, 12, 12));
+        Conference conference = new Conference("What a time to run a computer program!");
+
+        // insert talk, day through main
+        // connect them through main
+        // get conference and confirm that it has list of days
+        main(new String[]{ "connect day-with-conference",
+                "-day", day.getId().toString(),
+                "-conference", day.getId().toString()
+        });
+
+        assertThat(false).isTrue(); // intentioanlly failing 
     }
 
 
