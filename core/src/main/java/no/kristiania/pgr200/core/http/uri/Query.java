@@ -57,7 +57,6 @@ public class Query {
 
     @Override
     public String toString() {
-        System.out.println(arguments);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("?");
         for(Map.Entry entry : arguments.entrySet()) {
