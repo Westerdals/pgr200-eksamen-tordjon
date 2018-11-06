@@ -1,7 +1,7 @@
 package no.kristiania.pgr200.client.command.deletion;
 
-import no.kristiania.pgr200.client.HttpRequest;
-import no.kristiania.pgr200.client.HttpResponse;
+import no.kristiania.pgr200.core.http.HttpRequest;
+import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.client.command.ClientCommand;
 import no.kristiania.pgr200.core.command.deletion.DeleteTimeslotCommand;
 import no.kristiania.pgr200.core.http.uri.Uri;
@@ -9,7 +9,6 @@ import no.kristiania.pgr200.core.model.Timeslot;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class ClientDeleteTimeslotCommand extends DeleteTimeslotCommand implements ClientCommand {
 

@@ -1,21 +1,15 @@
 package no.kristiania.pgr200.client.command.updating;
 
 
-import com.google.gson.reflect.TypeToken;
-import no.kristiania.pgr200.client.HttpRequest;
-import no.kristiania.pgr200.client.HttpResponse;
+import no.kristiania.pgr200.core.http.HttpRequest;
+import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.client.command.ClientCommand;
 import no.kristiania.pgr200.core.command.updating.UpdateConferenceCommand;
 import no.kristiania.pgr200.core.http.uri.Uri;
 import no.kristiania.pgr200.core.model.Conference;
-import no.kristiania.pgr200.core.model.Talk;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.sql.SQLException;
-import java.util.Collection;
 
 public class ClientUpdateConferenceCommand extends UpdateConferenceCommand implements ClientCommand {
     @Override

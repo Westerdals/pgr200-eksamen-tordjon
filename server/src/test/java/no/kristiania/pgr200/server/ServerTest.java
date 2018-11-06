@@ -1,6 +1,25 @@
-package no.kristiania.pgr200.program;
+package no.kristiania.pgr200.server;
 
 
+import com.google.gson.Gson;
+import javafx.beans.binding.BooleanExpression;
+import no.kristiania.pgr200.core.http.HttpRequest;
+import no.kristiania.pgr200.core.http.HttpResponse;
+import no.kristiania.pgr200.core.http.uri.Uri;
+import no.kristiania.pgr200.core.model.Conference;
+import no.kristiania.pgr200.core.model.Day;
+import no.kristiania.pgr200.core.model.Talk;
+import no.kristiania.pgr200.core.model.Timeslot;
+import no.kristiania.pgr200.server.database.Util;
+import no.kristiania.pgr200.server.database.dao.ConferenceDao;
+import no.kristiania.pgr200.server.database.dao.DayDao;
+import no.kristiania.pgr200.server.database.dao.TalkDao;
+import no.kristiania.pgr200.server.database.dao.TimeslotDao;
+import org.assertj.core.internal.bytebuddy.implementation.bind.annotation.Super;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
@@ -9,60 +28,72 @@ import java.io.PrintStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static no.kristiania.pgr200.program.Program.main;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 
-public class ProgramTest {
+public class ServerTest {
 
-    private DataSource dataSource;
+    private static DataSource dataSource;
+    Gson gson = new Gson();
 
-    private  ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
+    static ConferenceDao conferenceDao = new ConferenceDao(dataSource);
+    static TalkDao talkDao;
+    static TimeslotDao timeslotDao;
+    static DayDao dayDao;
 
-    @Before
-    public void getDataSource() throws IOException {
+    int port = 8080;
+    String hostname = "localhost";
+
+
+    public static void getDataSource() throws IOException {
         dataSource = Util.createDataSource("./../test.properties");
     }
 
+    @BeforeClass
+    public static void init() throws IOException {
+        getDataSource();
+        HttpServer httpServer = new HttpServer( 8080, "./../test.properties");
+        httpServer.start();
 
-    @Before
-    public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
+        talkDao = new TalkDao(dataSource);
+        conferenceDao = new ConferenceDao(dataSource);
+        timeslotDao = new TimeslotDao(dataSource);
+        dayDao = new DayDao(dataSource);
 
-    @After
-    public void restoreStreams() {
-        System.setOut(originalOut);
-    }
 
-    private void resetStreams(){
-        outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
     }
     @Before
-    public void init() throws IOException {
-        Program.setPropertiesFilename("test.properties");
+    public void resetDatabase() throws IOException {
+        Uri resetdburi = new Uri("/api/resetdb");
+        HttpRequest resetDbRequest = new HttpRequest(hostname, port, resetdburi.toString());
+        resetDbRequest.execute();
 
-        main(new String[]{"reset", "db"});
-        main(new String[]{"help"}); //Need to run the main method with any input to restore the no.kristiania.pgr200.server.database
-
+        getDataSource(); //"refresh" the dataSource after cleaning flyway.
     }
+    @AfterClass
+    public static void teatDown(){
+
+        //kill server?
+    }
+
+
+
 
     @Test
-    public void shouldCreateDemoConference() throws SQLException {
+    public void shouldCreateDemoConferenceAndDoProperDatabaseModifications() throws SQLException, IOException {
 
-        String[] args = {"create", "demo"};
 
-        main(args);
+        HttpRequest createDemoConferenceRequest = new HttpRequest(hostname, port, new Uri("/api/createdemo").toString());
+        HttpResponse response = createDemoConferenceRequest.execute();
+
+        assertThat(response.getStatusCode()).isEqualTo(200);
 
         ConferenceDao conferenceDao = new ConferenceDao(dataSource);
-        DayDao dayDao = new DayDao(dataSource);
         TimeslotDao timeslotDao = new TimeslotDao(dataSource);
-        TalkDao talkDao = new TalkDao(dataSource);
+
 
         assertThat(conferenceDao.retrieveAll().size()).isEqualTo(1);
         assertThat(dayDao.retrieveAll().size()).isEqualTo(2);
@@ -72,115 +103,106 @@ public class ProgramTest {
 
     @Test
     public void shouldShowSchedule() throws IOException, SQLException {
-        main(new String[]{"help"});
 
-        main(new String[]{"create", "demo"});
+        HttpRequest createDemoConferenceRequest = new HttpRequest(hostname, port, new Uri("/api/createdemo").toString());
+        HttpResponse createDemoConferenceResponse = createDemoConferenceRequest.execute();
 
-        ConferenceDao conferenceDao = new ConferenceDao(dataSource);
         Conference conference = conferenceDao.retrieveAll().get(0);
+        //String conferencejson = gson.toJson(conference); ?
 
-        String[] args = {"show", "schedule", "-id", conference.getId().toString()};
-        outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        //new ShowScheduleCommand().build(args).execute(dataSource);
-        String expectedOutput = outContent.toString().replaceAll("(\\r|\\n)", "");
-        outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
 
-        main(args);
-        String actualOutput = outContent.toString().replaceAll("(\\r|\\n)", ""); // windows / mac
-        assertEquals(expectedOutput, actualOutput);
+        HttpRequest showScheduleRequest = new HttpRequest(hostname, port,
+                new Uri("/api/showschedule?id=" + conference.getId().toString()).toString());
+        HttpResponse showScheduleResponse = showScheduleRequest.execute();
+
+
+        assertEquals(showScheduleResponse.getBody(), createDemoConferenceResponse.getBody());
 
     }
 
 
 
-    @Test
+   @Test
     public void shouldListTalks() throws IOException, SQLException {
-        String[] args = {"list", "talks"};
-
-        TalkDao talkDao = new TalkDao(dataSource);
         Talk talk = new Talk("en talk", "med description", "kjedelig topic");
+        Talk otherTalk = new Talk("en talk", "med description", "kjedelig topic");
         talkDao.insert(talk);
+        talkDao.insert(otherTalk);
 
-        String expectedOutput = "";
         List<Talk> talks = talkDao.retrieveAll();
-        for(Talk t : talks) {
-            expectedOutput += (t.toString());
-        }
+        String talksJson = gson.toJson(talks);
+        HttpRequest request = new HttpRequest(hostname, port,
+                new Uri("/api/list/talks").toString());
+        HttpResponse response = request.execute();
 
-        main(args);
-        String actualOutput = outContent.toString().replaceAll("(\\r|\\n)", ""); // windows / mac
-        expectedOutput = expectedOutput.toString().replaceAll("(\\r|\\n)", "");
-        assertEquals(expectedOutput, actualOutput);
+        assertEquals(talksJson, response.getBody());
+        assertEquals(200,response.getStatusCode());
 
     }
+
 
     @Test
     public void shouldListDays() throws IOException, SQLException {
-        String[] args = {"list", "days"};
 
-        DayDao dayDao = new DayDao(dataSource);
         Day day = new Day(LocalDate.of(2019, 11, 19));
+        Day otherDay = new Day(LocalDate.of(2020, 9, 19));
         dayDao.insert(day);
+        dayDao.insert(otherDay);
 
-        String expectedOutput = "";
+
         List<Day> days = dayDao.retrieveAll();
-        for(Day d : days) {
-            expectedOutput += (d.toString());
-        }
+        String json = gson.toJson(days);
 
-        main(args);
-        String actualOutput = outContent.toString().replaceAll("(\\r|\\n)", ""); // windows / mac
-        expectedOutput = expectedOutput.toString().replaceAll("(\\r|\\n)", "");
-        assertEquals(expectedOutput, actualOutput);
+        HttpRequest request = new HttpRequest(hostname, port,
+                new Uri("/api/list/days").toString());
+        HttpResponse response = request.execute();
+
+        assertEquals(json, response.getBody());
+        assertEquals(200,response.getStatusCode());
+
     }
+
+
 
     @Test
     public void shouldListConferences() throws IOException, SQLException {
-        String[] args = {"list", "conferences"};
-
-        ConferenceDao conferenceDao = new ConferenceDao(dataSource);
         Conference conference = new Conference("Blizzcon");
         Conference otherConference = new Conference("TwitchCOn");
         conferenceDao.insert(conference);
         conferenceDao.insert(otherConference);
 
-        String expectedOutput = "";
         List<Conference> conferences = conferenceDao.retrieveAll();
-        for(Conference c : conferences) {
-            expectedOutput += (c.toString());
-        }
 
-        main(args);
-        String actualOutput = outContent.toString().replaceAll("(\\r|\\n)", ""); // windows / mac
-        expectedOutput = expectedOutput.toString().replaceAll("(\\r|\\n)", "");
-        assertEquals(expectedOutput, actualOutput);
+        String json = gson.toJson(conferences);
+
+        HttpRequest request = new HttpRequest(hostname, port,
+                new Uri("/api/list/conferences").toString());
+        HttpResponse response = request.execute();
+
+        assertEquals(json, response.getBody());
+        assertEquals(200,response.getStatusCode());
+
     }
 
     @Test
     public void shouldListTimeslots() throws IOException, SQLException {
-        String[] args = {"list", "timeslots"};
-
-        TimeslotDao timeslotDao = new TimeslotDao(dataSource);
         Timeslot timeslot = new Timeslot(LocalTime.of(10,30,0), LocalTime.of(12,0,0));
         Timeslot otherTimeslot = new Timeslot(LocalTime.of(13,0,0), LocalTime.of(14,30,0));
         timeslotDao.insert(timeslot);
         timeslotDao.insert(otherTimeslot);
-
-        String expectedOutput = "";
         List<Timeslot> timeslots = timeslotDao.retrieveAll();
-        for(Timeslot t : timeslots) {
-            expectedOutput += (t.toString());
-        }
+        String json = gson.toJson(timeslots);
 
-        main(args);
-        String actualOutput = outContent.toString().replaceAll("(\\r|\\n)", ""); // windows / mac
-        expectedOutput = expectedOutput.toString().replaceAll("(\\r|\\n)", "");
-        assertEquals(expectedOutput, actualOutput);
+        HttpRequest request = new HttpRequest(hostname, port,
+                new Uri("/api/list/timeslots").toString());
+        HttpResponse response = request.execute();
+
+        assertEquals(json, response.getBody());
+        assertEquals(200,response.getStatusCode());
+
     }
 
-
+/*
     @Test
     public void shouldConnectDayToConference() throws IOException, SQLException {
         main(new String[]{"help"});
@@ -521,5 +543,5 @@ public class ProgramTest {
         assertThat(retrievedConference).isNull();
 
     }
-
+    */
 }

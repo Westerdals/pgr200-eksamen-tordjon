@@ -14,7 +14,7 @@ public interface ServerCommand {
     default <T> void assignStandardHttp(T content) {
         Gson gson = new Gson();
         String json = gson.toJson(content);
-        response.setStatus(201);
+        response.setStatus(200);
         response.getHeaders().put("Content-Length", json.length() + "");
         response.setBody(json);
     }

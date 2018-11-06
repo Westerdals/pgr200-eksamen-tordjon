@@ -1,7 +1,7 @@
 package no.kristiania.pgr200.client.command;
 
 import com.google.gson.Gson;
-import no.kristiania.pgr200.client.HttpResponse;
+import no.kristiania.pgr200.core.http.HttpResponse;
 
 import java.util.HashMap;
 

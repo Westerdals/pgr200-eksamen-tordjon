@@ -1,14 +1,12 @@
 package no.kristiania.pgr200.client.command;
 
-import no.kristiania.pgr200.client.HttpRequest;
-import no.kristiania.pgr200.client.HttpResponse;
+import no.kristiania.pgr200.core.http.HttpRequest;
+import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.core.command.ResetDBCommand;
 import no.kristiania.pgr200.core.http.uri.Uri;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class ClientResetDBCommand extends ResetDBCommand implements ClientCommand{
 
