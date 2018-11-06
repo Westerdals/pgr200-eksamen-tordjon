@@ -398,31 +398,25 @@ public class ServerTest {
 
     }
 
-   /*
+
 
 
 
 
 
     @Test
-    public void testResetingDatabase() throws  SQLException {
-        TalkDao talkDao = new TalkDao(dataSource);
+    public void testResetingDatabase() throws SQLException, IOException {
 
-        String[] args = {
-                "insert", "talk",
-                "-title", "talkname",
-                "-description", "talkdescription",
-                "-topic", "topictittel"
-        };
         Talk talk = new Talk("talkname", "talkdescription", "topictittel");
-        main(args);
+        talkDao.insert(talk);
+
         List<Talk> talks = talkDao.retrieveAll();
         assertThat(talks).asList().contains(talk);
 
-        String[] args2 = {"reset", "db"};
-        main(args2);
+        HttpRequest request = new HttpRequest(hostname, port,
+                new Uri("/api/resetdb").toString());
+        HttpResponse response = request.execute();
 
-        main(new String[]{"help"}); // running main will create tables again
         List<Talk> retrievedEmpty = talkDao.retrieveAll();
         assertThat(retrievedEmpty)
                 .asList()
@@ -436,7 +430,7 @@ public class ServerTest {
 
 
 
-
+/*
 
     @Test
     public void shouldConnectDayToConference() throws IOException, SQLException {

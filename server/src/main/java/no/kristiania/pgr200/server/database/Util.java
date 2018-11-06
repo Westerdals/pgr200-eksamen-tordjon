@@ -33,6 +33,7 @@ public class Util {
     public static void resetDatabase(String fileName) throws IOException {
         Flyway flyway = getFlyway(fileName);
         flyway.clean();
+        getFlyway(fileName).migrate();
 
 
     }
