@@ -4,12 +4,17 @@ package no.kristiania.pgr200.client;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import no.kristiania.pgr200.client.command.listing.ClientListConferencesCommand;
+import no.kristiania.pgr200.client.command.listing.ClientListDaysCommand;
 import no.kristiania.pgr200.client.command.listing.ClientListTalksCommand;
+import no.kristiania.pgr200.client.command.listing.ClientListTimeslotsCommand;
 import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.core.model.Conference;
+import no.kristiania.pgr200.core.model.Day;
 import no.kristiania.pgr200.core.model.Talk;
+import no.kristiania.pgr200.core.model.Timeslot;
 import no.kristiania.pgr200.server.HttpServer;
 import no.kristiania.pgr200.server.database.Util;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,7 +25,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
 import static no.kristiania.pgr200.client.Program.main;
 
@@ -55,14 +64,21 @@ public class ProgramTest {
         setDatasource();
     }
 
-    @Test
-    public void tearDown() {
+    @Before
+    public void resetDb() {
         main(new String[]{"reset", "db"});
     }
 
 
     public static void setDatasource() throws IOException {
         dataSource = Util.createDataSource("./../test.properties");
+    }
+
+    @Test @Ignore
+    public void shouldListHelpOnInvalidInput() {
+        main(new String[]{
+
+        });
     }
 
     @Test
@@ -120,23 +136,176 @@ public class ProgramTest {
         Gson gson = new Gson();
 
         Type collectionType = new TypeToken<Collection<Conference>>(){}.getType();
-        Collection<Conference> conferences = gson.fromJson(response.getBody(), collectionType);
+        List<Conference> conferences = gson.fromJson(response.getBody(), collectionType);
 
-        assertThat(conferences).contains(conference);
+        assertThat(conferences.get(0)).isEqualToComparingOnlyGivenFields(conference, "name");
     }
 
 
-    @Test @Ignore
+    @Test
     public void shouldInsertDay() throws IOException {
+
+        Day day = new Day(LocalDate.of(2018, 9, 16));
 
         main(new String[]{
                 "insert", "day", "-date", "16.09.2018"
         });
 
+        HttpResponse response = new ClientListDaysCommand().execute(dataSource);
+        Gson gson = new Gson();
+
+        Type collectionType = new TypeToken<List<Day>>(){}.getType();
+        List<Day> days = gson.fromJson(response.getBody(), collectionType);
+
+
+        assertThat(days.get(0)).isEqualToComparingOnlyGivenFields(day, "date");
+
+    }
+
+    @Test
+    public void shouldInsertTimeslot() throws IOException {
+        Timeslot timeslot = new Timeslot(LocalTime.of(14,20), LocalTime.of(15,30));
+
+        main(new String[]{
+                "insert", "timeslot", "-start", "14:20", "-end", "15:30"
+        });
+
+        HttpResponse response = new ClientListTimeslotsCommand().execute(dataSource);
+        Gson gson = new Gson();
+
+        Type collectionType = new TypeToken<List<Timeslot>>(){}.getType();
+        List<Timeslot> timeslots = gson.fromJson(response.getBody(), collectionType);
+
+        Timeslot retrieved = timeslots.get(0);
+        assertThat(retrieved)
+                .isEqualToComparingOnlyGivenFields(timeslot, "start", "end");
+
+    }
+
+
+
+    @Test
+    public void shouldDeleteTalk() throws IOException {
+        Gson gson = new Gson();
+
+        Talk talk = new Talk("My fun talk!", "my fun description", "my amazing topic");
+
+        // insert first
+        main(new String[]{
+                "insert", "talk", "-title", talk.getTitle(), "-description", talk.getDescription(), "-topic", talk.getTopicTitle()
+        });
+
         HttpResponse response = new ClientListTalksCommand().execute(dataSource);
+        Type collectionType = new TypeToken<Collection<Talk>>(){}.getType();
+        List<Talk> talks = gson.fromJson(response.getBody(), collectionType);
 
-        System.out.println(response.getBody());
+        assertThat(talks).contains(talk);
 
+        UUID id = talks.get(0).getId();
+
+
+        main(new String[]{
+                "delete", "talk", "-id", id.toString()
+        });
+
+        response = new ClientListTalksCommand().execute(dataSource);
+        talks = gson.fromJson(response.getBody(), collectionType);
+
+        assertThat(talks).doesNotContain(talk);
+    }
+
+    @Test
+    public void shouldDeleteConference() throws IOException {
+        Gson gson = new Gson();
+
+        Conference conference = new Conference("This is an awesome conference!");
+
+        // insert first
+        main(new String[]{
+                "insert", "conference", "-name", conference.getName()
+        });
+
+        HttpResponse response = new ClientListConferencesCommand().execute(dataSource);
+        Type collectionType = new TypeToken<Collection<Conference>>(){}.getType();
+        List<Conference> conferences = gson.fromJson(response.getBody(), collectionType);
+
+        assertThat(conferences.get(0))
+                .isEqualToComparingOnlyGivenFields(conference, "name");
+
+        UUID id = conferences.get(0).getId();
+
+
+        main(new String[]{
+                "delete", "conference", "-id", id.toString()
+        });
+
+        response = new ClientListConferencesCommand().execute(dataSource);
+        conferences = gson.fromJson(response.getBody(), collectionType);
+
+        assertThat(conferences).doesNotContain(conference);
+    }
+
+    @Test
+    public void shouldDeleteDay() throws IOException {
+        Gson gson = new Gson();
+
+        Day day = new Day(LocalDate.of(2018, 12, 24));
+
+        // insert first
+        main(new String[]{
+                "insert", "day", "-date", "24.12.2018"
+        });
+
+        HttpResponse response = new ClientListDaysCommand().execute(dataSource);
+        Type collectionType = new TypeToken<Collection<Day>>(){}.getType();
+        List<Day> days = gson.fromJson(response.getBody(), collectionType);
+
+        assertThat(days.get(0))
+                .isEqualToComparingOnlyGivenFields(day, "date");
+
+        UUID id = days.get(0).getId();
+
+
+        main(new String[]{
+                "delete", "day", "-id", id.toString()
+        });
+
+        response = new ClientListDaysCommand().execute(dataSource);
+        days = gson.fromJson(response.getBody(), collectionType);
+
+        assertThat(days).doesNotContain(day);
+    }
+
+    @Test
+    public void shouldDeleteTimeslot() throws IOException {
+        Gson gson = new Gson();
+
+        Timeslot timeslot = new Timeslot(LocalTime.of(11, 00), LocalTime.of(14, 22));
+
+        // insert first
+        main(new String[]{
+                "insert", "timeslot", "-start", "11:00", "-end", "14:22"
+        });
+
+        HttpResponse response = new ClientListTimeslotsCommand().execute(dataSource);
+        Type collectionType = new TypeToken<Collection<Timeslot>>(){}.getType();
+        List<Timeslot> timeslots = gson.fromJson(response.getBody(), collectionType);
+
+        assertThat(timeslots.get(0))
+                .isEqualToComparingOnlyGivenFields(timeslot, "start", "end");
+
+
+        UUID id = timeslots.get(0).getId();
+
+
+        main(new String[]{
+                "delete", "timeslot", "-id", id.toString()
+        });
+
+        response = new ClientListTimeslotsCommand().execute(dataSource);
+        timeslots = gson.fromJson(response.getBody(), collectionType);
+
+        assertThat(timeslots).doesNotContain(timeslot);
     }
 
 
