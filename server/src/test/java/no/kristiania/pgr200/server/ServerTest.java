@@ -1,35 +1,58 @@
-package no.kristiania.pgr200.program;
+package no.kristiania.pgr200.server;
 
 
+import javafx.beans.binding.BooleanExpression;
+import no.kristiania.pgr200.core.http.HttpRequest;
+import no.kristiania.pgr200.core.http.HttpResponse;
+import no.kristiania.pgr200.core.http.uri.Uri;
+import no.kristiania.pgr200.core.model.Talk;
+import no.kristiania.pgr200.server.database.Util;
+import no.kristiania.pgr200.server.database.dao.ConferenceDao;
+import no.kristiania.pgr200.server.database.dao.DayDao;
+import no.kristiania.pgr200.server.database.dao.TalkDao;
+import no.kristiania.pgr200.server.database.dao.TimeslotDao;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
-import static no.kristiania.pgr200.program.Program.main;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.Assert.assertEquals;
 
-public class ProgramTest {
+public class ServerTest {
 
     private DataSource dataSource;
 
     private  ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
+    int port = 8080;
+    String hostname = "localhost";
+
     @Before
     public void getDataSource() throws IOException {
         dataSource = Util.createDataSource("./../test.properties");
     }
+    @BeforeClass
+    public static void init() throws IOException {
 
+        HttpServer httpServer = new HttpServer( 8080, "./../test.properties");
+        httpServer.start();
 
-    @Before
+    }
+
+    @AfterClass
+    public static void teatDown(){
+
+        //kill server?
+    }
+
+    /*@Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
     }
@@ -37,32 +60,41 @@ public class ProgramTest {
     @After
     public void restoreStreams() {
         System.setOut(originalOut);
-    }
+    }*/
 
     private void resetStreams(){
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
     }
-    @Before
-    public void init() throws IOException {
-        Program.setPropertiesFilename("test.properties");
 
-        main(new String[]{"reset", "db"});
-        main(new String[]{"help"}); //Need to run the main method with any input to restore the no.kristiania.pgr200.server.database
-
-    }
 
     @Test
-    public void shouldCreateDemoConference() throws SQLException {
+    public void shouldCreateDemoConference() throws SQLException, IOException {
 
-        String[] args = {"create", "demo"};
+        //String[] args = {"create", "demo"};
 
-        main(args);
+        //main(args);
+
+        /*Uri resetdburi = new Uri("/api/resetdb");
+        HttpRequest resetDbRequest = new HttpRequest(hostname, port, resetdburi.toString());
+        resetDbRequest.execute();*/
+
+        Talk talk = new Talk("test", "testtest", "testtesttest3");
+
+
+        Uri uri = new Uri("/api/createdemo");
+        HttpRequest createDemoConferenceRequest = new HttpRequest(hostname, port, uri.toString());
+        createDemoConferenceRequest.execute();
+
 
         ConferenceDao conferenceDao = new ConferenceDao(dataSource);
         DayDao dayDao = new DayDao(dataSource);
         TimeslotDao timeslotDao = new TimeslotDao(dataSource);
         TalkDao talkDao = new TalkDao(dataSource);
+
+        System.out.println(talkDao.retrieveAll());
+        talkDao.insert(talk);
+        System.out.println(talkDao.retrieveAll());
 
         assertThat(conferenceDao.retrieveAll().size()).isEqualTo(1);
         assertThat(dayDao.retrieveAll().size()).isEqualTo(2);
@@ -70,7 +102,43 @@ public class ProgramTest {
         assertThat(talkDao.retrieveAll().size()).isEqualTo(4);
     }
 
+
     @Test
+    public void shouldCreassssteDemoConference() throws SQLException, IOException {
+
+
+
+        Uri resetdburi = new Uri("/api/resetdb");
+        HttpRequest resetDbRequest = new HttpRequest(hostname, port, resetdburi.toString());
+        HttpResponse response = resetDbRequest.execute();
+
+        System.out.println(response.toString());
+
+
+
+        Uri uri = new Uri("/api/createdemo");
+        HttpRequest createDemoConferenceRequest = new HttpRequest(hostname, port, uri.toString());
+        createDemoConferenceRequest.execute();
+
+
+        ConferenceDao conferenceDao = new ConferenceDao(dataSource);
+        DayDao dayDao = new DayDao(dataSource);
+        TimeslotDao timeslotDao = new TimeslotDao(dataSource);
+        TalkDao talkDao = new TalkDao(dataSource);
+
+
+
+        assertThat(conferenceDao.retrieveAll().size()).isEqualTo(1);
+        assertThat(dayDao.retrieveAll().size()).isEqualTo(2);
+        assertThat(timeslotDao.retrieveAll().size()).isEqualTo(4);
+        assertThat(talkDao.retrieveAll().size()).isEqualTo(4);
+    }
+
+
+
+
+
+    /*@Test
     public void shouldShowSchedule() throws IOException, SQLException {
         main(new String[]{"help"});
 
@@ -521,5 +589,5 @@ public class ProgramTest {
         assertThat(retrievedConference).isNull();
 
     }
-
+    */
 }

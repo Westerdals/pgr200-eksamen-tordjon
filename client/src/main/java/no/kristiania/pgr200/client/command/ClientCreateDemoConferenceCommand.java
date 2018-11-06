@@ -1,16 +1,13 @@
 package no.kristiania.pgr200.client.command;
 
-import no.kristiania.pgr200.client.HttpRequest;
-import no.kristiania.pgr200.client.HttpResponse;
+import no.kristiania.pgr200.core.http.HttpRequest;
+import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.core.command.CreateDemoConferenceCommand;
 import no.kristiania.pgr200.core.http.uri.Uri;
 import no.kristiania.pgr200.core.model.Conference;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.HashMap;
 
 public class ClientCreateDemoConferenceCommand extends CreateDemoConferenceCommand implements ClientCommand {
     @Override

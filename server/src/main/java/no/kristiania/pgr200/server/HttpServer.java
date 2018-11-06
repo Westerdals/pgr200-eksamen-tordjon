@@ -150,10 +150,15 @@ public class HttpServer {
             output.write((entry.getKey() + ": " + entry.getValue() + "\r\n").getBytes());
         }
 
-        //output.write(("Content-length: " + response.getBody().length() + "\r\n").getBytes());
         output.write("\r\n".getBytes());
-        output.write(response.getBody().getBytes());
+
+        if(response.getBody() != null){
+            output.write(response.getBody().getBytes());
+        }
+
         output.flush();
+
+        //output.write(("Content-length: " + response.getBody().length() + "\r\n").getBytes());
 
         //output.write(("X-Server-Name: eksamensserver" + "\r\n").getBytes());
         //output.write("Connection: close\r\n".getBytes());

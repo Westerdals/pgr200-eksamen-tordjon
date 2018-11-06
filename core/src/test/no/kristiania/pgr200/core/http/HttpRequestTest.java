@@ -1,15 +1,11 @@
-package no.kristiania.pgr200.client;
+package no.kristiania.pgr200.core.http;
 
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import no.kristiania.pgr200.core.model.Conference;
-import no.kristiania.pgr200.core.model.Talk;
+import no.kristiania.pgr200.core.http.HttpRequest;
+import no.kristiania.pgr200.core.http.HttpResponse;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.Collection;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 

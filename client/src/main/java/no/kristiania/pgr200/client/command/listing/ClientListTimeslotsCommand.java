@@ -1,20 +1,16 @@
 package no.kristiania.pgr200.client.command.listing;
 
 import com.google.gson.reflect.TypeToken;
-import no.kristiania.pgr200.client.HttpRequest;
-import no.kristiania.pgr200.client.HttpResponse;
+import no.kristiania.pgr200.core.http.HttpRequest;
+import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.client.command.ClientCommand;
 import no.kristiania.pgr200.core.command.listing.ListTimeslotsCommand;
 import no.kristiania.pgr200.core.http.uri.Uri;
-import no.kristiania.pgr200.core.model.Day;
-import no.kristiania.pgr200.core.model.Talk;
 import no.kristiania.pgr200.core.model.Timeslot;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.sql.SQLException;
 import java.util.Collection;
 
 public class ClientListTimeslotsCommand extends ListTimeslotsCommand implements ClientCommand {
