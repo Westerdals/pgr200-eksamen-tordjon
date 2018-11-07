@@ -1,4 +1,4 @@
-@startuml Arbeidskrav 2
+@startuml Database
 
     object talk {
         id : UUID 
@@ -35,8 +35,8 @@
         day_id : UUID 
     }
 
-    talk "1" .. "*" timeslot_day
-    day "1"  .. "*" timeslot_day
+    day "1" .. "*" timeslot_day
+    timeslot "1"  .. "*" timeslot_day
 
     conference "1" .. "*" conference_day
     day "1"        .. "*" conference_day
