@@ -15,13 +15,19 @@ public class ServerUpdateDayCommand extends UpdateDayCommand implements ServerCo
     public ServerResponse execute(DataSource dataSource) throws SQLException {
 
         if (id == null) {
-            System.out.println("\"-id\" required.");
-            return null;
+            //System.out.println("\"-id\" required.");
+            response.setStatus(400);
+            return response;
         }
 
         DayDao dao = new DayDao(dataSource);
 
         Day original = dao.retrieve(id);
+        if(original == null){
+            assignStandardHttp("You cannot update a day that does not exist.");
+            response.setStatus(400);
+            return response;
+        }
         Day updated = new Day(
                 original.getId(),
                 date == null ? original.getDate() : date

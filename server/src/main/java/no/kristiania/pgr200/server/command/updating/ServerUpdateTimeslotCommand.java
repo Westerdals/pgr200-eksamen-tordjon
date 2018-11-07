@@ -14,12 +14,18 @@ public class ServerUpdateTimeslotCommand extends UpdateTimeslotCommand implement
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
         if (id == null) {
-            System.out.println("\"-id\" is required.");
-            return null;
+            //System.out.println("\"-id\" is required.");
+            response.setStatus(400);
+            return response;
         }
 
         TimeslotDao dao = new TimeslotDao(dataSource);
         Timeslot original = dao.retrieve(id);
+        if(original == null){
+            assignStandardHttp("You cannot update a timeslot that does not exist.");
+            response.setStatus(400);
+            return response;
+        }
         Timeslot updated = new Timeslot(
                 id,
                 start == null ? original.getStart() : start,

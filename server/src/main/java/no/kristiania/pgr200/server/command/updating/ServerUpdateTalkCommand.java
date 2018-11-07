@@ -15,13 +15,19 @@ public class ServerUpdateTalkCommand extends UpdateTalkCommand implements Server
     public ServerResponse execute(DataSource dataSource) throws SQLException {
 
         if (id == null) {
-            System.out.println("\"-id\" is required.");
-            return null;
+            //System.out.println("\"-id\" is required.");
+            response.setStatus(400);
+            return response;
         }
 
         TalkDao dao = new TalkDao(dataSource);
 
         Talk original = dao.retrieve(id);
+        if(original == null){
+            assignStandardHttp("You cannot update a talk that does not exist.");
+            response.setStatus(400);
+            return response;
+        }
         Talk updated = new Talk(
                 id == null ? original.getId() : id,
                 title == null ? original.getTitle(): title,
