@@ -15,6 +15,11 @@ public class ServerInsertTalkCommand extends InsertTalkCommand implements Server
 
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
+        if (title == null) {
+            response.setStatus(400);
+            return response;
+        }
+
         Dao<Talk> dao = new TalkDao(dataSource);
         Talk talk = new Talk(title, description, topic);
 

@@ -15,8 +15,9 @@ public class ServerInsertTimeslotCommand extends InsertTimeslotCommand implement
     public ServerResponse execute(DataSource dataSource) throws SQLException {
 
         if (start == null || end == null) {
-            System.out.println("Both \"-start\" and \"-end\" are required.");
-            return null;
+            //System.out.println("\"-date\" required");
+            response.setStatus(400);
+            return response;
         }
 
         TimeslotDao dao = new TimeslotDao(dataSource);
