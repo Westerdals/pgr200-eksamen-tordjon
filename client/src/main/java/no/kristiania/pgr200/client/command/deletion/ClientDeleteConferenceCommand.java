@@ -24,9 +24,8 @@ public class ClientDeleteConferenceCommand extends DeleteConferenceCommand imple
             return response;
         }
 
-        System.out.println("Deleted requested conference");
-        Conference retrieved = gson.fromJson(response.getBody(), Conference.class);
-        System.out.println(retrieved);
+        System.out.println("Deleted conference with id: " + response.getBody());
+
         return response;
     }
 

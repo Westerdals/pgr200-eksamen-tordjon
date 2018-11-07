@@ -25,9 +25,8 @@ public class ClientDeleteTalkCommand extends DeleteTalkCommand implements Client
             return response;
         }
 
-        System.out.println("Deleted requested talk");
-        Talk retrieved = gson.fromJson(response.getBody(), Talk.class);
-        System.out.println(retrieved);
+        System.out.println("Deleted talk with id: " + response.getBody());
+        ;
         return response;
     }
 

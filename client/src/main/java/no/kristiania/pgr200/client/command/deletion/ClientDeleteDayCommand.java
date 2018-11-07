@@ -9,6 +9,7 @@ import no.kristiania.pgr200.core.model.Day;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.UUID;
 
 public class ClientDeleteDayCommand extends DeleteDayCommand implements ClientCommand {
 
@@ -25,9 +26,7 @@ public class ClientDeleteDayCommand extends DeleteDayCommand implements ClientCo
             return response;
         }
 
-        System.out.println("Deleted requested day");
-        Day retrieved = gson.fromJson(response.getBody(), Day.class);
-        System.out.println(retrieved);
+        System.out.println("Deleted day with id: " + response.getBody());
         return response;
     }
 }
