@@ -72,8 +72,8 @@ Full oversikt over funksjonalitet finnes under "Brukermanual."
 ### Om programmet 
 Programmet vi har laget, lar brukeren holde orden på konferanser i en database. 
 En konferanse ("conference") foregår over en eller flere dager. En dag ("day") kan ha 
-flere tidsperioder ("tidsperionder").
-På hver tidsperiode kan det være en eller flere foredrag. 
+flere tidsperioder ("timeslot").
+På hver tidsperiode kan det være en eller flere foredrag ("talk"). 
 
 Data (konferanser, foredrag, dager, tidsperioder) legges inn av brukeren. 
 De kan så kobles sammen slik brukeren ønsker. Beskrivelse av hvordan dette gjøres, finnes 
@@ -191,7 +191,7 @@ Deretter kan vi bruke ID fra conerence til å finne riktige dager i "conference_
 ### DAO
 ![DAO-klassediagram](./diagrams/class/dao.png)
 
-Vi har ønsket å vite at alle DAO-klasser har mulighet til å gjøre alle CRUD-operasjoner. Det de derfor har til felles er er metodesignaturer (med genererisk spesifisering) og mulighet til å kjøre SQL. 
+Vi har ønsket å vite at alle DAO-klasser har mulighet til å gjøre alle CRUD-operasjoner. Det de derfor har til felles er metodesignaturer (med genererisk spesifisering) og mulighet til å kjøre SQL. 
 
 De forskjellige implementasjonene arver fra den abstrakte klassen, og implementerer metodene. 
 
