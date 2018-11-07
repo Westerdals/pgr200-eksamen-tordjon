@@ -63,10 +63,10 @@ public class ProgramTest {
         dataSource = Util.createDataSource("./../test.properties");
     }
 
-    @Test @Ignore
+    @Test
     public void shouldListHelpOnInvalidInput() {
         main(new String[]{
-
+                "some", "invalid", "input"
         });
     }
 

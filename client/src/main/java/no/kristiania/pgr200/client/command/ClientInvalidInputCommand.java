@@ -13,10 +13,8 @@ public class ClientInvalidInputCommand extends InvalidInputCommand {
 
     @Override
     public HttpResponse execute(DataSource dataSource) throws SQLException {
-        throw new NotImplementedException();
-    }
-
-    /*   "-----------------------------------\n" +
+        System.out.println(
+             "-----------------------------------\n" +
                 "|These are the possible commands: |\n" +
                 "-----------------------------------\n" +
                 "reset db\n" +
@@ -50,13 +48,13 @@ public class ClientInvalidInputCommand extends InvalidInputCommand {
                 "update day\n" +
                 "   \t-date DD.MM.YYYY\n" +
                 "    \t-id ID\n" +
-                "delete talk\n" + 
+                "delete talk\n" +
                 "   \t-id ID\n" +
-                "delete conference\n" + 
+                "delete conference\n" +
                 "   \t-id ID\n" +
-                "delete day\n" + 
+                "delete day\n" +
                 "   \t-id ID\n" +
-                "delete timeslot\n" + 
+                "delete timeslot\n" +
                 "   \t-id ID\n" +
                 "connect day-with-conference\n" +
                 "   \t-day  DAY_ID\n" +
@@ -69,8 +67,14 @@ public class ClientInvalidInputCommand extends InvalidInputCommand {
                 "   \t-day DAY_ID\n" +
                 "show schedule\n" +
                 "   \t-id CONFERENCE_ID\n" +
-                "\n\n" + 
+                "\n\n" +
                 "You may also refer to the documentation for further information." +
-                "\n\n";
-*/
+                "\n\n"
+        );
+
+
+        return null;
+    }
+
+
 }

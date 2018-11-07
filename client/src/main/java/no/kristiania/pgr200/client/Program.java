@@ -2,6 +2,7 @@ package no.kristiania.pgr200.client;
 
 
 import no.kristiania.pgr200.client.command.ClientCreateDemoConferenceCommand;
+import no.kristiania.pgr200.client.command.ClientInvalidInputCommand;
 import no.kristiania.pgr200.client.command.ClientResetDBCommand;
 import no.kristiania.pgr200.client.command.ClientShowScheduleCommand;
 import no.kristiania.pgr200.client.command.connecting.ClientConnectTalkWithTimeslotCommand;
@@ -28,7 +29,7 @@ import no.kristiania.pgr200.core.command.Command;
 import no.kristiania.pgr200.server.command.connecting.ClientConnectDayWithConference;
 
 import javax.sql.DataSource;
-import java.io.IOException;
+import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,21 +42,33 @@ public class Program {
 
     public static void main(String[] args) {
 
-
-        if(args.length < 2) //testing.
-            return;
-
+        Command command = null;
 
         HashMap<String, String> parameters = ArgumentParser.getArguments(args);
-        Command command = Command.createCommand(populateCommandMap(), args[0] + " " + args[1], parameters);
+
+        if(args.length >= 2) //testing.
+            command = Command.createCommand(populateCommandMap(), args[0] + " " + args[1], parameters);
+
+
+
+
 
         try {
+
+            if (command == null) {
+                new ClientInvalidInputCommand().execute(dataSource);
+                return;
+            }
             command.execute(dataSource);
-        }catch(Exception e){
-            if(e instanceof IOException){
-                e.printStackTrace();
-            }else{
-                e.printStackTrace();
+
+        } catch(Exception e){
+            if(e instanceof ConnectException){
+                System.out.println("Could not connect to server.");
+            } else if (e instanceof SQLException) {
+                // Should not happen
+                System.out.println("Something went woring printing hlep");
+            } else{
+                System.out.println("An unknown error occured.");
             }
         }
 
