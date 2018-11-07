@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -60,9 +61,7 @@ public abstract class Command {
         }
         try{
             return LocalDate.parse(date, formatter);
-        }catch(NullPointerException e){
-            return null;
-        }catch(IllegalArgumentException e){
+        }catch(NullPointerException | IllegalArgumentException | DateTimeParseException e){
             return null;
         }
     }
@@ -74,7 +73,7 @@ public abstract class Command {
 
         try{
             return LocalTime.parse(time, formatter);
-        }catch(IllegalArgumentException e){
+        }catch(IllegalArgumentException  | NullPointerException | DateTimeParseException e){
             return null;
         }
     }

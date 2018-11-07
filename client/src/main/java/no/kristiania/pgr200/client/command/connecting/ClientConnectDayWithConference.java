@@ -1,4 +1,4 @@
-package no.kristiania.pgr200.server.command.connecting;
+package no.kristiania.pgr200.client.command.connecting;
 
 import no.kristiania.pgr200.core.http.HttpRequest;
 import no.kristiania.pgr200.core.http.HttpResponse;

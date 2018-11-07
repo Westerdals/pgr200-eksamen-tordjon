@@ -5,6 +5,7 @@ import no.kristiania.pgr200.client.command.ClientCreateDemoConferenceCommand;
 import no.kristiania.pgr200.client.command.ClientInvalidInputCommand;
 import no.kristiania.pgr200.client.command.ClientResetDBCommand;
 import no.kristiania.pgr200.client.command.ClientShowScheduleCommand;
+import no.kristiania.pgr200.client.command.connecting.ClientConnectDayWithConference;
 import no.kristiania.pgr200.client.command.connecting.ClientConnectTalkWithTimeslotCommand;
 import no.kristiania.pgr200.client.command.connecting.ClientConnectTimeslotWithDayCommand;
 import no.kristiania.pgr200.client.command.deletion.ClientDeleteConferenceCommand;
@@ -26,7 +27,6 @@ import no.kristiania.pgr200.client.command.updating.ClientUpdateTimeslotCommand;
 
 import no.kristiania.pgr200.core.ArgumentParser;
 import no.kristiania.pgr200.core.command.Command;
-import no.kristiania.pgr200.server.command.connecting.ClientConnectDayWithConference;
 
 import javax.sql.DataSource;
 import java.net.ConnectException;

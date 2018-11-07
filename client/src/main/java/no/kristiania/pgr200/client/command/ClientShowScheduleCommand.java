@@ -33,7 +33,10 @@ public class ClientShowScheduleCommand extends ShowScheduleCommand implements Cl
             return response;
         }
         Conference conference = gson.fromJson(response.getBody(), Conference.class);
-
+        if(conference == null){
+            System.out.println("The conference you are looking for does not exist");
+            return response;
+        }
         System.out.println(conference.getName() + ": ");
         List<Day> days = conference.getDays();
         for(Day day : days) {

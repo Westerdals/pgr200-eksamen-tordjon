@@ -14,8 +14,10 @@ public class ClientInsertTimeslotCommand extends InsertTimeslotCommand implement
 
     @Override
     public HttpResponse execute(DataSource dataSource) throws IOException {
-        parameters.put("start", start.toString());
-        parameters.put("end", end.toString());
+        if(start != null)
+            parameters.put("start", start.toString());
+        if(end != null)
+            parameters.put("end", end.toString());
 
         Uri uri = new Uri("/api/insert/timeslot", parameters);
         HttpRequest req = new HttpRequest("localhost", 8080, uri.toString());
