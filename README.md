@@ -1,18 +1,3 @@
-
-
-## Todo 
--[ ] Bytt til POST med data i body 
--[ ] Ha en index.html herokuapp.com/schedule som viser schedule rendret
--[ ] Skrive javadoc 
--[ ] Skrive om de største testene som integrasjonstester 
-
-## Todo wednesday 
-- [ ] Skrive ferdig dokumentasjon 
-- [ ] Javadoc + Rydd 
-- [ ] Testing 
- 
-
-
 [![Build Status](https://travis-ci.com/Westerdals/pgr200-eksamen-tordjon.svg?token=zTzVh5wrqM89cpyf9qVd&branch=master)](https://travis-ci.com/Westerdals/pgr200-eksamen-tordjon)
 
 # Dokumentasjon 
