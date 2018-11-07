@@ -1,13 +1,8 @@
 package no.kristiania.pgr200.core.command.insertion;
 
 import no.kristiania.pgr200.core.command.Command;
-import no.kristiania.pgr200.core.model.Talk;
 
-import javax.sql.DataSource;
-import java.lang.reflect.Field;
-import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 
 public abstract class InsertTalkCommand extends Command {
 

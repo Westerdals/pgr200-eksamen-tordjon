@@ -4,19 +4,27 @@ import java.util.HashMap;
 
 public class ArgumentParser {
 
-
-    public static HashMap<String, String> getArguments(String[] strings) throws IllegalArgumentException {
+    /**
+     * Takes a String-array and parses their arguments.
+     * An argument is defined as an -OPTION followed by a value
+     * i.e. "-title", "This is my amazing title"
+     *
+     * @param args the arguments that should be parsed
+     * @return map with argument-value, i.e. ("title", "My amazing title"
+     * @throws IllegalArgumentException
+     */
+    public static HashMap<String, String> getArguments(String[] args) throws IllegalArgumentException {
         HashMap<String, String> arguments = new HashMap<>();
-        for (int i = 0; i < strings.length; i++) {
-            if(strings[i].startsWith("-")){ //.equalsIgnoreCase(identifier)) {
+        for (int i = 0; i < args.length; i++) {
+            if(args[i].startsWith("-")){ //.equalsIgnoreCase(identifier)) {
 
-                if(i >= strings.length - 1 || strings[i + 1].startsWith("-"))
+                if(i >= args.length - 1 || args[i + 1].startsWith("-"))
                     throw new IllegalArgumentException("option (\"-option\") cannot be followed by another option");
 
-                String identifier = strings[i].substring(1);
+                String identifier = args[i].substring(1);
                 String value = "";
-                while(i < strings.length - 1 && !strings[i + 1].startsWith("-")) {
-                    value += strings[i + 1] + " ";
+                while(i < args.length - 1 && !args[i + 1].startsWith("-")) {
+                    value += args[i + 1] + " ";
                     i++;
                 }
                 // removing trailing " "

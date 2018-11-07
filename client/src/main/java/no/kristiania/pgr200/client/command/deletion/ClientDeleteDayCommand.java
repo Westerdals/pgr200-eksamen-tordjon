@@ -1,15 +1,13 @@
 package no.kristiania.pgr200.client.command.deletion;
 
-import no.kristiania.pgr200.core.http.HttpRequest;
-import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.client.command.ClientCommand;
 import no.kristiania.pgr200.core.command.deletion.DeleteDayCommand;
+import no.kristiania.pgr200.core.http.HttpRequest;
+import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.core.http.uri.Uri;
-import no.kristiania.pgr200.core.model.Day;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.util.UUID;
 
 public class ClientDeleteDayCommand extends DeleteDayCommand implements ClientCommand {
 

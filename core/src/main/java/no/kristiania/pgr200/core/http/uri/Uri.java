@@ -1,8 +1,7 @@
 package no.kristiania.pgr200.core.http.uri;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.Map;
+
 
 public class Uri {
 

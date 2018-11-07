@@ -1,8 +1,6 @@
 package no.kristiania.pgr200.core.http;
 
 
-import no.kristiania.pgr200.core.http.HttpRequest;
-import no.kristiania.pgr200.core.http.HttpResponse;
 import org.junit.Test;
 
 import java.io.IOException;

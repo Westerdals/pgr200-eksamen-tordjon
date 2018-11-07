@@ -5,11 +5,20 @@ import no.kristiania.pgr200.core.http.HttpResponse;
 
 import java.util.HashMap;
 
+/**
+ * Interface for all commands on client side
+ */
 public interface ClientCommand {
+
     HashMap<String, String> parameters = new HashMap<>();
     Gson gson = new Gson();
 
 
+    /**
+     * Handles response's status code
+     * @param response the response to be checked
+     * @return true if error occured, false if not
+     */
     default boolean checkForError(HttpResponse response) {
 
         if (response.getStatusCode() == 500) {

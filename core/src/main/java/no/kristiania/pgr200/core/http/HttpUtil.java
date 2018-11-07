@@ -1,12 +1,7 @@
 package no.kristiania.pgr200.core.http;
 
-import no.kristiania.pgr200.core.http.uri.Path;
-import no.kristiania.pgr200.core.http.uri.Query;
-import no.kristiania.pgr200.core.http.uri.Uri;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 

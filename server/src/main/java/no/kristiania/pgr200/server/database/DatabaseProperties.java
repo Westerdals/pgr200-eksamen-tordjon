@@ -6,7 +6,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-
+/**
+ * Represents a properties-file with the
+ * following values:
+ * -url
+ * -username
+ * -password
+ */
 public class DatabaseProperties {
 
     private Properties properties;
@@ -44,9 +50,4 @@ public class DatabaseProperties {
         return password;
     }
 
-    private String getPath(String fileName) {
-        return this.getClass().getClassLoader().getResource(fileName)
-                .toString()
-                .replaceFirst("file:", "");
-    }
 }

@@ -1,9 +1,9 @@
 package no.kristiania.pgr200.client.command.connecting;
 
-import no.kristiania.pgr200.core.http.HttpRequest;
-import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.client.command.ClientCommand;
 import no.kristiania.pgr200.core.command.connecting.ConnectDayWithConference;
+import no.kristiania.pgr200.core.http.HttpRequest;
+import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.core.http.uri.Uri;
 
 import javax.sql.DataSource;

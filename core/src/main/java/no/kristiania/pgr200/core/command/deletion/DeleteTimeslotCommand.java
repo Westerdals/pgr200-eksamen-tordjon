@@ -2,9 +2,6 @@ package no.kristiania.pgr200.core.command.deletion;
 
 import no.kristiania.pgr200.core.command.Command;
 
-
-import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 

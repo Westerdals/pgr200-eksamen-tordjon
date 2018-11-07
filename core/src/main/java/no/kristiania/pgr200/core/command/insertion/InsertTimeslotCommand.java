@@ -1,10 +1,7 @@
 package no.kristiania.pgr200.core.command.insertion;
 
 import no.kristiania.pgr200.core.command.Command;
-import no.kristiania.pgr200.core.model.Timeslot;
 
-import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.HashMap;
 
