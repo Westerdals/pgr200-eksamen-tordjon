@@ -44,7 +44,15 @@ public class Program {
     public static void main(String[] args) {
 
         Command command = null;
-        HashMap<String, String> parameters = ArgumentParser.getArguments(args);
+        HashMap<String, String> parameters = new HashMap<>();
+
+        try {
+            parameters = ArgumentParser.getArguments(args);
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
 
 
         if(Shell.runShell(args))
