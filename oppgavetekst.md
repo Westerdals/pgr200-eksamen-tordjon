@@ -84,19 +84,19 @@ I tilbakemeldingen er det lurt å stille spørsmålene: 1. Hva lærte jeg av den
 
 ## Sjekkliste for innleveringen
 
-- [ ] Kodekvalitet
+- [X] Kodekvalitet
   - [x] Koden er klonet fra GitHub classrom
   - [X] Produserer `mvn package` en executable jar? (tips: Bruk `maven-shade-plugin`)
   - [X] Bruker koden Java 8 og UTF-8
-  - [ ] Bygger prosjektet på [https://travis-ci.com](https://travis-ci.com)?
-  - [ ] Har du god test-dekning? (tips: Sett opp jacoco-maven-plugin til å kreve at minst 65% av linjene har testdekning)
+  - [X] Bygger prosjektet på [https://travis-ci.com](https://travis-ci.com)?
+  - [X] Har du god test-dekning? (tips: Sett opp jacoco-maven-plugin til å kreve at minst 65% av linjene har testdekning)
   - [X] Er koden delt inn i flere Maven `<modules>`?
-  - [ ] Bruker kommunikasjon mellom klient og server HTTP korrekt?
+  - [X] Bruker kommunikasjon mellom klient og server HTTP korrekt?
   - [X] Kobler serveren seg opp mot PostgreSQL ved hjelp av konfigurasjon i fila `innlevering.properties` i *current working directory* med `dataSource.url`, `dataSource.username`, `dataSource.password`?
-- [ ] Funksjonalitet
+- [X] Funksjonalitet
   - [X] add: Legg til et foredrag i databasen med title, description og topic (valgfritt)
   - [X] list: List opp alle foredrag i basen med et valgfritt topic
-  - [ ] show: Vis detaljer for et foredrag
+  - [X] show: Vis detaljer for et foredrag
   - [X] update: Endre title, description eller topic for et foredrag
   - [X] Valgfri tillegg: Kommandoer for å sette opp hvor mange dager og timer konferansen skal vare og hvor mange parallelle spor den skal inneholde.
 - [ ] Dokumentasjon i form av README.md

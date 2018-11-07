@@ -32,7 +32,7 @@ Dvs. at parsing i client fungerer litt som i første øving, men at argumenter p
  
 
 
-
+[![Build Status](https://travis-ci.com/Westerdals/pgr200-eksamen-tordjon.svg?token=zTzVh5wrqM89cpyf9qVd&branch=master)](https://travis-ci.com/Westerdals/pgr200-eksamen-tordjon)
 
 # Dokumentasjon 
 Olav Sundfør - sunola17 <br>
@@ -134,7 +134,7 @@ Viser et programmet for en hel konferanse, med alle relevante detaljer:
     * `connect day-with-conference -day DAYID -conference CONFERENCEID`
     * `connect day-with-conference`
         * `-day` __required__
-        * `-timeslot` __required__
+        * `-conference` __required__
 * Timeslot og Day 
     * `connect timeslot-with-day -timeslot TIMESLOTID -day DAYID`
     * `connect timeslot-with-day`
@@ -259,7 +259,6 @@ Det samme gjelder funksjonalitet for kommandoer i klienten.
 Den funksjonaliteten hentes inn med de to interfacene. 
 
 
-
 ## Egenevaluering
 
 Til forskjell fra tidligere oppgaver, har vi i den endelige innleveringen delt prosjektet opp i flere maven-moduler. 
@@ -268,13 +267,28 @@ Dette har bidratt til en god fordeling av oppgaver ("Separation of concerns") i 
 Vi mener at vår oppgave går langt utover det som er påkrevt av funksjonalitet i oppgaveteksten.
 I tillegg til å legge inn og liste ut foredrag, har vårt prosjekt støtte for langt flere muligheter. Det være seg konferanser, dager og tidsrom. Vi støtter også kobling mellom disse, slik at man kan si hvilke konferanser som hører til hvilke dager o.l. Dersom man kobler flere paralelle timeslots mot samme dag, vil man også i praksis få "tracks" i konferansene. 
 
-Vi har svært god testdekning
+Testene våre dekker veldig store deler av programmet, langt over foreslått minimum på 65%. Noen av testene er relativt store; de tester hele "use cases". Andre tester er mindre, og ligger nærmere klassiske enhetstester. 
 
-Oppgaven lider litt under tidspress + GET/POST -> mot slutten til argumentasjon
+Vår erfaring ble at også de store testene avdekket feil fort, og ga gode tilbakemeldinger som vi kunne forholde oss til. Testene kjører også på [Travis CI](https://travis-ci.com/Westerdals/pgr200-eksamen-tordjon)
 
-Kommandoer -> Hvorfor god ide 
+![Coverage, bilde](./diagrams/coverage.png)
 
-Tester -> forklare hvorfor store 
+Det er relativt lett å sette opp ny funksjonaltiet i prosjektet vårt. Det meste foregår gjennom to maps på henholdsvis klient og server som kobler inputdata mot ønsket handling (command). Dette er de samme kommandoene som vi går i dybden på [her](#command). 
+
+Dersom man ønsker å utvide, kan man lage en command som har `.build` og `.execute`. De metodene kan gjøre det man selv ønsker. 
+
+De tre modulene har tre oppgaver som fungerer godt hver for seg. Client og Server er avhengige av Core begge to, men ikke hverandre (med unntak av i test-scopet, pga. testing)
+
+Vi har også lagt inn mulighet for at klienten kan kjøre et "shell". Dette løfter brukeropplevelsen flere hakk, i og med at brukeren ikke behøver å kjøre `java -jar x/y/z.jar commands` hver gang vedkomne skal bruke programmet.
+
+
+På grunn av kolliderende eksamensdatoer, er oppgaven gjennomført med større tidspress enn den er beregnet på. Resultatet lider litt av dette på enkelte punkter. Vi har blant annet ikke prioritert POST-request. Noen steder ville det vært naturlig å ha det. Post requests skal i utgangspunktet brukes for ikke-idempotente operasjoner, som noen av operasjonene våre er. 
+
+På den annen side er dette et CLI hvor det ikke er fullt så fort gjort å kjøre de samme kommandoene flere ganger. 
+
+
+Alt i alt... __SKRIV HER__ 
+
 
 - [ ] evaluering av prosjektet 
 - [ ] Hvilken karakter vi mener vi fortjener
