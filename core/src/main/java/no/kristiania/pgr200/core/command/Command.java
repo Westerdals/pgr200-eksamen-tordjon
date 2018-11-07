@@ -55,9 +55,13 @@ public abstract class Command {
 
     protected LocalDate getDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
-
+        if(date == null){
+            return null;
+        }
         try{
             return LocalDate.parse(date, formatter);
+        }catch(NullPointerException e){
+            return null;
         }catch(IllegalArgumentException e){
             return null;
         }

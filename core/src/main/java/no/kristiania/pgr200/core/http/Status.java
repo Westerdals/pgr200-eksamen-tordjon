@@ -20,6 +20,9 @@ public class Status {
             case 204:
                 text = "NO CONTENT";
                 break;
+            case 400:
+                text = "BAD REQUEST";
+                break;
             case 404:
                 text = "NOT FOUND";
                 break;
