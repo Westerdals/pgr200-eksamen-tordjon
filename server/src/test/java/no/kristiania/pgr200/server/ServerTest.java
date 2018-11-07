@@ -2,7 +2,6 @@ package no.kristiania.pgr200.server;
 
 
 import com.google.gson.Gson;
-import javafx.beans.binding.BooleanExpression;
 import no.kristiania.pgr200.core.http.HttpRequest;
 import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.core.http.uri.Uri;
@@ -15,13 +14,13 @@ import no.kristiania.pgr200.server.database.dao.ConferenceDao;
 import no.kristiania.pgr200.server.database.dao.DayDao;
 import no.kristiania.pgr200.server.database.dao.TalkDao;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
-import org.assertj.core.internal.bytebuddy.implementation.bind.annotation.Super;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import javax.sql.DataSource;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -30,7 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 
 public class ServerTest {

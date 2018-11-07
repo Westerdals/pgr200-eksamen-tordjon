@@ -1,11 +1,9 @@
 package no.kristiania.pgr200.core.command;
 
 import no.kristiania.pgr200.core.InputParser;
-import no.kristiania.pgr200.core.http.uri.Path;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+
+/**
+ * A command represents an action that the program should execute.
+ *
+ * Each command has methods to build itself (for example by getting values)
+ * and to execute.
+ */
 public abstract class Command {
 
 
@@ -30,7 +35,7 @@ public abstract class Command {
 
 
     /**
-     * Builds _and returns_ the no.kristiania.pgr200.server.command based on input from user.
+     * Builds _and returns_ the no.kristiania.pgr200.server.command based on input from a map.
      * @throws IllegalArgumentException if something is wrong with the no.kristiania.pgr200.server.command
      * @param parameters
      */

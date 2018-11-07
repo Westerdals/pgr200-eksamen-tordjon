@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.io.UnsupportedEncodingException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.Assert.*;
 
 public class QueryTest {
     @Test

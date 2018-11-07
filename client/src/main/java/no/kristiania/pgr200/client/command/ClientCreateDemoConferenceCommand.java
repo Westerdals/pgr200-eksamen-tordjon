@@ -1,8 +1,8 @@
 package no.kristiania.pgr200.client.command;
 
+import no.kristiania.pgr200.core.command.CreateDemoConferenceCommand;
 import no.kristiania.pgr200.core.http.HttpRequest;
 import no.kristiania.pgr200.core.http.HttpResponse;
-import no.kristiania.pgr200.core.command.CreateDemoConferenceCommand;
 import no.kristiania.pgr200.core.http.uri.Uri;
 import no.kristiania.pgr200.core.model.Conference;
 

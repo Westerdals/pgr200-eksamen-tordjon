@@ -1,19 +1,17 @@
 package no.kristiania.pgr200.client.command;
 
 
+import no.kristiania.pgr200.core.command.ShowScheduleCommand;
 import no.kristiania.pgr200.core.http.HttpRequest;
 import no.kristiania.pgr200.core.http.HttpResponse;
-import no.kristiania.pgr200.core.command.ShowScheduleCommand;
 import no.kristiania.pgr200.core.http.uri.Uri;
 import no.kristiania.pgr200.core.model.Conference;
 import no.kristiania.pgr200.core.model.Day;
 import no.kristiania.pgr200.core.model.Talk;
 import no.kristiania.pgr200.core.model.Timeslot;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 

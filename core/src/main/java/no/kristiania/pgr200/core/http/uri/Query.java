@@ -6,6 +6,10 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A query represents the part of an URI that has "parameter-argument"-pairs
+ * ?param1=arg1&param2=value2
+ */
 public class Query {
 
     private HashMap<String, String> arguments = new HashMap<>();
@@ -26,6 +30,10 @@ public class Query {
         return arguments.get(key);
     }
 
+    /**
+     * Returns all arguments from a String URL
+     * as a HashMap
+     * */
     private HashMap<String, String> getArgumentsFrom(String url) {
 
         HashMap<String, String> arguments = new HashMap<>();

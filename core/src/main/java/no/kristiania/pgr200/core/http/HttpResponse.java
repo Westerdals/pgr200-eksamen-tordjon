@@ -1,7 +1,5 @@
 package no.kristiania.pgr200.core.http;
 
-import no.kristiania.pgr200.core.http.HttpUtil;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;

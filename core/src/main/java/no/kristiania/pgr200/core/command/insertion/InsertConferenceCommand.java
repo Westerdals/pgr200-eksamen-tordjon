@@ -1,9 +1,7 @@
 package no.kristiania.pgr200.core.command.insertion;
 
 import no.kristiania.pgr200.core.command.Command;
-import no.kristiania.pgr200.core.model.Conference;
-import javax.sql.DataSource;
-import java.sql.SQLException;
+
 import java.util.HashMap;
 
 public abstract class InsertConferenceCommand extends Command {

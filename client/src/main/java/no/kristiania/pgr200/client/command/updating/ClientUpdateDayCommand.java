@@ -1,9 +1,9 @@
 package no.kristiania.pgr200.client.command.updating;
 
-import no.kristiania.pgr200.core.http.HttpRequest;
-import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.client.command.ClientCommand;
 import no.kristiania.pgr200.core.command.updating.UpdateDayCommand;
+import no.kristiania.pgr200.core.http.HttpRequest;
+import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.core.http.uri.Uri;
 import no.kristiania.pgr200.core.model.Day;
 

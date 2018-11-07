@@ -1,5 +1,11 @@
 package no.kristiania.pgr200.core.http;
 
+/**
+ * Represents a HTTP status.
+ * Constructor needs the numeric code,
+ * but will figure out the belonging text
+ * itself
+ */
 public class Status {
     private int code;
     private String text;

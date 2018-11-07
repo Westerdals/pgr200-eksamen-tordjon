@@ -1,16 +1,6 @@
 package no.kristiania.pgr200.server.command.listing;
 
-import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.database.Util;
-import org.junit.Before;
-import org.junit.Test;
-
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Random;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ListCommandResponseTest { //TODO: Heter ListCommandResponseTest fordi det er responsen som testes. Kan også hete ListCommandTest
 

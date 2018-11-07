@@ -4,11 +4,9 @@ import no.kristiania.pgr200.core.command.connecting.ConnectTalkWithTimeslotComma
 import no.kristiania.pgr200.server.ServerResponse;
 import no.kristiania.pgr200.server.command.ServerCommand;
 import no.kristiania.pgr200.server.database.dao.TimeslotDao;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.UUID;
 
 public class  ServerConnectTalkWithTimeslotCommand extends ConnectTalkWithTimeslotCommand implements ServerCommand {
 

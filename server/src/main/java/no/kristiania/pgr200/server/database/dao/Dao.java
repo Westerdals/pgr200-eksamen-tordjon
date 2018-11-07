@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * All DAO's should support basic CRUD-functionality
  * @param <T> The class being represented
  */
 public abstract class Dao<T> {

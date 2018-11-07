@@ -9,7 +9,6 @@ import no.kristiania.pgr200.server.database.dao.TalkDao;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 public class ServerInsertTalkCommand extends InsertTalkCommand implements ServerCommand {
 

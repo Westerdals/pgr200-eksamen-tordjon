@@ -7,6 +7,11 @@ import java.io.IOException;
 
 public class Util {
 
+    /**
+     * Creates and returns the datasource from a database
+     * @param fileName properties-file with database-config
+     * @throws IOException
+     */
     public static DataSource createDataSource(String fileName) throws IOException {
 
         Flyway flyway = getFlyway(fileName);
@@ -30,6 +35,11 @@ public class Util {
         return flyway;
     }
 
+    /**
+     * Resets the entire database
+     * @param fileName properties-file with database-config
+     * @throws IOException
+     */
     public static void resetDatabase(String fileName) throws IOException {
         Flyway flyway = getFlyway(fileName);
         flyway.clean();

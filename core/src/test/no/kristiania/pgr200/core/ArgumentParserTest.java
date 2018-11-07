@@ -3,10 +3,10 @@ package no.kristiania.pgr200.core;
 import org.junit.Test;
 
 import java.util.HashMap;
-import static no.kristiania.pgr200.core.ArgumentParser.getArguments;
 
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static no.kristiania.pgr200.core.ArgumentParser.getArguments;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class ArgumentParserTest {
     @Test

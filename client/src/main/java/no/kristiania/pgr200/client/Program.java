@@ -24,7 +24,6 @@ import no.kristiania.pgr200.client.command.updating.ClientUpdateConferenceComman
 import no.kristiania.pgr200.client.command.updating.ClientUpdateDayCommand;
 import no.kristiania.pgr200.client.command.updating.ClientUpdateTalkCommand;
 import no.kristiania.pgr200.client.command.updating.ClientUpdateTimeslotCommand;
-
 import no.kristiania.pgr200.core.ArgumentParser;
 import no.kristiania.pgr200.core.command.Command;
 
@@ -33,8 +32,18 @@ import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
+/**
+ * This is the entry point of the client.
+ *
+ * It, like server, maps paths (user input in this case) to
+ * a set of desired commands to execute.
+ *
+ * If the user input proves to be registered in the map,
+ * the associated command will be executed.
+ *
+ * The user also gets output if something is wrong.
+ */
 public class Program {
 
 
@@ -59,7 +68,7 @@ public class Program {
             return;
 
         if(args.length >= 2)
-            command = Command.createCommand(populateCommandMap(), args[0] + " " + args[1], parameters);
+            command = Command.createCommand(populatedCommandMap(), args[0] + " " + args[1], parameters);
 
 
 
@@ -87,7 +96,7 @@ public class Program {
 
 
 
-    static private Map<String, Class<? extends Command>> populateCommandMap() {
+    static private Map<String, Class<? extends Command>> populatedCommandMap() {
         Map<String, Class<? extends Command>> map = new HashMap<>();
 
         // talk

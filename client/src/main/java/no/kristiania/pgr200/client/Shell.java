@@ -2,6 +2,10 @@ package no.kristiania.pgr200.client;
 
 import java.util.Scanner;
 
+/**
+ * Runs the the main program, but through a more interactive
+ * shell - An optional layer on top of the program.
+ */
 public  class Shell {
 
     public static boolean runShell(String[] args) {
@@ -27,6 +31,9 @@ public  class Shell {
         return false;
     }
 
+    /**
+     * Tiny easter egg.
+     */
     private static void printShell() {
         System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n" +
                 "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n" +

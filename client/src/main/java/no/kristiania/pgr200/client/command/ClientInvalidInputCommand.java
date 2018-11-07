@@ -1,9 +1,8 @@
 package no.kristiania.pgr200.client.command;
 
 
-import no.kristiania.pgr200.core.http.HttpResponse;
 import no.kristiania.pgr200.core.command.InvalidInputCommand;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import no.kristiania.pgr200.core.http.HttpResponse;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;

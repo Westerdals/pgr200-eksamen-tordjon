@@ -1,31 +1,5 @@
 package no.kristiania.pgr200.server.command.connecting;
 
-import no.kristiania.pgr200.core.command.connecting.ConnectDayWithConference;
-import no.kristiania.pgr200.core.command.connecting.ConnectTalkWithTimeslotCommand;
-import no.kristiania.pgr200.core.command.connecting.ConnectTimeslotWithDayCommand;
-import no.kristiania.pgr200.core.model.Conference;
-import no.kristiania.pgr200.core.model.Day;
-import no.kristiania.pgr200.core.model.Talk;
-import no.kristiania.pgr200.core.model.Timeslot;
-import no.kristiania.pgr200.server.ServerResponse;
-import no.kristiania.pgr200.server.database.Util;
-import no.kristiania.pgr200.server.database.dao.ConferenceDao;
-import no.kristiania.pgr200.server.database.dao.DayDao;
-import no.kristiania.pgr200.server.database.dao.TalkDao;
-import no.kristiania.pgr200.server.database.dao.TimeslotDao;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.sql.DataSource;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.Random;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
 public class ConnectingCommandResponseTest {
 
     /*private ConnectingCommand command;

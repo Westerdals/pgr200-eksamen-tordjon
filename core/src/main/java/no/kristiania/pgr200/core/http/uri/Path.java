@@ -2,6 +2,9 @@ package no.kristiania.pgr200.core.http.uri;
 
 import java.util.Arrays;
 
+/**
+ * Path in a URL
+ */
 public class Path {
 
 
