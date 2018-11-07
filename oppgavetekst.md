@@ -107,7 +107,7 @@ I tilbakemeldingen er det lurt å stille spørsmålene: 1. Hva lærte jeg av den
   - [ ] Inkluderer dokumentasjonen en evaluering *fra* en annen gruppe og en evaluering *til* en annen gruppe?
   - [X] Inkluderer dokumentasjonen en UML diagram med datamodellen?
   - [X] Inkluderer dokumentasjonen en link til screencast av programmeringsesjon?
-  - [ ] Inkluderer dokumentasjonen en egenevaluering med hvilken karakter gruppen mener de fortjener?
+  - [X] Inkluderer dokumentasjonen en egenevaluering med hvilken karakter gruppen mener de fortjener?
 
 ### Forberedelse
 

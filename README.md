@@ -21,7 +21,6 @@ Tord Jon - jontor17 <br>
 
 - [Dokumentasjon](#dokumentasjon)
     - [Testing av program](#testing-av-program)
-    - [Testing av program](#testing-av-program-1)
     - [Brukermanual](#brukermanual)
         - [Om programmet](#om-programmet)
         - [Vise programoversikt](#vise-programoversikt)
@@ -30,30 +29,25 @@ Tord Jon - jontor17 <br>
         - [Koble sammen data](#koble-sammen-data)
         - [Sletting](#sletting)
         - [Oppdatering](#oppdatering)
-    - [Evaluering av samarbeid](#evaluering-av-samarbeid)
-    - [Video](#video)
     - [Diagrammer](#diagrammer)
         - [Datamodell](#datamodell)
         - [DAO](#dao)
         - [Command](#command)
-    - [Egenevaluering](#egenevaluering)
+    - [Video](#video)
+    - [Evaluering](#evaluering)
+        - [Mottatt evaluering](#mottatt-evaluering)
+        - [Sendt evaluering](#sendt-evaluering)
+        - [Evaluering av samarbeid](#evaluering-av-samarbeid)
+        - [Egenevaluering](#egenevaluering)
 
 
 
 ## Testing av program 
-1. Konfigurer PostgreSQL med bruker fra [properties-filen](./innlevering.properties) 
-2. `mvn package`
-3. `java -jar target/database-innlevering.jar create demo`
-4. `java -jar target/database-innlevering.jar list conferences`
-5. Finn ID til konferansen som nettopp ble opprettet i listen
-6. `java -jar target/database-innlevering.jar show schedule -id ID`
-
-
-## Testing av program 
-1. Kjør `mvn install` i prosjektets rotmappe
-2. Start server 
+1. Konfigurer database basert på `./innlevering.properties`
+2. Kjør `mvn install` i prosjektets rotmappe
+3. Start server 
     1. `java -jar server/target/server.jar` 
-3. Kjør demo i klient 
+4. Kjør demo i klient 
     1. Uten shell
         1. `java -jar client/target/client.jar create demo`
         2. Kopier ID som blir listet ut (evt. kjør med `list conferences`)
@@ -161,18 +155,6 @@ Du kan finne ID ved å kjøre `list`-kommandoen.
         * `-end`
 
 
-## Evaluering av samarbeid 
-Vi har stort sett jobbet sammen, ofte på en maskin. Når vi ikke har gjort det, har vi jobbet over nett, med Git og samtaleverktøy som voicechats i Slack og Discord. Vi har også delt skjerm gjennom disse tjenestene og på den måten fått gjort en slags form for parprogrammering når vi har sett behov for det.
-
-Hva selve samarbeidet angår, finner vi ofte gode løsninger. Det er ikke alltid vi er enige, men vi opplever at samtalen er konstruktiv, heller enn å være en konflikt. Vi har jevnt over funnet en god løsning som begge kan si seg fornøyde med, til tross for at ikke alle elementer er slik som hver av oss opprinnelig hadde sett for seg.
-
-Vårt prosjekt har brukt noe av logikken fra tidligere arbeidskrav. Det gikk lettere å slå sammen de to prosjektene denne gangen, siden vi hadde gjort det tidligere. Vi tok plugins som _maven-shade-plugin_ og _jacoco_ med oss fra tidligere arbeidskrav. Under oppsettet av dette prosjektet kom nytten av å ha gjort det samme tidligere tydelig frem. 
-
-I arbeidskrav 2 skrev vi at vi hadde et forbedringspotensiale på det å sette konkrete mål for hva som skal gjøres, fremfor å jobbe sporadisk og hoppe mellom arbeidsoppgaver. Her har vi blitt flinkere. 
-En teknikk vi har brukt er å sette opp konkrete lister over hva som må gjøres. 
-
-## [Video](https://www.youtube.com/watch?v=3axZ6puyq0s&feature=youtu.be)
-
 ## Diagrammer 
 ### Datamodell
 ![Databasediagram](./diagrams/database/database.png)
@@ -248,7 +230,26 @@ Den funksjonaliteten hentes inn med de to interfacene.
 Vi har valgt å gjøre dette til interface fordi det kun er mulig å arve fra en klasse. Vi ønsket å arve fra både (i `ServerDeleteTalkCommand` sitt tilfelle) `ServerCommand`og `DeleteTalkCommand`. 
 
 
-## Egenevaluering
+## [Video](https://www.youtube.com/watch?v=3axZ6puyq0s&feature=youtu.be)
+
+
+## Evaluering 
+
+### Mottatt evaluering 
+
+### Sendt evaluering 
+
+### Evaluering av samarbeid 
+Vi har stort sett jobbet sammen, ofte på en maskin. Når vi ikke har gjort det, har vi jobbet over nett, med Git og samtaleverktøy som voicechats i Slack og Discord. Vi har også delt skjerm gjennom disse tjenestene og på den måten fått gjort en slags form for parprogrammering når vi har sett behov for det.
+
+Hva selve samarbeidet angår, finner vi ofte gode løsninger. Det er ikke alltid vi er enige, men vi opplever at samtalen er konstruktiv, heller enn å være en konflikt. Vi har jevnt over funnet en god løsning som begge kan si seg fornøyde med, til tross for at ikke alle elementer er slik som hver av oss opprinnelig hadde sett for seg.
+
+Vårt prosjekt har brukt noe av logikken fra tidligere arbeidskrav. Det gikk lettere å slå sammen de to prosjektene denne gangen, siden vi hadde gjort det tidligere. Vi tok plugins som _maven-shade-plugin_ og _jacoco_ med oss fra tidligere arbeidskrav. Under oppsettet av dette prosjektet kom nytten av å ha gjort det samme tidligere tydelig frem. 
+
+I arbeidskrav 2 skrev vi at vi hadde et forbedringspotensiale på det å sette konkrete mål for hva som skal gjøres, fremfor å jobbe sporadisk og hoppe mellom arbeidsoppgaver. Her har vi blitt flinkere. 
+En teknikk vi har brukt er å sette opp konkrete lister over hva som må gjøres. 
+
+### Egenevaluering
 
 Til forskjell fra tidligere oppgaver, har vi i den endelige innleveringen delt prosjektet opp i flere maven-moduler. 
 Dette har bidratt til en god fordeling av oppgaver ("Separation of concerns") i programmet. 
@@ -286,12 +287,4 @@ Til sist har dokumentasjonen en oversiktlig brukermanual.
 Vi tror at vi har løst oppgaven mer komplekst enn det som er nødvendig. Vi har fokusert på å 
 lage kule løsninger som vi synes var morsomme å implementere. Samtidig har vi passet på å holde oss innenfor god kodeskikk. 
 
-
-- En velbegrunnet datamodell med 4-8 klasser __skriv mer ved bildet__ 
-- Spennende generisk kode som egentlig er unødvendig kompleks for å løse problemet
-- En lettfattelig og utvidbar no.kristiania.pgr200.core.http-server
-Heroku? 
-
-
-
-
+Vi håper og tror at besvarelsen som en helhet er god nok til å kunne oppnå en A.
