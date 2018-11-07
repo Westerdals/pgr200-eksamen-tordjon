@@ -17,15 +17,16 @@ public class ServerUpdateConferenceCommand extends UpdateConferenceCommand imple
     public ServerResponse execute(DataSource dataSource) throws SQLException {
 
         if (id == null) {
-            System.out.println("\"-id\" required.");
-            return null;
+            //System.out.println("\"-id\" required.");
+            assignStandardHttp("You cannot update a conference that does not exist.");
+            response.setStatus(400);
+            return response;
         }
 
         Dao<Conference> dao = new ConferenceDao(dataSource);
         Conference conference = new Conference(id, name);
         dao.update(conference);
 
-        // get all data, not just the updated one //TODO: Kan bli bedre om vi wrapper JSON -Tord (samme potensial i de andre update)
         Conference updated = dao.retrieve(conference.getId());
 
         assignStandardHttp(updated);

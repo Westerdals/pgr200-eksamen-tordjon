@@ -13,10 +13,25 @@ public class HttpUtil {
         buildInputList(input);
     }
 
-    // TODO: Refactor this
+    public static String readNextLine(InputStream input) throws IOException {
+        StringBuilder response = new StringBuilder();
+        int c;
+
+        while ((c = input.read()) != -1) {
+            if (c == '\r') {
+                input.mark(1);
+                c = input.read();
+                if (c != '\n') {
+                    input.reset();
+                }
+                break;
+            }
+            response.append((char)c);
+        }
+        return response.toString();
+    }
+
     private void buildInputList(InputStream input) throws IOException {
-
-
         StringBuilder line = new StringBuilder();
         int contentLength = 0;
         // reading status and headers
@@ -103,7 +118,7 @@ public class HttpUtil {
      * @return status code
      */
 
-    public int getStatusCode() { //TODO: validation -> may fail now
+    public int getStatusCode() {
         String statusLine = lines.get(0);
         String[] parts = statusLine.split(" ");
         String code = parts[1];

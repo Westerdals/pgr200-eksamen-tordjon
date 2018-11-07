@@ -21,7 +21,7 @@ public class Status {
                 text = "OK";
                 break;
             case 201:
-                text = "UPDATED";  //TODO: dobbeltsjekk at dette stemmer - tog-Olav
+                text = "CREATED";
                 break;
             case 204:
                 text = "NO CONTENT";

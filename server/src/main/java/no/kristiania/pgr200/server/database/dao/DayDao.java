@@ -26,7 +26,7 @@ public class DayDao extends Dao<Day> {
         );
     }
 
-    //TODO: burde koblingstabell ha egen dao? Consider.
+
     public void connectDayToConference(UUID conferenceId, UUID dayId) throws SQLException {
         String sql = "insert into conference_day (conference_id, day_id) values (?, ?)";
 

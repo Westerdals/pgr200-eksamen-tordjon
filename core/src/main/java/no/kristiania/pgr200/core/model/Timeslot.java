@@ -49,7 +49,7 @@ public class Timeslot {
     public UUID getId() {
         return id;
     }
-    //TODO: returnere talk isteden?
+
     public UUID getTalkId(){
         return talk == null ? null : talk.getId();
     }

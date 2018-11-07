@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * @param <T> The resultset should be mapped to
  */
 public interface Mapper<T> {
-    
+
     T map(ResultSet resultSet) throws SQLException;
 
 }
