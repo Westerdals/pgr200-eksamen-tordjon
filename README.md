@@ -25,11 +25,10 @@ Dvs. at parsing i client fungerer litt som i første øving, men at argumenter p
 
 -[ ] wrapper-klasser rundt JSON som sier hva slags operasjon som ble gjort mm. 
 
-## Todo tuesday
-1. Argumentparser/inputparser-tester + sever og client test 
-2. rydd i clientinserttalkcommand
-3. TordTest, Olav JavaDoc + rydd  
-4. "localhost" er hardkodet, ligge i proeprties-fil?
+## Todo wednesday 
+- [ ] Skrive ferdig dokumentasjon 
+- [ ] Javadoc + Rydd 
+- [ ] Testing 
  
 
 
@@ -40,8 +39,9 @@ Olav Sundfør - sunola17 <br>
 Tord Jon - jontor17 <br>
 
 - [Dokumentasjon](#dokumentasjon)
-    - [Testing av løsning](#testing-av-l%C3%B8sning)
-    - [Bruk av program](#bruk-av-program)
+    - [Testing av program](#testing-av-program)
+    - [Testing av program](#testing-av-program-1)
+    - [Brukermanual](#brukermanual)
         - [Om programmet](#om-programmet)
         - [Vise programoversikt](#vise-programoversikt)
         - [Legge inn data](#legge-inn-data)
@@ -58,18 +58,35 @@ Tord Jon - jontor17 <br>
     - [Egenevaluering](#egenevaluering)
 
 
-    - [X] Navn og Feide-ID på dere de som var på teamet
-    - [ ] Inkluderer dokumentasjonen hvordan man tester ut funksjonaliteten programmet manuelt? (Inkludert eventuell ekstra funksjonalitet dere har tatt med)
-    - [X] Inkluderer dokumentasjonen en evaluering av hvordan man jobbet sammen?
-    - [X] Inkluderer dokumentasjonen en screencast av en parprogrammeringsesjon?
-    - [ ] Inkluderer dokumentasjonen en evaluering *fra* en annen gruppe og en evaluering *til* en annen gruppe?
-    - [ ] Inkluderer dokumentasjonen en UML diagram med datamodellen?
-    - [X] Inkluderer dokumentasjonen en link til screencast av programmeringsesjon?
-    - [ ] Inkluderer dokumentasjonen en egenevaluering med hvilken karakter gruppen mener de fortjener?
 
-## Testing av løsning 
+## Testing av program 
+1. Konfigurer PostgreSQL med bruker fra [properties-filen](./innlevering.properties) 
+2. `mvn package`
+3. `java -jar target/database-innlevering.jar create demo`
+4. `java -jar target/database-innlevering.jar list conferences`
+5. Finn ID til konferansen som nettopp ble opprettet i listen
+6. `java -jar target/database-innlevering.jar show schedule -id ID`
 
-## Bruk av program  
+
+## Testing av program 
+1. Kjør `mvn install` i prosjektets rotmappe
+2. Start server 
+    1. `java -jar server/target/server.jar` 
+3. Kjør demo i klient 
+    1. Uten shell
+        1. `java -jar client/target/client.jar create demo`
+        2. Kopier ID som blir listet ut (evt. kjør med `list conferences`)
+        3. `java -jar client/target/client.jar show schedule -id *ID*`
+    2. Med shell 
+        1. `java -jar client/target/client.jar shell`
+        2. `create demo`
+        3. Kopier ID som blir listet ut (evt. kjør med `list conferences`)
+        4. `show schedule -id *ID*`
+
+Full oversikt over funksjonalitet finnes under "Brukermanual."
+
+
+## Brukermanual
 
 ### Om programmet 
 Programmet vi har laget, lar brukeren holde orden på konferanser i en database. 
@@ -89,13 +106,13 @@ Viser et programmet for en hel konferanse, med alle relevante detaljer:
 * Talk
     * `insert talk -title Java honey jars -description Really important talk! -topic java`
     * `insert talk`
-        * `-title`
+        * `-title` __required__
         * `-description `
         * `-topic`
 * Conference 
     * `insert conference -name The Book Conference` 
     * `insert conference`
-        * `-name`
+        * `-name` __required__
 * Day (DD.MM.YYYY)
     * `insert day -date 18.04.1999`
     * `insert day`
@@ -166,9 +183,11 @@ Du kan finne ID ved å kjøre `list`-kommandoen.
 ## Evaluering av samarbeid 
 Vi har stort sett jobbet sammen, ofte på en maskin. Når vi ikke har gjort det, har vi jobbet over nett, med Git og samtaleverktøy som voicechats i Slack og Discord. Vi har også delt skjerm gjennom disse tjenestene og på den måten fått gjort en slags form for parprogrammering når vi har sett behov for det.
 
-Hva samarbeidet angår, finner vi ofte gode løsninger. Det er ikke alltid vi er enige, men vi opplever at samtalen er konstruktiv, heller enn å være en konflikt. Vi har jevnt over funnet en god løsning som begge kan si seg fornøyde med, til tross for at ikke alle elementer er slik som hver av oss opprinnelig hadde sett for seg.
+Hva selve samarbeidet angår, finner vi ofte gode løsninger. Det er ikke alltid vi er enige, men vi opplever at samtalen er konstruktiv, heller enn å være en konflikt. Vi har jevnt over funnet en god løsning som begge kan si seg fornøyde med, til tross for at ikke alle elementer er slik som hver av oss opprinnelig hadde sett for seg.
 
-I arbeidskrav 2 skrev vi at vi har et forbedringspotensiale på det å sette konkrete mål for hva som skal gjøres, fremfor å jobbe sporadisk og hoppe mellom arbeidsoppgaver. Her har vi blitt flinkere. 
+Vårt prosjekt har brukt noe av logikken fra tidligere arbeidskrav. Det gikk lettere å slå sammen de to prosjektene denne gangen, siden vi hadde gjort det tidligere. Vi tok plugins som _maven-shade-plugin_ og _jacoco_ med oss fra tidligere arbeidskrav. Under oppsettet av dette prosjektet kom nytten av å ha gjort det samme tidligere tydelig frem. 
+
+I arbeidskrav 2 skrev vi at vi hadde et forbedringspotensiale på det å sette konkrete mål for hva som skal gjøres, fremfor å jobbe sporadisk og hoppe mellom arbeidsoppgaver. Her har vi blitt flinkere. 
 En teknikk vi har brukt er å sette opp konkrete lister over hva som må gjøres. 
 
 ## [Video](https://www.youtube.com/watch?v=3axZ6puyq0s&feature=youtu.be)
@@ -189,7 +208,7 @@ Vi har ønsket å vite at alle DAO-klasser har mulighet til å gjøre alle CRUD-
 
 De forskjellige implementasjonene arver fra den abstrakte klassen, og implementerer metodene. 
 
-`executeSQL` er ikke abstrakt i `DAO`, og er implementert slik at koden i de konkrete klassene kan bli slik som dette: 
+`executeSQL` er ikke abstrakt i `Dao`, og er implementert slik at koden i de konkrete klassene kan bli slik som dette: 
 ```java 
 @Override
 public List<Talk> retrieveAll() throws SQLException {
@@ -224,33 +243,41 @@ Kommandoer ("Commands") spiller en stor rolle i vår struktur. En kommando er en
 
 Kommandoer som denne har to sider:
 
-1. Bruker forteller clienten at dette skal skje
-2. Server utfører den faktiske operasjonen
+1. Bruker forteller klienten at dette skal skje
+2. Server mottar forespørsel fra klient og utfører den faktiske operasjonen
 
 Denne egenskapen (med to sider) gjelder alle kommandoer i programmet vårt. Derfor har alle kommandoer et felles sett med  abstrakte "base"-klasser i `Core`-modulen. 
-`Server`- og `Client`-modulene har så konkrete implementasjoner av disse. (f.eks. `ServerInsertTalkCommand`og `ClientInserTalkCommand`)
+`Server`- og `Client`-modulene har konkrete implementasjoner av disse. (f.eks. `ServerDeleteTalkCommand`og `ClientDeleteTalkCommand`)
 
 Diagrammet viser strukturen for kommandoen som skal slette talks, men den samme strukturen gjenbrukes for alle kommandoer. 
 
 Både på server- og klientside skal denne kommandoen opere med ID. De to skal altså bygges med de samme verdiene, og har en felles `build`-metode som arves fra Core. De skiller seg derimot i hva de skal _gjøre_. Derfor har de forskjellige `execute`-implementasjoner i Server og Client. 
 
 Noe funksjonalitet gjelder for alle kommandoer på server, og kun disse.
-Det samme gjelder funksjonalitet for kommandoer på Client. 
+Det samme gjelder funksjonalitet for kommandoer i klienten. 
 
-Denne funksjonaliteten hentes inn med de to interfacene. 
+Den funksjonaliteten hentes inn med de to interfacene. 
 
-- [ ] evaluering av prosjektet 
-- [ ] Hvilken karakter vi mener vi fortjener
+
 
 ## Egenevaluering
-Vårt prosjekt har brukt noe av logikken fra tidligere arbeidskrav. Det gikk lettere å slå sammen de to prosjektene denne gangen, siden vi hadde gjort det tidligere. Vi tok plugins som _maven-shade-plugin_ og _jacoco_ med oss fra tidligere arbeidskrav. Under oppsettet kom nytten av å ha gjort det samme tidligere tydelig frem. 
 
 Til forskjell fra tidligere oppgaver, har vi i den endelige innleveringen delt prosjektet opp i flere maven-moduler. 
-Dette har gitt oss en mye bedre fordeling av oppgaver ("Separation of concerns") i programmet enn vi ellers ville hatt. 
+Dette har bidratt til en god fordeling av oppgaver ("Separation of concerns") i programmet. 
+
+Vi mener at vår oppgave går langt utover det som er påkrevt av funksjonalitet i oppgaveteksten.
+I tillegg til å legge inn og liste ut foredrag, har vårt prosjekt støtte for langt flere muligheter. Det være seg konferanser, dager og tidsrom. Vi støtter også kobling mellom disse, slik at man kan si hvilke konferanser som hører til hvilke dager o.l. Dersom man kobler flere paralelle timeslots mot samme dag, vil man også i praksis få "tracks" i konferansene. 
+
+Vi har svært god testdekning
+
+Oppgaven lider litt under tidspress + GET/POST -> mot slutten til argumentasjon
 
 Kommandoer -> Hvorfor god ide 
 
 Tester -> forklare hvorfor store 
+
+- [ ] evaluering av prosjektet 
+- [ ] Hvilken karakter vi mener vi fortjener
 
 
 
