@@ -70,6 +70,7 @@ public class Program {
                 // Should not happen
                 System.out.println("Something went wrong printing hlep");
             } else{
+                e.printStackTrace();
                 System.out.println("An unknown error occured.");
             }
         }

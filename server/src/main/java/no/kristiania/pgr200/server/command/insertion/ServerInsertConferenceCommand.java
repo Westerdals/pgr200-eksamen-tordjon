@@ -15,6 +15,11 @@ public class ServerInsertConferenceCommand extends InsertConferenceCommand imple
 
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
+        if (name == null) {
+            response.setStatus(400);
+            return response;
+        }
+
         Dao<Conference> dao = new ConferenceDao(dataSource);
         Conference conference = new Conference(name);
         dao.insert(conference);
