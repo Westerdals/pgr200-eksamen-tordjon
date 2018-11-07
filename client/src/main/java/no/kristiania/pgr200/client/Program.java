@@ -27,6 +27,7 @@ import no.kristiania.pgr200.client.command.updating.ClientUpdateTimeslotCommand;
 
 import no.kristiania.pgr200.core.ArgumentParser;
 import no.kristiania.pgr200.core.command.Command;
+import no.kristiania.pgr200.core.http.HttpResponse;
 
 import javax.sql.DataSource;
 import java.net.ConnectException;
@@ -58,8 +59,10 @@ public class Program {
         if(Shell.runShell(args))
             return;
 
-        if(args.length >= 2)
-            command = Command.createCommand(populateCommandMap(), args[0] + " " + args[1], parameters);
+        if(args.length >= 2){
+            String commandType = args[0] + " " + args[1];
+            command = Command.createCommand(populateCommandMap(), commandType, parameters);
+        }
 
 
 
@@ -69,7 +72,7 @@ public class Program {
                 new ClientInvalidInputCommand().execute(dataSource);
                 return;
             }
-            command.execute(dataSource);
+            HttpResponse response = command.execute(dataSource);
 
         } catch(Exception e){
             if(e instanceof ConnectException){
