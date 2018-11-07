@@ -66,7 +66,7 @@ public class Program {
                 System.out.println("Could not connect to server.");
             } else if (e instanceof SQLException) {
                 // Should not happen
-                System.out.println("Something went woring printing hlep");
+                System.out.println("Something went wrong printing hlep");
             } else{
                 System.out.println("An unknown error occured.");
             }
