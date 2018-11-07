@@ -3,6 +3,7 @@ package no.kristiania.pgr200.client;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import no.kristiania.pgr200.client.command.ClientInvalidInputCommand;
 import no.kristiania.pgr200.client.command.listing.ClientListConferencesCommand;
 import no.kristiania.pgr200.client.command.listing.ClientListDaysCommand;
 import no.kristiania.pgr200.client.command.listing.ClientListTalksCommand;
@@ -14,10 +15,7 @@ import no.kristiania.pgr200.core.model.Talk;
 import no.kristiania.pgr200.core.model.Timeslot;
 import no.kristiania.pgr200.server.HttpServer;
 import no.kristiania.pgr200.server.database.Util;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
@@ -42,8 +40,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ProgramTest {
 
     private static DataSource dataSource;
-
     private Gson gson = new Gson();
+
+    // For testing that help is printed
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    private final PrintStream originalErr = System.err;
 
 
     @BeforeClass
@@ -63,11 +66,51 @@ public class ProgramTest {
         dataSource = Util.createDataSource("./../test.properties");
     }
 
+    //Source: https://stackoverflow.com/questions/1119385/junit-test-for-system-out-println#1119559 - nedlasted 7.11.2018
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+    }
+
+    @After
+    public void restoreStreams() {
+        System.setOut(originalOut);
+        System.setErr(originalErr);
+    }
+
     @Test
-    public void shouldListHelpOnInvalidInput() {
+    public void shouldListHelpOnInvalidInput() throws SQLException {
         main(new String[]{
                 "some", "invalid", "input"
         });
+
+        String first = outContent.toString();
+
+        restoreStreams();
+
+        new ClientInvalidInputCommand().execute(dataSource);
+        String second = outContent.toString();
+
+        assertThat(first)
+                .isEqualTo(second);
+    }
+
+    @Test
+    public void shouldListHelpOnHelpAsInput() throws SQLException {
+        main(new String[]{
+                "help"
+        });
+
+        String first = outContent.toString();
+
+        restoreStreams();
+
+        new ClientInvalidInputCommand().execute(dataSource);
+        String second = outContent.toString();
+
+        assertThat(first)
+                .isEqualTo(second);
     }
 
     @Test
