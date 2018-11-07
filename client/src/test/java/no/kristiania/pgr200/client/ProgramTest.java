@@ -15,6 +15,7 @@ import no.kristiania.pgr200.core.model.Talk;
 import no.kristiania.pgr200.core.model.Timeslot;
 import no.kristiania.pgr200.server.HttpServer;
 import no.kristiania.pgr200.server.database.Util;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

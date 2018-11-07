@@ -68,15 +68,10 @@ public class Program {
         if(Shell.runShell(args))
             return;
 
-<<<<<<< HEAD
-        if(args.length >= 2)
-            command = Command.createCommand(populatedCommandMap(), args[0] + " " + args[1], parameters);
-=======
         if(args.length >= 2){
             String commandType = args[0] + " " + args[1];
-            command = Command.createCommand(populateCommandMap(), commandType, parameters);
+            command = Command.createCommand(populatedCommandMap(), commandType, parameters);
         }
->>>>>>> 172874ed7c60e7140142221f42e3158c13f73e4b
 
 
 
