@@ -18,7 +18,8 @@ public class ClientUpdateTalkCommand extends UpdateTalkCommand implements Client
         parameters.put("title", title);
         parameters.put("description", description);
         parameters.put("topic", topic);
-        parameters.put("id", id.toString());
+        if(id != null)
+            parameters.put("id", id.toString());
 
         Uri uri = new Uri("/api/update/talk", parameters);
         HttpRequest req = new HttpRequest("localhost", 8080, uri.toString());

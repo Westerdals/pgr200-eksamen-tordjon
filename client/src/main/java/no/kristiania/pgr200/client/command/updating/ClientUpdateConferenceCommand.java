@@ -16,7 +16,8 @@ public class ClientUpdateConferenceCommand extends UpdateConferenceCommand imple
     public HttpResponse execute(DataSource dataSource) throws IOException {
 
         parameters.put("name", name);
-        parameters.put("id", id.toString());
+        if(id != null)
+            parameters.put("id", id.toString());
 
 
         Uri uri = new Uri("/api/update/conference", parameters);

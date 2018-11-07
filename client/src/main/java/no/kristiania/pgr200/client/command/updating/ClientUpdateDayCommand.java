@@ -14,8 +14,9 @@ import java.time.format.DateTimeFormatter;
 public class ClientUpdateDayCommand extends UpdateDayCommand implements ClientCommand {
     @Override
     public HttpResponse execute(DataSource dataSource) throws IOException {
+        if(date != null)
+            parameters.put("date", date.format(DateTimeFormatter.ofPattern("d.MM.yyyy")));
 
-        parameters.put("date", date.format(DateTimeFormatter.ofPattern("d.MM.yyyy")));
         parameters.put("id", id.toString());
 
 
