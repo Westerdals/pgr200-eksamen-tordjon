@@ -44,11 +44,11 @@ public class Program {
     public static void main(String[] args) {
 
         Command command = null;
-
         HashMap<String, String> parameters = ArgumentParser.getArguments(args);
-        if(runShell(args))
-            return;
 
+
+        if(Shell.runShell(args))
+            return;
 
         if(args.length >= 2)
             command = Command.createCommand(populateCommandMap(), args[0] + " " + args[1], parameters);
@@ -56,9 +56,7 @@ public class Program {
 
 
 
-
         try {
-
             if (command == null) {
                 new ClientInvalidInputCommand().execute(dataSource);
                 return;
@@ -78,27 +76,7 @@ public class Program {
 
     }
 
-    private static boolean runShell(String[] args) {
-        if(args[0].equals("shell")){
-            System.out.println("Shell started. Type 'exit' to exit");
-            Scanner scanner = new Scanner(System.in);
-            String nextLine = "";
-            boolean run = true;
-            while(run){
-                System.out.print("Enter command: ");
-                nextLine = scanner.nextLine();
-                if(nextLine.equals("exit")){
-                    run = false;
-                }else if(nextLine.equals("shell")){
-                    continue;
-                }
-                String[] rgs = nextLine.split(" ");
-                main(rgs);
-            }
-            return true;
-        }
-        return false;
-    }
+
 
     static private Map<String, Class<? extends Command>> populateCommandMap() {
         Map<String, Class<? extends Command>> map = new HashMap<>();

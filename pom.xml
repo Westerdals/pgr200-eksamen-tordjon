@@ -53,6 +53,7 @@
                 <element>CLASS</element>
                 <excludes>
                   <exclude>no.kristiania.pgr200.client.command.listing.ClientListSpecificTalkCommand</exclude>
+                  <exclude>no.kristiania.pgr200.client.Shell</exclude>
                   <exclude>no.kristiania.pgr200.core.command.**</exclude>
                   <exclude>no.kristiania.pgr200.core.model.**</exclude>
                   <exclude>no.kristiania.pgr200.server.ServerManager</exclude>
