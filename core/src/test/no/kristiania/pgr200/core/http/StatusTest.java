@@ -13,7 +13,7 @@ public class StatusTest {
 
         HashMap<Integer, String> pairs = new HashMap<>();
         pairs.put(200, "OK");
-        pairs.put(201, "UPDATED");
+        pairs.put(201, "CREATED");
         pairs.put(204, "NO CONTENT");
         pairs.put(404, "NOT FOUND");
         pairs.put(500, "Internal Server Error");

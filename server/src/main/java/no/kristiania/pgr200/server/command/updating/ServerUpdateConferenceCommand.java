@@ -27,7 +27,6 @@ public class ServerUpdateConferenceCommand extends UpdateConferenceCommand imple
         Conference conference = new Conference(id, name);
         dao.update(conference);
 
-        // get all data, not just the updated one //TODO: Kan bli bedre om vi wrapper JSON -Tord (samme potensial i de andre update)
         Conference updated = dao.retrieve(conference.getId());
 
         assignStandardHttp(updated);

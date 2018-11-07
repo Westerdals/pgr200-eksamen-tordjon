@@ -1,6 +1,7 @@
 package no.kristiania.pgr200.server;
 
 
+import no.kristiania.pgr200.core.http.HttpUtil;
 import no.kristiania.pgr200.core.http.uri.Path;
 import no.kristiania.pgr200.core.http.uri.Uri;
 import no.kristiania.pgr200.core.command.Command;
@@ -83,7 +84,7 @@ public class HttpServer {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (SQLException e) {
-                e.printStackTrace(); //TODO: ???
+                e.printStackTrace();
             }
         }
     }
@@ -99,7 +100,7 @@ public class HttpServer {
         OutputStream output = clientSocket.getOutputStream();
 
         //getStatusLine(input);
-        parseUri(readNextLine(input));
+        parseUri(HttpUtil.readNextLine(input));
         //done "retrieving request"
 
 
@@ -173,24 +174,7 @@ public class HttpServer {
     }
 
 
-    // Todo: separeres ut?
-    private static String readNextLine(InputStream input) throws IOException {
-        StringBuilder response = new StringBuilder();
-        int c;
 
-        while ((c = input.read()) != -1) {
-            if (c == '\r') {
-                input.mark(1);
-                c = input.read();
-                if (c != '\n') {
-                    input.reset();
-                }
-                break;
-            }
-            response.append((char)c);
-        }
-        return response.toString();
-    }
 
     public int getPort() {
         return actualPort;
