@@ -1,29 +1,10 @@
 
 
 ## Todo 
--[ ] Optimize import 
--[ ] Refaktorer HTTP-biten 
 -[ ] Bytt til POST med data i body 
--[ ] Gå over alle Fixme's og todo's 
--[ ] Fjerne alle dependencies fra eksamen-pom
 -[ ] Ha en index.html herokuapp.com/schedule som viser schedule rendret
--[ ] Gå gjennom ALLE klasser bit for bit og skriv forklarende doc for _alle_ klasser og noen metoder   
--[ ] Skrive javadoc
--[ ] client lytter etter kommandoer, behøver ikke kjøre java-jar hver gang (har en "prompt")
--[ ] sjekke warnings fra intellij
+-[ ] Skrive javadoc 
 -[ ] Skrive om de største testene som integrasjonstester 
-
-## Notater fra tog :D 
-DaoTest.createDao() er lik i alle tester. Burde det være default-metode?
-
-
-## Notes 
-Refaktorering: 
-Commands ligger i core -> client/server implementerer bare execute.
-For at det skal fungere, må også client gi et map med eks. "title", "Tords toalettguide"
-Dvs. at parsing i client fungerer litt som i første øving, men at argumenter parsers på forhånd.          
-
--[ ] wrapper-klasser rundt JSON som sier hva slags operasjon som ble gjort mm. 
 
 ## Todo wednesday 
 - [ ] Skrive ferdig dokumentasjon 
@@ -197,9 +178,15 @@ En teknikk vi har brukt er å sette opp konkrete lister over hva som må gjøres
 ![Databasediagram](./diagrams/database/database.png)
 
 Datamodellen vår fungerer slik: <br> 
-Systemet vårt skal holde rede på konferanser. Hver konferanse kan gå over ingen eller mange dager, gjennom en koblingstabell. Vi ønsker å tillate ingen dager fordi at man skal kunne registrere konferanser som enda ikke har fått datoer. 
+Systemet vårt skal holde rede på konferanser. Hver konferanse kan gå over ingen eller mange dager, gjennom en koblingstabell. Vi ønsker å tillate ingen dager fordi at man skal kunne registrere konferanser som enda ikke har fått datoer.
 
 En dag har flere tidsrom ("timeslots") hvor man potensielt kan legge inn et foredrag. 
+
+Hver tabell inneholder kun refereanser til de andre. Ingen informasjon er gjentatt og databasen er svært [normalisert](https://en.wikipedia.org/wiki/Database_normalization). 
+
+Når våre DAO-objekter skal hente data ut fra en tabell, kan de gjøre oppslag mot dataen det refereres til. Altså: <br>
+Når vi henter ut en konferanse, kan vi gjøre et nytt oppslag mot konferanse-tabellen. 
+Deretter kan vi bruke ID fra conerence til å finne riktige dager i "conference_day"-tabellen.  
 
 ### DAO
 ![DAO-klassediagram](./diagrams/class/dao.png)
@@ -258,6 +245,8 @@ Det samme gjelder funksjonalitet for kommandoer i klienten.
 
 Den funksjonaliteten hentes inn med de to interfacene. 
 
+Vi har valgt å gjøre dette til interface fordi det kun er mulig å arve fra en klasse. Vi ønsket å arve fra både (i `ServerDeleteTalkCommand` sitt tilfelle) `ServerCommand`og `DeleteTalkCommand`. 
+
 
 ## Egenevaluering
 
@@ -281,17 +270,28 @@ De tre modulene har tre oppgaver som fungerer godt hver for seg. Client og Serve
 
 Vi har også lagt inn mulighet for at klienten kan kjøre et "shell". Dette løfter brukeropplevelsen flere hakk, i og med at brukeren ikke behøver å kjøre `java -jar x/y/z.jar commands` hver gang vedkomne skal bruke programmet.
 
+På grunn av kolliderende eksamensdatoer, er oppgaven gjennomført med større tidspress enn den er beregnet på. Resultatet lider litt av dette på enkelte punkter. Vi har blant annet ikke prioritert POST-request. Noen steder ville det vært naturlig å ha det. Post requests skal i utgangspunktet brukes for ikke-idempotente operasjoner, som noen av operasjonene våre er. På den annen side er dette et CLI hvor det ikke er fullt så fort gjort å kjøre de samme kommandoene flere ganger.
 
-På grunn av kolliderende eksamensdatoer, er oppgaven gjennomført med større tidspress enn den er beregnet på. Resultatet lider litt av dette på enkelte punkter. Vi har blant annet ikke prioritert POST-request. Noen steder ville det vært naturlig å ha det. Post requests skal i utgangspunktet brukes for ikke-idempotente operasjoner, som noen av operasjonene våre er. 
-
-På den annen side er dette et CLI hvor det ikke er fullt så fort gjort å kjøre de samme kommandoene flere ganger. 
-
-
-Alt i alt... __SKRIV HER__ 
+Vi ser også andre fremtidige forbedringer på programmet. Blant annet kunne man tenke seg en "JSON-wrapper"-klasse som inneholdt mer informasjon om operasjonen som ble utført, ikke bare selve dataene. 
 
 
-- [ ] evaluering av prosjektet 
-- [ ] Hvilken karakter vi mener vi fortjener
+Alt i alt mener vi at vi har levert en svært god besvarelse.
+
+Dokumentasjonen vår inneholder en datamodell med begrunnelse. 
+I tillegg inkluderer den to klassediagrammer som går inn på to vesentlige 
+deler av programmet og forklarer rundt dem. Det vises også til konkrete kodeeksempler. De har til hensikt å "koble diagrammene med virkeligheten", og å gjøre det lettere for leseren. 
+
+Til sist har dokumentasjonen en oversiktlig brukermanual. 
+
+Vi tror at vi har løst oppgaven mer komplekst enn det som er nødvendig. Vi har fokusert på å 
+lage kule løsninger som vi synes var morsomme å implementere. Samtidig har vi passet på å holde oss innenfor god kodeskikk. 
+
+
+- En velbegrunnet datamodell med 4-8 klasser __skriv mer ved bildet__ 
+- Spennende generisk kode som egentlig er unødvendig kompleks for å løse problemet
+- En lettfattelig og utvidbar no.kristiania.pgr200.core.http-server
+Heroku? 
+
 
 
 
