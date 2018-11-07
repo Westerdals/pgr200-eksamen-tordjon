@@ -118,6 +118,7 @@ public class HttpServer {
         try {
             if(command == null){
                 serverResponse.setStatus(404);
+                serverResponse.getHeaders().put("Content-Length", "0");
             } else{
                 serverResponse = command.execute(dataSource);
             }
@@ -162,12 +163,6 @@ public class HttpServer {
 
         output.flush();
 
-        //output.write(("Content-length: " + response.getBody().length() + "\r\n").getBytes());
-
-        //output.write(("X-Server-Name: eksamensserver" + "\r\n").getBytes());
-        //output.write("Connection: close\r\n".getBytes());
-        //output.write(("Content-Type: " + headers.get("Content-") + "\r\n").getBytes());
-        //output.write(("Location: " + location + "\r\n").getBytes());
     }
 
     private void parseUri(String statusLine) throws UnsupportedEncodingException {
