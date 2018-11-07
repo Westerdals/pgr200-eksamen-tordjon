@@ -12,7 +12,5 @@ public class ServerManager {
         }
     }
 
-    public static void kill() { // FIXME: bruke noe annet enn system.exit?
-        System.exit(0);
-    }
+
 }

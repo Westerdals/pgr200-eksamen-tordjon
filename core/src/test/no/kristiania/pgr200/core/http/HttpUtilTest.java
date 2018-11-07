@@ -22,7 +22,6 @@ public class HttpUtilTest {
     public void queryServer(String path) throws IOException {
         Socket socket = new Socket("urlecho.appspot.com", 80);
         OutputStream output = socket.getOutputStream();
-        // InputStream input = socket.getInputStream(); // FIXME : remove if not useful
 
         output.write(("GET " + path + " HTTP/1.1\r\n").getBytes());
         output.write(("Host: urlecho.appspot.com\r\n").getBytes());
