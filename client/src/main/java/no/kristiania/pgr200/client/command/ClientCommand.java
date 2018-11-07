@@ -19,7 +19,7 @@ public interface ClientCommand {
             System.out.println("Your input was not as expected. Use \"help\"-command to get more help.");
             return true;
         } else if (response.getStatusCode() == 404) {
-            System.out.println("The resource you were");
+            System.out.println("The resource you were looking for could not be found. Use \"help\"-command to get more help.");
         }
 
         return false;

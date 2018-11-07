@@ -25,9 +25,8 @@ public class ClientDeleteTimeslotCommand extends DeleteTimeslotCommand implement
             return response;
         }
 
-        System.out.println("Deleted requested timeslot");
-        Timeslot retrieved = gson.fromJson(response.getBody(), Timeslot.class);
-        System.out.println(retrieved);
+        System.out.println("Deleted timeslot with id: " + response.getBody());
+
         return response;
     }
 }

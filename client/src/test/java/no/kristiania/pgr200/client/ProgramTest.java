@@ -67,7 +67,7 @@ public class ProgramTest {
     }
 
     //Source: https://stackoverflow.com/questions/1119385/junit-test-for-system-out-println#1119559 - nedlasted 7.11.2018
-    @Before
+    /*@Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
@@ -77,7 +77,7 @@ public class ProgramTest {
     public void restoreStreams() {
         System.setOut(originalOut);
         System.setErr(originalErr);
-    }
+    }*/
 
     @Test
     public void shouldListHelpOnInvalidInput() throws SQLException {
@@ -87,7 +87,7 @@ public class ProgramTest {
 
         String first = outContent.toString();
 
-        restoreStreams();
+        //restoreStreams();
 
         new ClientInvalidInputCommand().execute(dataSource);
         String second = outContent.toString();
@@ -104,7 +104,7 @@ public class ProgramTest {
 
         String first = outContent.toString();
 
-        restoreStreams();
+        //restoreStreams();
 
         new ClientInvalidInputCommand().execute(dataSource);
         String second = outContent.toString();

@@ -73,6 +73,7 @@ public class HttpServer {
     }
 
     public void serverThread(ServerSocket serverSocket) {
+        System.out.println("Server running on port: " + port);
         while (true) {
             try {
 

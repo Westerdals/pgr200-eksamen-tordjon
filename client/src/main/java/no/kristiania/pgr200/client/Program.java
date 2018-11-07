@@ -33,6 +33,7 @@ import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Program {
 
@@ -43,18 +44,19 @@ public class Program {
     public static void main(String[] args) {
 
         Command command = null;
-
         HashMap<String, String> parameters = ArgumentParser.getArguments(args);
 
-        if(args.length >= 2) //testing.
+
+        if(Shell.runShell(args))
+            return;
+
+        if(args.length >= 2)
             command = Command.createCommand(populateCommandMap(), args[0] + " " + args[1], parameters);
 
 
 
 
-
         try {
-
             if (command == null) {
                 new ClientInvalidInputCommand().execute(dataSource);
                 return;
@@ -73,6 +75,9 @@ public class Program {
         }
 
     }
+
+
+
     static private Map<String, Class<? extends Command>> populateCommandMap() {
         Map<String, Class<? extends Command>> map = new HashMap<>();
 

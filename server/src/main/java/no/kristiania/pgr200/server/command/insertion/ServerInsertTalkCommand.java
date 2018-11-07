@@ -16,7 +16,6 @@ public class ServerInsertTalkCommand extends InsertTalkCommand implements Server
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
         Dao<Talk> dao = new TalkDao(dataSource);
-        System.out.println("server: " + title + " ... " +  description);
         Talk talk = new Talk(title, description, topic);
 
         dao.insert(talk);
