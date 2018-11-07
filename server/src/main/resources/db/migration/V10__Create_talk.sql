@@ -3,6 +3,7 @@
 
 
 drop table if exists timeslot_day;
+drop table if exists talk_timeslot;
 drop table if exists conference_day;
 drop table if exists timeslot;
 drop table if exists conference;

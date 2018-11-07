@@ -72,10 +72,8 @@ public class TalkDao extends Dao<Talk> {
 
     @Override
     public void delete(Object id) throws SQLException {
-        String sql = "delete from talk_timeslot where talk_id = ?";
-        executeSQL(sql, id);
 
-        sql = "delete from talk where id = ?";
+        String sql = "delete from talk where id = ?";
         executeSQL(sql, id);
     }
 

@@ -43,8 +43,6 @@ public class TimeslotDao extends Dao<Timeslot> {
     }
 
     public void connectTalkToTimeslot(UUID talkId, UUID timeslotId) throws SQLException {
-        /*String sql = "insert into talk_timeslot (talk_id, timeslot_id) values (?, ?)";
-        executeSQL(sql, talkId, timeslotId);*/
 
         String sql = "update timeslot set talk_id = ? where id = ?";
         executeSQL(sql, talkId, timeslotId);
@@ -87,9 +85,6 @@ public class TimeslotDao extends Dao<Timeslot> {
     @Override
     public void delete(Object id) throws SQLException {
         String sql = "delete from timeslot_day where timeslot_id = ?";
-        executeSQL(sql, id);
-
-        sql = "delete from talk_timeslot where timeslot_id = ?";
         executeSQL(sql, id);
 
         sql = "delete from timeslot where id = ?";
