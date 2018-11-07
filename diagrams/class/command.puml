@@ -1,0 +1,54 @@
+@startuml Command
+
+
+
+
+
+
+
+
+namespace Core {
+    abstract class Command {
+        {abstract} + build(parameters : Map<String, String>) : Command
+        {abstract} + execute(dataSource : DataSource) : Command
+
+        # getId(id : String) : UUID 
+        # getDate(date : String) : LocalDate 
+        # getTime(time : String) : LocalTime 
+    }
+
+    class DeleteTalkCommand extends Command {
+        # id : UUID 
+
+        # withId(id : UUID) : DeleteTalkCommand
+        + build(parameters : Map<String, String>) : Command
+    }
+    
+}
+
+package Server <<Rectangle>> {
+    interface ServerCommand {
+        response : ServerResponse
+        assignStandardHttp<T>(T content) : void
+    }
+
+    class ServertDeleteTalkCommand extends Core.DeleteTalkCommand implements ServerCommand {
+            + execute(dataSource : DataSource) : Command
+    }
+
+}
+
+namespace Client <<Rectangle>> {
+    interface ClientCommand {
+        parameters : Map<String, String> 
+        gson : Gson 
+
+        +checkForError(response : HttpResponse) : boolean
+    }
+
+    class ClientDeleteTalkCommand extends Core.DeleteTalkCommand implements ClientCommand {
+        + execute(dataSource : DataSource) : Command
+    }
+
+}
+@enduml
