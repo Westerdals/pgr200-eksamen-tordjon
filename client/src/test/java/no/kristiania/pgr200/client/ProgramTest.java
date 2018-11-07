@@ -574,4 +574,41 @@ public class ProgramTest {
         assertThat(updated.getDate())
                 .isEqualTo(newDate);
     }
+
+    @Test
+    public void shouldUpdateTimeslots() throws IOException {
+        Timeslot original = new Timeslot(LocalTime.of(10, 00), LocalTime.of(10, 30));
+        LocalTime newStart = LocalTime.of(10, 15);
+
+        main(new String[]{
+                "insert", "timeslot",
+                "-start", "10:00",
+                "-end", "10:30"
+        });
+
+
+        // must retrieve the talk to get the ID that the server uses
+        HttpResponse response = new ClientListTimeslotsCommand().execute(dataSource);
+        Type collectionType = new TypeToken<Collection<Timeslot>>(){}.getType();
+        List<Timeslot> timeslots = gson.fromJson(response.getBody(), collectionType);
+        Timeslot timeslot = timeslots.get(0);
+
+        assertThat(timeslot).isEqualToComparingOnlyGivenFields(original, "start", "end");
+
+        main(new String[]{
+                "update", "timeslot",
+                "-id", timeslot.getId().toString(),
+                "-start", "10:15"
+        });
+
+        // fetch the updated one
+        // must retrieve the talk to get the ID that the server uses
+        response = new ClientListTimeslotsCommand().execute(dataSource);
+        collectionType = new TypeToken<Collection<Timeslot>>(){}.getType();
+        timeslots = gson.fromJson(response.getBody(), collectionType);
+        Timeslot updated = timeslots.get(0);
+
+        assertThat(updated.getStart())
+                .isEqualTo(newStart);
+    }
 }

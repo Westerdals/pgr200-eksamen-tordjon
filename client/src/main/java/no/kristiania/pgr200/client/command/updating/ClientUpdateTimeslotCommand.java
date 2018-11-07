@@ -15,9 +15,12 @@ public class ClientUpdateTimeslotCommand extends UpdateTimeslotCommand implement
     @Override
     public HttpResponse execute(DataSource dataSource) throws IOException {
 
-        parameters.put("start", start.toString());
-        parameters.put("end", end.toString());
-        parameters.put("id", id.toString());
+        if (start != null)
+            parameters.put("start", start.toString());
+        if (end != null)
+            parameters.put("end", end.toString());
+        if (id != null)
+            parameters.put("id", id.toString());
 
 
         Uri uri = new Uri("/api/update/timeslot", parameters);
