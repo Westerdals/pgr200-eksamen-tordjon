@@ -15,7 +15,7 @@ public class Util {
         // flyway.repair();
         flyway.migrate();
 
-        return flyway.getDataSource();
+        return flyway.getConfiguration().getDataSource();
     }
 
     private static Flyway getFlyway(String fileName) throws IOException {
