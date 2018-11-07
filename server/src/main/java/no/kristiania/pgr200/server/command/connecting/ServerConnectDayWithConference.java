@@ -14,7 +14,6 @@ public class ServerConnectDayWithConference extends ConnectDayWithConference imp
 
     @Override
     public ServerResponse execute(DataSource dataSource) throws SQLException {
-        ServerResponse response = new ServerResponse();
 
         DayDao dao = new DayDao(dataSource);
         dao.connectDayToConference(conferenceId, dayId);
