@@ -97,16 +97,16 @@ I tilbakemeldingen er det lurt å stille spørsmålene: 1. Hva lærte jeg av den
   - [X] add: Legg til et foredrag i databasen med title, description og topic (valgfritt)
   - [X] list: List opp alle foredrag i basen med et valgfritt topic
   - [ ] show: Vis detaljer for et foredrag
-  - [ ] update: Endre title, description eller topic for et foredrag
+  - [X] update: Endre title, description eller topic for et foredrag
   - [X] Valgfri tillegg: Kommandoer for å sette opp hvor mange dager og timer konferansen skal vare og hvor mange parallelle spor den skal inneholde.
 - [ ] Dokumentasjon i form av README.md
-  - [ ] Navn og Feide-ID på dere de som var på teamet
-  - [ ] Inkluderer dokumentasjonen hvordan man tester ut funksjonaliteten programmet manuelt? (Inkludert eventuell ekstra funksjonalitet dere har tatt med)
-  - [ ] Inkluderer dokumentasjonen en evaluering av hvordan man jobbet sammen?
-  - [ ] Inkluderer dokumentasjonen en screencast av en parprogrammeringsesjon?
+  - [X] Navn og Feide-ID på dere de som var på teamet
+  - [X] Inkluderer dokumentasjonen hvordan man tester ut funksjonaliteten programmet manuelt? (Inkludert eventuell ekstra funksjonalitet dere har tatt med)
+  - [X] Inkluderer dokumentasjonen en evaluering av hvordan man jobbet sammen?
+  - [X] Inkluderer dokumentasjonen en screencast av en parprogrammeringsesjon?
   - [ ] Inkluderer dokumentasjonen en evaluering *fra* en annen gruppe og en evaluering *til* en annen gruppe?
-  - [ ] Inkluderer dokumentasjonen en UML diagram med datamodellen?
-  - [ ] Inkluderer dokumentasjonen en link til screencast av programmeringsesjon?
+  - [X] Inkluderer dokumentasjonen en UML diagram med datamodellen?
+  - [X] Inkluderer dokumentasjonen en link til screencast av programmeringsesjon?
   - [ ] Inkluderer dokumentasjonen en egenevaluering med hvilken karakter gruppen mener de fortjener?
 
 ### Forberedelse
