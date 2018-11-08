@@ -10,11 +10,13 @@ import no.kristiania.pgr200.core.model.Day;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 public class ClientInsertDayCommand extends InsertDayCommand implements ClientCommand {
 
     @Override
     public HttpResponse execute(DataSource dataSource) throws IOException {
+
 
         if(date != null)
             parameters.put("date", date.format(DateTimeFormatter.ofPattern("d.MM.yyyy")));

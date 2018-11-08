@@ -4,6 +4,7 @@ package no.kristiania.pgr200.client;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import no.kristiania.pgr200.client.command.ClientInvalidInputCommand;
+import no.kristiania.pgr200.client.command.insertion.ClientInsertDayCommand;
 import no.kristiania.pgr200.client.command.listing.ClientListConferencesCommand;
 import no.kristiania.pgr200.client.command.listing.ClientListDaysCommand;
 import no.kristiania.pgr200.client.command.listing.ClientListTalksCommand;
@@ -29,6 +30,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -286,6 +288,16 @@ public class ProgramTest {
 
         assertThat(conferences).doesNotContain(conference);
     }
+
+    @Test
+    public void shouldHandleBadRequest() throws IOException {
+
+        HashMap<String,String> params = new HashMap<>();
+        HttpResponse response = new ClientInsertDayCommand().build(params).execute(dataSource);
+
+            assertThat(response.getStatusCode()).isEqualTo(400);
+    }
+
 
     @Test
     public void shouldDeleteDay() throws IOException {

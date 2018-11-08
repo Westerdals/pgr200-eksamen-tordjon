@@ -20,6 +20,8 @@ public interface ClientCommand {
      * @return true if error occured, false if not
      */
     default boolean checkForError(HttpResponse response) {
+        parameters.clear();
+
 
         if (response.getStatusCode() == 500) {
             System.out.println("Internal server error");
