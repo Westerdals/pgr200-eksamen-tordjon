@@ -31,9 +31,9 @@ public class DatabaseProperties {
         properties.load(in);
         in.close();
 
-        url = properties.getProperty("url");
-        username = properties.getProperty("username");
-        password = properties.getProperty("password");
+        url = properties.getProperty("dataSource.url");
+        username = properties.getProperty("dataSource.username");
+        password = properties.getProperty("dataSource.password");
     }
 
 
