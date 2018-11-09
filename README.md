@@ -176,17 +176,17 @@ public List<Talk> retrieveAll() throws SQLException {
 `mapResultSet` er en metode som tar i mot resultatet fra en spørring og transformerer ("mapper") det til et objekt av typen vi er interessert i.
 ```java 
 @Override
-    protected Talk mapResultSet(ResultSet resultSet) throws SQLException {
+protected Talk mapResultSet(ResultSet resultSet) throws SQLException {
 
-            Talk talk = new Talk(
-                    (UUID) resultSet.getObject(1),
-                    resultSet.getString(2),
-                    resultSet.getString(3),
-                    resultSet.getString(4)
-            );
+        Talk talk = new Talk(
+                (UUID) resultSet.getObject(1),
+                resultSet.getString(2),
+                resultSet.getString(3),
+                resultSet.getString(4)
+        );
 
-        return talk;
-    }
+    return talk;
+}
 ```
 
 Notis: De konkrete klassenes generics er ment å vise: `class TalkDao extends Command<Talk>`
