@@ -221,8 +221,24 @@ Vi har valgt å gjøre dette til interface fordi det kun er mulig å arve fra en
 ## Evaluering 
 
 ### Mottatt evaluering 
+Ikke mottatt. 
 
 ### Sendt evaluering 
+Positivt: 
+* `mvn install`kjører knirkefritt, med grønne tester 
+* Testdekningen er forholdsvis god 
+* Koden er ryddig skrevet 
+* Koden er stort sett lett å lese 
+
+Problemer: 
+* Vi klarer ikke å kjøre server, får error: `no main manifest attribute`
+* Server kjører ikke, og kommandoer printer stackTrace til bruker 
+* Vi er usikre på avhengigheten mellom server og client
+
+Forslag til forbedring: 
+* Readme er vanskelig å lese
+* Noen metoder og felter brukes aldri (IDE gjør dem grå). De bør enten brukes eller fjernes 
+
 
 ### Evaluering av samarbeid 
 Vi har stort sett jobbet sammen, ofte på en maskin. Når vi ikke har gjort det, har vi jobbet over nett, med Git og samtaleverktøy som voicechats i Slack og Discord. Vi har også delt skjerm gjennom disse tjenestene og på den måten fått gjort en slags form for parprogrammering når vi har sett behov for det.
