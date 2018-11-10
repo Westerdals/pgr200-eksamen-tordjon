@@ -256,7 +256,7 @@ De tre modulene har tre oppgaver som fungerer godt hver for seg. Client og Serve
 
 Vi har også lagt inn mulighet for at klienten kan kjøre et "shell". Dette løfter brukeropplevelsen flere hakk, i og med at brukeren ikke behøver å kjøre `java -jar x/y/z.jar commands` hver gang vedkomne skal bruke programmet.
 
-På grunn av kolliderende eksamensdatoer, er oppgaven gjennomført med større tidspress enn den er beregnet på. Resultatet lider litt av dette på enkelte punkter. Vi har blant annet ikke prioritert POST-request. Noen steder ville det vært naturlig å ha det. Post requests skal i utgangspunktet brukes for ikke-idempotente operasjoner, som noen av operasjonene våre er. På den annen side er dette et CLI hvor det ikke er fullt så fort gjort å kjøre de samme kommandoene flere ganger.
+På grunn av kolliderende eksamensdatoer, er oppgaven gjennomført med større tidspress enn den er beregnet på. Resultatet lider litt av dette på enkelte punkter. Vi har blant annet ikke prioritert POST-request. insert-metoder bruker POST, men de sender data i query, fremfor i body. Vi anser dette som bedre enn å bruke GET, men vi mener at det ikke er optimalt. 
 
 Vi ser også andre fremtidige forbedringer på programmet. Blant annet kunne man tenke seg en "JSON-wrapper"-klasse som inneholdt mer informasjon om operasjonen som ble utført, ikke bare selve dataene. 
 
