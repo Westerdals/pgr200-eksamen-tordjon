@@ -221,9 +221,10 @@ Vi har valgt å gjøre dette til interface fordi det kun er mulig å arve fra en
 ## Evaluering 
 
 ### Mottatt evaluering 
-Ikke mottatt. 
+Ikke mottatt per 13:00 11.11.18
 
-### Sendt evaluering 
+### Sendt evaluering
+(Vurdert 10.11.18)
 Positivt: 
 * `mvn install`kjører knirkefritt, med grønne tester 
 * Testdekningen er forholdsvis god 
