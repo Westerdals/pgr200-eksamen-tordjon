@@ -31,7 +31,7 @@ public abstract class Dao<T> {
     public abstract T retrieve(Object v) throws SQLException;
 
     /**
-     * Regtrieves all the objects in no.kristiania.pgr200.server.database
+     * Retrieves all the objects in no.kristiania.pgr200.server.database
      */
     public abstract List<T> retrieveAll() throws SQLException;
 
