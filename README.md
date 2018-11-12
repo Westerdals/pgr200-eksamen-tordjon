@@ -28,11 +28,12 @@ Tord Jon - jontor17 <br>
 
 
 ## Testing av program 
-1. Konfigurer database basert på `./innlevering.properties`
-2. Kjør `mvn install` i prosjektets rotmappe
-3. Start server 
+1. Kjør kommandoer fra prosjektets rotmappe.
+2. Konfigurer database basert på `./innlevering.properties`
+3. Kjør `mvn install` i prosjektets rotmappe
+4. Start server 
     1. `java -jar server/target/server.jar` 
-4. Kjør demo i klient 
+5. Kjør demo i klient 
     1. Uten shell
         1. `java -jar client/target/client.jar create demo`
         2. Kopier ID som blir listet ut (evt. kjør med `list conferences`)
