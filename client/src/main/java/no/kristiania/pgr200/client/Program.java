@@ -65,10 +65,10 @@ public class Program {
         }
 
 
-        if(Shell.runShell(args))
-            return;
-
-        if(args.length >= 2){
+        if (args.length == 1) {
+            if(Shell.runShell(args))
+                return;
+        } else if(args.length >= 2){
             String commandType = args[0] + " " + args[1];
             command = Command.createCommand(populatedCommandMap(), commandType, parameters);
         }
