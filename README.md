@@ -28,9 +28,9 @@ Tord Jon - jontor17 <br>
 
 
 ## Testing av program 
-1. Kjør kommandoer fra prosjektets rotmappe.
+1. Kjør kommandoer fra prosjektets rotmappe
 2. Konfigurer database basert på `./innlevering.properties`
-3. Kjør `mvn install` i prosjektets rotmappe
+3. Kjør `mvn install` 
 4. Start server 
     1. `java -jar server/target/server.jar` 
 5. Kjør demo i klient 
